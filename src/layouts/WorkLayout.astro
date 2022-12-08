@@ -1,20 +1,20 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import Newsletter from '@/components/Newsletter.astro';
+  import Layout from '@/layouts/Layout.astro';
+  import Newsletter from '@/components/Newsletter.astro';
 
-import { getHumanizedDate } from '@/utils/date';
+  import { getHumanizedDate } from '@/utils/date';
 
-const { frontmatter } = Astro.props;
+  const { frontmatter } = Astro.props;
 ---
 
 <Layout title={frontmatter.title} description={frontmatter.summary}>
   <div>
     <article class="prose lg:prose-lg dark:prose-invert">
       <h1>{frontmatter.title}</h1>
-      <p>{frontmatter.pubDate}</p>
-      <p>{frontmatter.location}</p>
-      <slot/>
+      <p>👨🏻‍🔧 Was here between {frontmatter.workDuration} at <a
+          href="https://www.crick.ac.uk">{frontmatter.location}<a />
+      </p>
+      <slot />
     </article>
   </div>
-  </Layout>
-  
+</Layout>

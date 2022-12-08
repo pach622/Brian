@@ -1,103 +1,99 @@
 ---
-import ColorToggle from '@/components/ColorToggle.svelte';
-import '@/styles/base.css';
-import { classNames } from '@/utils/styling';
-export interface Props {
-  title?: string;
-  description?: string;
-}
+  import ColorToggle from '@/components/ColorToggle.svelte';
+  import '@/styles/base.css';
+  import { classNames } from '@/utils/styling';
+  export interface Props {
+    title?: string;
+    description?: string;
+  }
 
-const { title, description } = Astro.props as Props;
+  const { title, description } = Astro.props as Props;
 
-const currentPath = new URL(Astro.request.url).pathname;
+  const currentPath = new URL(Astro.request.url).pathname;
 
-const hoverStyle = 'hover:bg-slate-100 dark:hover:bg-neutral-800';
-const activeStyle = 'bg-slate-100 dark:bg-neutral-800';
+  const hoverStyle = 'hover:bg-slate-100 dark:hover:bg-neutral-800';
+  const activeStyle = 'bg-slate-100 dark:bg-neutral-800';
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title && title + ' - '}@noahflk</title>
 
-    <!-- SEO Stuff -->
-    <link rel="canonical" href={Astro.request.url} />
-    <meta name="description" content={description ?? 'Personal website and blog of @brian_pk_chan'} />
-    <meta name="robots" content="follow, index" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+  <meta name="generator" content={Astro.generator} />
+  <title>{title && title + ' - '}@brian_pk_chan</title>
 
-    <!-- OG Card -->
-    <meta property="og:site_name" content="noahflk.com" />
-    <meta property="og:title" content={`${title} - @noahflk`} />
-    <meta
-      property="og:description"
-      content={description ?? "I'm a maker and freelance web developer based in Switzerland."}
-    />
-    <meta property="og:url" content="http://noahflk.com" />
-    <meta property="og:image" content="http://noahflk.com/images/share.png" />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary" />
+  <!-- SEO Stuff -->
+  <link rel="canonical" href={Astro.request.url} />
+  <meta name="description" content={description ?? 'Personal website and blog of @brian_pk_chan' } />
+  <meta name="robots" content="follow, index" />
 
-    <!-- Analytics -->
-    <script defer data-domain="noahflk.com" data-api="/plausible/api/event" src="/plausible/js/script.js"></script>
+  <!-- OG Card -->
+  <meta property="og:site_name" content="noahflk.com" />
+  <meta property="og:title" content={`${title} - @noahflk`} />
+  <meta property="og:description" content={description
+    ?? "I'm a maker and freelance web developer based in Switzerland." } />
+  <meta property="og:url" content="http://noahflk.com" />
+  <meta property="og:image" content="http://noahflk.com/images/share.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
 
-    <script is:inline>
-      const theme = (() => {
-        if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-          return localStorage.getItem('theme');
-        }
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-          return 'dark';
-        }
-        return 'light';
-      })();
+  <!-- Analytics -->
+  <script defer data-domain="noahflk.com" data-api="/plausible/api/event" src="/plausible/js/script.js"></script>
 
-      if (theme === 'light') {
-        document.documentElement.classList.remove('dark');
-      } else {
-        document.documentElement.classList.add('dark');
+  <script is:inline>
+    const theme = (() => {
+      if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
+        return localStorage.getItem('theme');
       }
-      window.localStorage.setItem('theme', theme);
-    </script>
-  </head>
-  <body class="bg-white dark:bg-primary-dark text-primary-dark-text dark:text-primary-light">
-    <main class="space-y-10 md:space-y-14 pt-8 pb-2">
-      <div class="max-w-4xl flex justify-between items-start mx-auto px-4 sm:px-6">
-        <a href="/">
-          <img class="w-12" src="/images/logo.svg" />
-        </a>
-        <div class="font-medium flex items-center gap-2">
-          <a class={classNames('py-2 px-3 rounded-lg ', currentPath === '/' ? activeStyle : hoverStyle)} href="/"
-            >Home</a
-          >
-          <a
-            class={classNames('py-2 px-3 rounded-lg ', currentPath.startsWith('/blog') ? activeStyle : hoverStyle)}
-            href="/blog">Blog</a
-          >
-          <a
-            class={classNames('py-2 px-3 rounded-lg ', currentPath.startsWith('/qualifications') ? activeStyle : hoverStyle)}
-            href="/qualifications">Qualifications</a
-          >
-          <a
-            class={classNames('py-2 px-3 rounded-lg ', currentPath.startsWith('/workExperience') ? activeStyle : hoverStyle)}
-            href="/workExperience">Work Experience</a
-          >
-          <ColorToggle client:load />
-        </div>
+      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+      }
+      return 'light';
+    })();
+
+    if (theme === 'light') {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+    window.localStorage.setItem('theme', theme);
+  </script>
+</head>
+
+<body class="bg-white dark:bg-primary-dark text-primary-dark-text dark:text-primary-light">
+  <main class="space-y-10 md:space-y-14 pt-8 pb-2">
+    <div class="max-w-4xl flex justify-between items-start mx-auto px-4 sm:px-6">
+      <a href="/">
+        <img class="w-12" src="/images/logo.svg" />
+      </a>
+      <div class="font-medium flex items-center gap-2">
+        <a class={classNames('py-2 px-3 rounded-lg ', currentPath === ' /' ? activeStyle : hoverStyle)}
+          href="/">Home</a>
+        <a class={classNames('py-2 px-3 rounded-lg ', currentPath.startsWith(' /blog') ? activeStyle : hoverStyle)}
+          href="/blog">Blog</a>
+        <a class={classNames('py-2 px-3 rounded-lg ', currentPath.startsWith(' /caseStudies') ? activeStyle :
+          hoverStyle)} href="/caseStudies">Case Studies</a>
+        <a class={classNames('py-2 px-3 rounded-lg ', currentPath.startsWith(' /qualifications') ? activeStyle :
+          hoverStyle)} href="/qualifications">Qualifications</a>
+        <a class={classNames('py-2 px-3 rounded-lg ', currentPath.startsWith(' /workExperience') ? activeStyle :
+          hoverStyle)} href="/workExperience">Work Experience</a>
+        <ColorToggle client:load />
       </div>
-      <div class="max-w-2xl mx-auto px-4 sm:px-6 md:px-0">
-        <slot />
-      </div>
-    </main>
-    <footer class="flex justify-center pb-8 text-gray-300">
-      <p>
-        <a class="hover:underline" href="https://twitter.com/brian_pk_chan" target="_blank">brian_pk_chan</a> - &copy;{
-          new Date().getFullYear()
-        }
-      </p>
-    </footer>
-  </body>
+    </div>
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 md:px-0">
+      <slot />
+    </div>
+  </main>
+  <footer class="flex justify-center pb-8 text-gray-300">
+    <p>
+      <a class="hover:underline" href="https://twitter.com/brian_pk_chan" target="_blank">brian_pk_chan</a> - &copy;{
+      new Date().getFullYear()
+      }
+    </p>
+  </footer>
+</body>
+
 </html>
