@@ -73,11 +73,9 @@
         <a class={classNames('py-2 px-3 rounded-lg ', currentPath === ' /' ? activeStyle : hoverStyle)}
           href="/">Home</a>
         <a class={classNames('py-2 px-3 rounded-lg ', currentPath.startsWith(' /caseStudies') ? activeStyle :
-          hoverStyle)} href="/caseStudies">Case Studies</a>
-        <a class={classNames('py-2 px-3 rounded-lg ', currentPath.startsWith(' /qualifications') ? activeStyle :
-          hoverStyle)} href="/qualifications">Qualifications</a>
+          hoverStyle)} href="/caseStudies">Projects</a>
         <a class={classNames('py-2 px-3 rounded-lg ', currentPath.startsWith(' /workExperience') ? activeStyle :
-          hoverStyle)} href="/workExperience">Work Experience</a>
+          hoverStyle)} href="/workExperience">Work</a>
         <ColorToggle client:load />
       </div>
     </div>
@@ -85,6 +83,7 @@
       <slot />
     </div>
   </main>
+
   <footer class="flex justify-center pb-8 text-gray-300">
     <p>
       <a class="hover:underline" href="https://twitter.com/brian_pk_chan" target="_blank">brian_pk_chan</a> - &copy;{

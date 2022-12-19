@@ -8,7 +8,7 @@ import svelte from '@astrojs/svelte';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://noahflk.com/',
+  site: 'https://pach622.github.io',
   integrations: [
     sitemap(),
     tailwind({

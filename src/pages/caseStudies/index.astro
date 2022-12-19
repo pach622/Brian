@@ -7,14 +7,15 @@
         (a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
     );
 
+    console.log(sortedPosts)
     const postsByYear = sortedPosts.reduce((acc: any, post) => {
         const year = new Date(post.frontmatter.pubDate).getFullYear();
-
         if (!acc[year]) {
             acc[year] = [];
         }
-        acc[year].push(post);
 
+
+        acc[year].push(post);
         return acc;
     }, {});
 
@@ -24,7 +25,7 @@
 <Layout title="Blog">
     <div class="space-y-6">
         <div class="py-6">
-            <h2 class="text-4xl font-semibold">Blog posts</h2>
+            <h2 class="text-4xl font-semibold">Read more about each project</h2>
             <!-- {sortedPosts.map((p) => <BlogPostPreview post={p} />)} -->
             <div class="space-y-8 pt-8">
                 {

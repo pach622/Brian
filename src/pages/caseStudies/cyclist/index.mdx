@@ -1,8 +1,55 @@
 ---
 title: "Cyclist Dataset: Altering Marketing Strategy to Improve Cycle Hire Revenue"
 pubDate: "2022-10-15"
-summary: "In this post we look at how I keep my GitHub project dependencies up to date with Renovate. Non-breaking changes get automatically merged as soon as tests pass. Pull requests for breaking changes can be merged manually."
+summary: "This is a case-study on a cycle hire company, where I analyze recent hire data to recommend methods to improve revenue. "
 layout: ../../../layouts/BlogLayout.astro
 ---
 
-After finishing 
+This is a project I completed during my Google course in data analytics. My main goal with this case-study was to familiarize myself with R-Studio syntax using a large dataset, as well as improve my ability to extract conclusions and provide recommendations from findings. 
+
+![example](/public/images/download.png)
+
+
+## Case Scenario
+
+Cyclistic is a private company providing bicycle hire services. With the recent success of their service, they had performed some analytics to understand their customers. Their customer-base is split between member and casual users, and they realized that they profit more from users with a membership rather than non-membered. Hence, they wanted to know ways to persuade casual users to purchase a membership, which is what this analysis will show. 
+
+The data provided included 12 CSV files with data describing each cycle hire per month. Information included the time and location of the hire, the bicycle type (electric or classic), and the type of user (member/casual). 
+
+## Data compiling and cleaning
+
+After compiling the 12 CSV files, I did a quick overview to review the quality of the data. After this review, I decided to clean the data following a couple of criteria: 
+- Remove empty lines of data
+- Assume that the term "docked bikes" is equal to "classic bikes"
+- Removed individuals who didn't return their hired bikes
+- Removed data with negative time durations
+
+Now the data is ready to analyze!
+
+## Data analysis
+
+The aim of this study is to understand the behavioural differences between members and non-members for bike hire usage. To measure behaviour, we can look at the distance travelled, time duration of hire, as well as the time of the hire. 
+
+### Bike Hire statistics
+
+Number of classic vs electric bike hires
+
+Number of member hires vs classic hires
+
+### Bike hire usage behaviours between member and non-members
+
+hire duration between member and non-member
+
+travel distance between member and non-member
+
+time of cycle hires (month)
+
+time of cycle hires (time of the week) 
+
+time of day? 
+
+location? 
+
+## Conclusion
+
+This analysis indicates that casual users tend to hire bicycles for leisure (during the weekends and summer), whereas members tend to hire bicycles for daily transportation. With these findings, I would recommend Cyclistic provide a membership service during the summer months (March - September), or weekend only memberships. 

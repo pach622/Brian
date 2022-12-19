@@ -1,15 +1,15 @@
 ---
-export interface Props {
-  post: any;
-}
+  export interface Props {
+    post: any;
+  }
 
-import { parseISO, format } from 'date-fns';
-import { getSlugFromPath } from '@/utils/getSlugFromPath';
+  import { parseISO, format } from 'date-fns';
+  import { getSlugFromPath } from '@/utils/getSlugFromPath';
 
-const { post } = Astro.props;
-const url = '/blog/' + getSlugFromPath(post.file);
-const date = parseISO(post.frontmatter.pubDate);
-const formattedDate = format(date, 'LLLL d, yyyy');
+  const { post } = Astro.props;
+  const url = '/caseStudies/' + getSlugFromPath(post.file);
+  const date = parseISO(post.frontmatter.pubDate);
+  const formattedDate = format(date, 'LLLL d, yyyy');
 ---
 
 <a href={url}>
