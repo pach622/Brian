@@ -1,10 +1,10 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import Newsletter from '@/components/Newsletter.astro';
+  import Layout from '@/layouts/Layout.astro';
+  import Newsletter from '@/components/Newsletter.astro';
 
-import { getHumanizedDate } from '@/utils/date';
+  import { getHumanizedDate } from '@/utils/date';
 
-const { frontmatter } = Astro.props;
+  const { frontmatter } = Astro.props;
 ---
 
 <Layout title={frontmatter.title} description={frontmatter.summary}>
