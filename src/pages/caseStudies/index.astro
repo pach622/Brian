@@ -35,7 +35,8 @@
                     <ul class="py-2 space-y-2">
                         {postsByYear[year].map((post: any) => (
                         <li>
-                            <a class="text-lg hover:underline" href={post.url}>
+                            <a class="text-lg hover:underline hover:text-yellow-800 hover:dark:text-purple-200"
+                                href={post.url}>
                                 {post.frontmatter.title}
                             </a>
                         </li>
