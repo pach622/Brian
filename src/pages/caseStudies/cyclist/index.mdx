@@ -4,6 +4,15 @@ pubDate: "2022-10-15"
 summary: "This is a case-study on a cycle hire company, where I analyze recent hire data to recommend methods to improve revenue. "
 layout: ../../../layouts/BlogLayout.astro
 ---
+import { Image } from '@astrojs/image/components';
+import DistanceByUser from '/src/assets/Cyclist/DistanceByUserType.png';
+import DurationByUser from '/src/assets/Cyclist/DurationByUserType.png';
+import MonthByUser from '/src/assets/Cyclist/MonthByUserType.png';
+import RideableByUser from '/src/assets/Cyclist/RideableByUserType.png';
+import UsesByLocation from '/src/assets/Cyclist/UsesByLocation.png';
+import WeekdayByUser from '/src/assets/Cyclist/WeekdayByUserType.png';
+import CyclistLocation from '/src/assets/Cyclist/CyclistLocation.png';
+
 
 This is a project I completed during my Google course in data analytics. My main goal with this case-study was to familiarize myself with R-Studio syntax using a large dataset, as well as improve my ability to extract conclusions and provide recommendations from findings. 
 
@@ -27,26 +36,60 @@ Now the data is ready to analyze!
 
 The aim of this study is to understand the behavioural differences between members and non-members for bike hire usage. To measure behaviour, we can look at the distance travelled, time duration of hire, as well as the time of the hire. 
 
-### Bike Hire statistics
+### Is there a difference in bike use between users?
 
-Number of classic vs electric bike hires
+Overall, it can be concluded that members hire more bikes than casual users. But when we look at the specifics, both groups hire a similar number of electric bikes (Figure 1, Table 1). There is only a difference in classic bikes. 
 
-Number of member hires vs classic hires
+#### Figure 1
+<Image src={RideableByUser} alt="Graph showing number of biker hires by user type" style={{ display: 'block', margin: '0 auto' }} />
 
-### Bike hire usage behaviours between member and non-members
+#### Table 1
+| Member Type | Classic | Electric |
+| ----------- | ------- | -------- |
+| Casual | 294268 | 187155 |
+| Member | 379295 | 187232 |
 
-hire duration between member and non-member
+### Is there a significant difference in travel distance and travel time between user types?
 
-travel distance between member and non-member
+Looking at figure 2 and 3, we can see there isn't a significant difference in the duration nor the distance of trips. Both groups tend to take shorter trips in terms of duration and distance. This may be due to the nature of bike rentals, whether it be an time or distance dependent pricing scheme.
 
-time of cycle hires (month)
+### Figure 2
 
-time of cycle hires (time of the week) 
+<Image src={DistanceByUser} alt="Graph showing distance travelled by user type" style={{ display: 'block', margin: '0 auto' }} />
 
-time of day? 
 
-location? 
+#### Figure 3
+
+<Image src={DurationByUser} alt="Graph showing time travelled by user type" style={{ display: 'block', margin: '0 auto' }} />
+
+
+### Is there a difference in the number of rentals per month or per weekday?
+
+During the winter months, there seems to be a significantly larger number of member's renting bikes vs. casual users (Figure 5). However, once we get to the summer months, there is a significant increase in both users, where there is an equal number of casual and member users during the summer (June and July).
+
+#### Figure 4
+
+<Image src={MonthByUser} alt="Barplot showing most common rental times based on month" style={{ display: 'block', margin: '0 auto' }} />
+
+When looking at the day-specific data during the week (figure 5), we can see that member's rent bikes much more frequently during Monday-Friday periods, whereas casual users tend to use bikes during the weekends more than members. 
+
+#### Figure 5
+
+<Image src={WeekdayByUser} alt="Barplot showing most common rental times based on weekdays" style={{ display: 'block', margin: '0 auto' }} />
+
+### Is there a location specific use of bikes? 
+
+There isn't too much to take away from these plots, I just thought they looked really cool. I wanted to overlay the heat map over an actual map, but that required a google API ticket. So, you will have to deal with a screenshot of a map! In general, it seems most bike rentals occur in the downtown regions of Chicago. 
+
+#### Figure 6
+
+<Image src={UsesByLocation} alt="Map showing most common bike rental locations" style={{ display: 'block', margin: '0 auto' }} />
+
+#### Figure 7
+
+<Image src={CyclistLocation} alt="Long/Lat Location In Real Life" style={{ display: 'block', margin: '0 auto' }} />
+** (Red arrow represents longitude -87.64 and latitude 41.9) **
 
 ## Conclusion
 
-This analysis indicates that casual users tend to hire bicycles for leisure (during the weekends and summer), whereas members tend to hire bicycles for daily transportation. With these findings, I would recommend Cyclistic provide a membership service during the summer months (March - September), or weekend only memberships. 
+This analysis indicates that casual users tend to hire bicycles for leisure (during the weekends and summer), whereas members tend to hire bicycles for daily transportation. Furthermore, there seems to be a trend for individuals to hire bikes for short periods of time/distance. With these findings, I would recommend Cyclistic provide a membership service during the summer months (March - September), or weekend only memberships and also to provide promotions for long distance riding. Thanks for reading :) 
