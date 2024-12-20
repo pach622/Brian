@@ -1,46 +1,64 @@
 ---
-import BlogPostPreview from '@/components/BlogPostPreview.astro';
-import Email from '@/components/icons/Email.astro';
-import GitHub from '@/components/icons/GitHub.astro';
-import Linkedin from '@/components/icons/Linkedin.astro';
-import Twitter from '@/components/icons/Twitter.astro';
-import { EMAIL, HANDLE_GITHUB, HANDLE_TWITTER } from '@/constants';
-import Layout from '@/layouts/Layout.astro';
+import BlogPostPreview from "@/components/BlogPostPreview.astro";
+import Email from "@/components/icons/Email.astro";
+import GitHub from "@/components/icons/GitHub.astro";
+import Linkedin from "@/components/icons/Linkedin.astro";
+import Twitter from "@/components/icons/Twitter.astro";
+import { EMAIL, HANDLE_GITHUB, HANDLE_TWITTER } from "@/constants";
+import Layout from "@/layouts/Layout.astro";
 
 // Import all posts using import.meta.glob with eager loading
 const allPosts = Object.values(
-  import.meta.glob('./caseStudies/**/*.mdx', { eager: true })
+  import.meta.glob("./caseStudies/**/*.mdx", { eager: true })
 );
 
 // Ensure all posts have a frontmatter.pubDate and sort them
 const sortedRecentPosts = allPosts
   .filter((post) => post.frontmatter && post.frontmatter.pubDate) // Exclude invalid posts
-  .sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf())
+  .sort(
+    (a, b) =>
+      new Date(b.frontmatter.pubDate).valueOf() -
+      new Date(a.frontmatter.pubDate).valueOf()
+  )
   .slice(0, 3); // Get the latest 3 posts
 
-
-  console.log('All posts:', allPosts);
+console.log("All posts:", allPosts);
 ---
 
 <Layout>
   <div class="space-y-6">
     <h1 class="text-3xl font-bold md:text-5xl">Hi, I'm Brian 👋</h1>
-    <h2 class="text-lg">I'm a researcher in pharmacology and bioengineering. This is sort of my portfolio 😅</h2>
+    <h2 class="text-lg">
+      I'm a researcher in pharmacology and bioengineering. This is sort of my
+      portfolio 😅
+    </h2>
     <div class="flex space-x-3">
-      <a class="hover:bg-slate-100 py-2 px-3 rounded-lg dark:hover:bg-neutral-800"
-        href="https://www.linkedin.com/in/brian-chan-531395173" target="_blank">
+      <a
+        class="hover:bg-slate-100 py-2 px-3 rounded-lg dark:hover:bg-neutral-800"
+        href="https://www.linkedin.com/in/brian-chan-531395173"
+        target="_blank"
+      >
         <Linkedin />
       </a>
-      <a class="hover:bg-slate-100 py-2 px-3 rounded-lg dark:hover:bg-neutral-800"
-        href={`https://github.com/${HANDLE_GITHUB}`} target="_blank">
+      <a
+        class="hover:bg-slate-100 py-2 px-3 rounded-lg dark:hover:bg-neutral-800"
+        href={`https://github.com/${HANDLE_GITHUB}`}
+        target="_blank"
+      >
         <GitHub />
       </a>
-      <a class="hover:bg-slate-100 py-2 px-3 rounded-lg dark:hover:bg-neutral-800"
-        href={`https://twitter.com/${HANDLE_TWITTER}`} target="_blank">
+      <a
+        class="hover:bg-slate-100 py-2 px-3 rounded-lg dark:hover:bg-neutral-800"
+        href={`https://twitter.com/${HANDLE_TWITTER}`}
+        target="_blank"
+      >
         <Twitter />
       </a>
-      <a class="hover:bg-slate-100 py-2 px-3 rounded-lg dark:hover:bg-neutral-800" href={`mailto:${EMAIL}`}
-        target="_blank">
+      <a
+        class="hover:bg-slate-100 py-2 px-3 rounded-lg dark:hover:bg-neutral-800"
+        href={`mailto:${EMAIL}`}
+        target="_blank"
+      >
         <Email />
       </a>
     </div>
@@ -49,32 +67,42 @@ const sortedRecentPosts = allPosts
       <div>
         <h1 class="text-lg font-bold md:text-2xl">Imperial College London</h1>
         <p>2021 - 2022</p>
-        <a href="https://www.imperial.ac.uk/study/pg/medicine/genes-drugs-stem-cells/"
-          class="hover:underline rounded-lg dark:hover:underline text-yellow-800 dark:text-purple-200">
+        <a
+          href="https://www.imperial.ac.uk/study/pg/medicine/genes-drugs-stem-cells/"
+          class="hover:underline rounded-lg dark:hover:underline text-yellow-800 dark:text-purple-200"
+        >
           MSc in Genes, Drugs, and Stem Cells
         </a>
       </div>
       <div>
         <h1 class="text-lg font-bold md:text-2xl">The University of Toronto</h1>
         <p>2017 - 2021</p>
-        <a href="https://artsci.calendar.utoronto.ca/section/Pharmacology-and-Toxicology"
-          class="hover:underline rounded-lg dark:hover:underline text-yellow-800 dark:text-purple-200">
+        <a
+          href="https://artsci.calendar.utoronto.ca/section/Pharmacology-and-Toxicology"
+          class="hover:underline rounded-lg dark:hover:underline text-yellow-800 dark:text-purple-200"
+        >
           hBSc in Pharmacology and Toxicology
         </a>
       </div>
       <div>
         <h1 class="text-lg font-bold md:text-2xl">Google Certificate</h1>
         <p>2022</p>
-        <a href="https://www.coursera.org/professional-certificates/google-data-analytics"
-          class="hover:underline rounded-lg dark:hover:underline text-yellow-800 dark:text-purple-200">
+        <a
+          href="https://www.coursera.org/professional-certificates/google-data-analytics"
+          class="hover:underline rounded-lg dark:hover:underline text-yellow-800 dark:text-purple-200"
+        >
           Data Analytics
         </a>
       </div>
       <div>
-        <h1 class="text-lg font-bold md:text-2xl">MIT Professional Education</h1>
+        <h1 class="text-lg font-bold md:text-2xl">
+          MIT Professional Education
+        </h1>
         <p>2024</p>
-        <a href="https://professional.mit.edu/course-catalog/applied-data-science-program-leveraging-ai-effective-decision-making"
-          class="hover:underline rounded-lg dark:hover:underline text-yellow-800 dark:text-purple-200">
+        <a
+          href="https://professional.mit.edu/course-catalog/applied-data-science-program-leveraging-ai-effective-decision-making"
+          class="hover:underline rounded-lg dark:hover:underline text-yellow-800 dark:text-purple-200"
+        >
           Applied Data Science
         </a>
       </div>
@@ -82,9 +110,7 @@ const sortedRecentPosts = allPosts
 
     <div class="py-6">
       <h3 class="text-4xl font-semibold">Latest Projects</h3>
-      {sortedRecentPosts.map((post) => (
-        <BlogPostPreview post={post} />
-      ))}
+      {sortedRecentPosts.map((post) => <BlogPostPreview post={post} />)}
     </div>
   </div>
 </Layout>
