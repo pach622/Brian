@@ -1,28 +1,41 @@
 <script>
-  import MoonIcon from './icons/MoonIcon.svelte';
-  import SunIcon from './icons/SunIcon.svelte';
+  import MoonIcon from "./icons/MoonIcon.svelte";
+  import SunIcon from "./icons/SunIcon.svelte";
 
-  let theme = localStorage.getItem('theme');
+  let theme;
+
+  // This ensures the code runs only in the browser
+  if (typeof window !== "undefined") {
+    theme = localStorage.getItem("theme") || "light";
+
+    // Set initial theme based on localStorage
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }
 
   function handleClick() {
-    theme = theme === 'light' ? 'dark' : 'light';
+    theme = theme === "light" ? "dark" : "light";
 
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
 
-    localStorage.setItem('theme', theme);
+    localStorage.setItem("theme", theme);
   }
 </script>
 
-<button on:click={handleClick} class="hover:bg-slate-100 py-2 px-3 rounded-lg dark:hover:bg-neutral-800">
-  {#if theme === 'light'}
+<button
+  on:click={handleClick}
+  class="hover:bg-slate-100 py-2 px-3 rounded-lg dark:hover:bg-neutral-800"
+>
+  {#if theme === "light"}
     <MoonIcon />
-  {:else if theme === 'dark'}
-    <SunIcon />
   {:else}
-    <SunIcon class="hidden" />
+    <SunIcon />
   {/if}
 </button>

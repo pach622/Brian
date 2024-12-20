@@ -1,112 +1,57 @@
 ---
-  import Newsletter from '@/components/Newsletter.astro';
-  import Layout from '@/layouts/Layout.astro';
+import Newsletter from '@/components/Newsletter.astro';
+import Layout from '@/layouts/Layout.astro';
+import Button from '@/components/Button.astro'
 
-  const allPosts = await Astro.glob('./*/index.mdx');
-  const sortedPosts = allPosts.sort(
-    (a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
-  );
+// Import all posts using import.meta.glob with eager loading
+const allPosts = Object.values(
+  import.meta.glob('./**/*.mdx', { eager: true })
+);
 
-  const postsByYear = sortedPosts.reduce((acc: any, post) => {
-    const year = new Date(post.frontmatter.pubDate).getFullYear();
+console.log('All posts:', allPosts);
 
-    if (!acc[year]) {
-      acc[year] = [];
-    }
-    acc[year].push(post);
+// Ensure all posts have valid frontmatter and sort by pubDate
+const sortedRecentPosts = allPosts
+    .filter((post) => post.frontmatter && post.frontmatter.pubDate) // Exclude invalid posts
+    .sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf())
 
-    return acc;
-  }, {});
 
-  const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
+
+// Group posts by year
+const postsByYear = sortedRecentPosts.reduce((acc, post) => {
+  const year = new Date(post.frontmatter.pubDate).getFullYear();
+  if (!acc[year]) acc[year] = [];
+  acc[year].push(post);
+  return acc;
+}, {});
+
+// Get sorted years
+const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
+
+// Debugging logs
+console.log('Sorted posts:', sortedRecentPosts);
+
+
 ---
 
 <Layout title="Work Experience">
   <div class="space-y-6">
     <div class="py-6">
       <h2 class="text-4xl font-semibold">Previous Work Experiences</h2>
-      <h3 class='space-y-8 pt-8'>Click into each section to read what I did. You can look for the specific findings and
-        outcomes of each experience, as well as my personal takeways and learning journey.</h3>
-      <!-- {sortedPosts.map((p) => <BlogPostPreview post={p} />)} -->
+      <p class="space-y-8 pt-8">Click into each section to read what I did. You can look for the specific findings and
+        outcomes of each experience, as well as my personal takeaways and learning journey.</p>
     </div>
 
     <ol class="relative border-l border-gray-200 dark:border-gray-700">
-      <li class="mb-10 ml-4">
-        <div
-          class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700">
-        </div>
-        <time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">April 2024 - Present</time>
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Merck & Co., Inc. 🇺🇸</h3>
-        <h4>Scientist</h4>
-        <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">This is my first professional experience
-          in industry research. I am currently working on creating high throughput assays and supporting capabilities to
-          provide network-wide transcriptomics. </p>
-        <a href="/workExperience/Merck"
-          class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-yellow-800 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-purple-200 dark:hover:bg-gray-700 dark:focus:ring-gray-700">Learn
-          more <svg class="ml-2 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-              clip-rule="evenodd"></path>
-          </svg></a>
-      </li>
-      <li class="mb-10 ml-4">
-        <div
-          class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700">
-        </div>
-        <time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">March 2022 - September
-          2022</time>
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Francis Crick Institute 🇬🇧</h3>
-        <h4>Research Assistant</h4>
-        <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">This was my graduate placement with Dr.
-          Andrea Serio, where I worked to model in vivo growth behaviours of cortical and spinal motor neurons in vitro
-          using bioengineering and 3D printing. </p>
-        <a href="/workExperience/Francis-Crick"
-          class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-yellow-800 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-purple-200 dark:hover:bg-gray-700 dark:focus:ring-gray-700">Learn
-          more <svg class="ml-2 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-              clip-rule="evenodd"></path>
-          </svg></a>
-      </li>
-      <li class="mb-10 ml-4">
-        <div
-          class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700">
-        </div>
-        <time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">May 2020 - January
-          2021</time>
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">The University of Toronto 🇨🇦</h3>
-        <h4>Research Assistant</h4>
-        <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">This is my undergraduate research
-          project with Dr. Walter Swardfager. This was a completely dry-lab experience, where I was able to improve on
-          my statistical analysis skills and gained familiarity with R-Studio and IBM SPSS.</p>
-        <a href="/workExperience/UofT"
-          class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-yellow-800 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-purple-200 dark:hover:bg-gray-700 dark:focus:ring-gray-700">Learn
-          more <svg class="ml-2 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-              clip-rule="evenodd"></path>
-          </svg></a>
-      </li>
-      <li class="ml-4">
-        <div
-          class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700">
-        </div>
-        <time class="mb-1 text-sm font-normal leading-none text-gray-400 dark:text-gray-500">June 2019 - August
-          2019</time>
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">The University of Hong Kong 🇭🇰</h3>
-        <h4>Research Assistant</h4>
-        <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">My first experience working in a lab. Had
-          the opportunity to work with Dr. Cheung to investigate
-          early biomarkers for osteoporosis.</p>
-        <a href="/workExperience/Hong Kong University"
-          class="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-yellow-800 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-200 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-purple-200 dark:hover:bg-gray-700 dark:focus:ring-gray-700">Learn
-          more <svg class="ml-2 w-3 h-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-            <path fill-rule="evenodd"
-              d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-              clip-rule="evenodd"></path>
-          </svg></a>
-      </li>
+      {sortedYears.map((year) => (
+        <li class="mb-10 ml-4" key={year}>
+          <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -left-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
+          <h3 class="mb-4 text-lg font-bold text-gray-900 dark:text-white">{year}</h3>
+          {postsByYear[year].map((post) => (
+            <Button post = {post}/>
+          ))}
+        </li>
+      ))}
     </ol>
-
   </div>
 </Layout>

@@ -1,19 +1,35 @@
 ---
-  import Layout from '@/layouts/Layout.astro';
-  import Newsletter from '@/components/Newsletter.astro';
+import Layout from '@/layouts/Layout.astro';
+import Newsletter from '@/components/Newsletter.astro';
+import '@/styles/base.css';
+import { classNames } from '@/utils/styling';
+import { getHumanizedDate } from '@/utils/date';
 
-  import { getHumanizedDate } from '@/utils/date';
-
-  const { frontmatter } = Astro.props;
+// Validate and provide default frontmatter to avoid errors
+const { frontmatter = { 
+  title: 'Default Title', 
+  summary: 'Default Summary', 
+  workDuration: 'N/A', 
+  companyWebsite: '#', 
+  location: 'Unknown Location' 
+} } = Astro.props;
 ---
 
 <Layout title={frontmatter.title} description={frontmatter.summary}>
   <div>
     <article class="prose lg:prose-lg dark:prose-invert">
+      <!-- Page Title -->
       <h1>{frontmatter.title}</h1>
-      <p>👨🏻‍🔧 Was here between {frontmatter.workDuration} at <a
-          href={frontmatter.companyWebsite}>{frontmatter.location}<a />
+      
+      <!-- Work Duration and Location -->
+      <p>
+        👨🏻‍🔧 Was here between {frontmatter.workDuration} at 
+        <a href={frontmatter.companyWebsite} target="_blank" rel="noopener noreferrer">
+          {frontmatter.location}
+        </a>
       </p>
+      
+      <!-- Slot Content -->
       <slot />
     </article>
   </div>

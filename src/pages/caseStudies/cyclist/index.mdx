@@ -3,28 +3,30 @@ title: "Cyclist Dataset: Altering Marketing Strategy to Improve Cycle Hire Reven
 pubDate: "2022-10-15"
 summary: "This is a case-study on a cycle hire company, where I analyze recent hire data to recommend methods to improve revenue. "
 layout: ../../../layouts/BlogLayout.astro
+slug: /caseStudies/cyclist/index.mdx
 ---
-import { Image } from '@astrojs/image/components';
-import DistanceByUser from '/src/assets/Cyclist/DistanceByUserType.png';
-import DurationByUser from '/src/assets/Cyclist/DurationByUserType.png';
-import MonthByUser from '/src/assets/Cyclist/MonthByUserType.png';
-import RideableByUser from '/src/assets/Cyclist/RideableByUserType.png';
-import UsesByLocation from '/src/assets/Cyclist/UsesByLocation.png';
-import WeekdayByUser from '/src/assets/Cyclist/WeekdayByUserType.png';
-import CyclistLocation from '/src/assets/Cyclist/CyclistLocation.png';
 
+import { Image } from "@astrojs/image/components";
+import DistanceByUser from "/src/assets/Cyclist/DistanceByUserType.png";
+import DurationByUser from "/src/assets/Cyclist/DurationByUserType.png";
+import MonthByUser from "/src/assets/Cyclist/MonthByUserType.png";
+import RideableByUser from "/src/assets/Cyclist/RideableByUserType.png";
+import UsesByLocation from "/src/assets/Cyclist/UsesByLocation.png";
+import WeekdayByUser from "/src/assets/Cyclist/WeekdayByUserType.png";
+import CyclistLocation from "/src/assets/Cyclist/CyclistLocation.png";
 
-This is a project I completed during my Google course in data analytics. My main goal with this case-study was to familiarize myself with R-Studio syntax using a large dataset, as well as improve my ability to extract conclusions and provide recommendations from findings. 
+This is a project I completed during my Google course in data analytics. My main goal with this case-study was to familiarize myself with R-Studio syntax using a large dataset, as well as improve my ability to extract conclusions and provide recommendations from findings.
 
 ## Case Scenario
 
-Cyclistic is a private company providing bicycle hire services. With the recent success of their service, they had performed some analytics to understand their customers. Their customer-base is split between member and casual users, and they realized that they profit more from users with a membership rather than non-membered. Hence, they wanted to know ways to persuade casual users to purchase a membership, which is what this analysis will show. 
+Cyclistic is a private company providing bicycle hire services. With the recent success of their service, they had performed some analytics to understand their customers. Their customer-base is split between member and casual users, and they realized that they profit more from users with a membership rather than non-membered. Hence, they wanted to know ways to persuade casual users to purchase a membership, which is what this analysis will show.
 
-The data provided included 12 CSV files with data describing each cycle hire per month. Information included the time and location of the hire, the bicycle type (electric or classic), and the type of user (member/casual). 
+The data provided included 12 CSV files with data describing each cycle hire per month. Information included the time and location of the hire, the bicycle type (electric or classic), and the type of user (member/casual).
 
 ## Data compiling and cleaning
 
-After compiling the 12 CSV files, I did a quick overview to review the quality of the data. After this review, I decided to clean the data following a couple of criteria: 
+After compiling the 12 CSV files, I did a quick overview to review the quality of the data. After this review, I decided to clean the data following a couple of criteria:
+
 - Remove empty lines of data
 - Assume that the term "docked bikes" is equal to "classic bikes"
 - Removed individuals who didn't return their hired bikes
@@ -34,20 +36,26 @@ Now the data is ready to analyze!
 
 ## Data analysis
 
-The aim of this study is to understand the behavioural differences between members and non-members for bike hire usage. To measure behaviour, we can look at the distance travelled, time duration of hire, as well as the time of the hire. 
+The aim of this study is to understand the behavioural differences between members and non-members for bike hire usage. To measure behaviour, we can look at the distance travelled, time duration of hire, as well as the time of the hire.
 
 ### Is there a difference in bike use between users?
 
-Overall, it can be concluded that members hire more bikes than casual users. But when we look at the specifics, both groups hire a similar number of electric bikes (Figure 1, Table 1). There is only a difference in classic bikes. 
+Overall, it can be concluded that members hire more bikes than casual users. But when we look at the specifics, both groups hire a similar number of electric bikes (Figure 1, Table 1). There is only a difference in classic bikes.
 
 #### Figure 1
-<Image src={RideableByUser} alt="Graph showing number of biker hires by user type" style={{ display: 'block', margin: '0 auto' }} />
+
+<Image
+  src={RideableByUser}
+  alt="Graph showing number of biker hires by user type"
+  style={{ display: "block", margin: "0 auto" }}
+/>
 
 #### Table 1
+
 | Member Type | Classic | Electric |
 | ----------- | ------- | -------- |
-| Casual | 294268 | 187155 |
-| Member | 379295 | 187232 |
+| Casual      | 294268  | 187155   |
+| Member      | 379295  | 187232   |
 
 ### Is there a significant difference in travel distance and travel time between user types?
 
@@ -55,13 +63,19 @@ Looking at figure 2 and 3, we can see there isn't a significant difference in th
 
 ### Figure 2
 
-<Image src={DistanceByUser} alt="Graph showing distance travelled by user type" style={{ display: 'block', margin: '0 auto' }} />
-
+<Image
+  src={DistanceByUser}
+  alt="Graph showing distance travelled by user type"
+  style={{ display: "block", margin: "0 auto" }}
+/>
 
 #### Figure 3
 
-<Image src={DurationByUser} alt="Graph showing time travelled by user type" style={{ display: 'block', margin: '0 auto' }} />
-
+<Image
+  src={DurationByUser}
+  alt="Graph showing time travelled by user type"
+  style={{ display: "block", margin: "0 auto" }}
+/>
 
 ### Is there a difference in the number of rentals per month or per weekday?
 
@@ -69,27 +83,43 @@ During the winter months, there seems to be a significantly larger number of mem
 
 #### Figure 4
 
-<Image src={MonthByUser} alt="Barplot showing most common rental times based on month" style={{ display: 'block', margin: '0 auto' }} />
+<Image
+  src={MonthByUser}
+  alt="Barplot showing most common rental times based on month"
+  style={{ display: "block", margin: "0 auto" }}
+/>
 
-When looking at the day-specific data during the week (figure 5), we can see that member's rent bikes much more frequently during Monday-Friday periods, whereas casual users tend to use bikes during the weekends more than members. 
+When looking at the day-specific data during the week (figure 5), we can see that member's rent bikes much more frequently during Monday-Friday periods, whereas casual users tend to use bikes during the weekends more than members.
 
 #### Figure 5
 
-<Image src={WeekdayByUser} alt="Barplot showing most common rental times based on weekdays" style={{ display: 'block', margin: '0 auto' }} />
+<Image
+  src={WeekdayByUser}
+  alt="Barplot showing most common rental times based on weekdays"
+  style={{ display: "block", margin: "0 auto" }}
+/>
 
-### Is there a location specific use of bikes? 
+### Is there a location specific use of bikes?
 
-There isn't too much to take away from these plots, I just thought they looked really cool. I wanted to overlay the heat map over an actual map, but that required a google API ticket. So, you will have to deal with a screenshot of a map! In general, it seems most bike rentals occur in the downtown regions of Chicago. 
+There isn't too much to take away from these plots, I just thought they looked really cool. I wanted to overlay the heat map over an actual map, but that required a google API ticket. So, you will have to deal with a screenshot of a map! In general, it seems most bike rentals occur in the downtown regions of Chicago.
 
 #### Figure 6
 
-<Image src={UsesByLocation} alt="Map showing most common bike rental locations" style={{ display: 'block', margin: '0 auto' }} />
+<Image
+  src={UsesByLocation}
+  alt="Map showing most common bike rental locations"
+  style={{ display: "block", margin: "0 auto" }}
+/>
 
 #### Figure 7
 
-<Image src={CyclistLocation} alt="Long/Lat Location In Real Life" style={{ display: 'block', margin: '0 auto' }} />
+<Image
+  src={CyclistLocation}
+  alt="Long/Lat Location In Real Life"
+  style={{ display: "block", margin: "0 auto" }}
+/>
 ** (Red arrow represents longitude -87.64 and latitude 41.9) **
 
 ## Conclusion
 
-This analysis indicates that casual users tend to hire bicycles for leisure (during the weekends and summer), whereas members tend to hire bicycles for daily transportation. Furthermore, there seems to be a trend for individuals to hire bikes for short periods of time/distance. With these findings, I would recommend Cyclistic provide a membership service during the summer months (March - September), or weekend only memberships and also to provide promotions for long distance riding. Thanks for reading :) 
+This analysis indicates that casual users tend to hire bicycles for leisure (during the weekends and summer), whereas members tend to hire bicycles for daily transportation. Furthermore, there seems to be a trend for individuals to hire bikes for short periods of time/distance. With these findings, I would recommend Cyclistic provide a membership service during the summer months (March - September), or weekend only memberships and also to provide promotions for long distance riding. Thanks for reading :)

@@ -3,152 +3,270 @@ title: "Foodhub Dataset: Data Analysis to Improve Business Outcomes"
 pubDate: "2024-01-26"
 summary: "Exploratory data analysis during my MIT Applied Data Science Program, where I encorporated learned skills into a real dataset."
 layout: ../../../layouts/BlogLayout.astro
+slug: /caseStudies/mitFoodHub/index.mdx
 ---
-import { Image } from '@astrojs/image/components';
-import deliveryTimeCode from '/src/assets/FoodHub/deliveryTimePlotCode.png';
-import histoBoxCode from '/src/assets/FoodHub/histoBoxCode.png';
-import deliveryTime from '/src/assets/FoodHub/deliveryTimePlot.png';
-import foodPrepTime from '/src/assets/FoodHub/foodPrepTimePlot.png';
-import ordersCost from '/src/assets/FoodHub/orderCostPlot.png';
-import customerRating from '/src/assets/FoodHub/ratingPlot.png';
-import orderPerCuisine from '/src/assets/FoodHub/cuisineOrdersPlot.png';
-import weekOrders from '/src/assets/FoodHub/weekOrdersPlots.png';
-import customerOrders from '/src/assets/FoodHub/customerPlot.png';
-import multivariateHeatmap from '/src/assets/FoodHub/multivariateHeatmap.png';
-import multivariatePairplot from '/src/assets/FoodHub/multivariatePairplot.png';
-import deliveryTimeSubplot from '/src/assets/FoodHub/deliveryTimeSubplot.png';
-import deliveryTimeSubplot2 from '/src/assets/FoodHub/deliveryTimeSubplot2.png';
-import foodPrepTimeSubplot from '/src/assets/FoodHub/foodPrepTimeSubplot.png';
-import foodPrepTimeSubplot2 from '/src/assets/FoodHub/foodPrepTimeSubplot2.png';
-import orderCostSubplot from '/src/assets/FoodHub/orderCostSubplot.png';
-import orderCostSubplot2 from '/src/assets/FoodHub/orderCostSubplot2.png';
 
+import { Image } from "@astrojs/image/components";
+import deliveryTimeCode from "/src/assets/FoodHub/deliveryTimePlotCode.png";
+import histoBoxCode from "/src/assets/FoodHub/histoBoxCode.png";
+import deliveryTime from "/src/assets/FoodHub/deliveryTimePlot.png";
+import foodPrepTime from "/src/assets/FoodHub/foodPrepTimePlot.png";
+import ordersCost from "/src/assets/FoodHub/orderCostPlot.png";
+import customerRating from "/src/assets/FoodHub/ratingPlot.png";
+import orderPerCuisine from "/src/assets/FoodHub/cuisineOrdersPlot.png";
+import weekOrders from "/src/assets/FoodHub/weekOrdersPlots.png";
+import customerOrders from "/src/assets/FoodHub/customerPlot.png";
+import multivariateHeatmap from "/src/assets/FoodHub/multivariateHeatmap.png";
+import multivariatePairplot from "/src/assets/FoodHub/multivariatePairplot.png";
+import deliveryTimeSubplot from "/src/assets/FoodHub/deliveryTimeSubplot.png";
+import deliveryTimeSubplot2 from "/src/assets/FoodHub/deliveryTimeSubplot2.png";
+import foodPrepTimeSubplot from "/src/assets/FoodHub/foodPrepTimeSubplot.png";
+import foodPrepTimeSubplot2 from "/src/assets/FoodHub/foodPrepTimeSubplot2.png";
+import orderCostSubplot from "/src/assets/FoodHub/orderCostSubplot.png";
+import orderCostSubplot2 from "/src/assets/FoodHub/orderCostSubplot2.png";
 
-FoodHub is a mobile app that provides food delivery services (Similar to UberEats). When an order is placed by a customer for a specific restaurant, the app will assign an delivery person to receive the food and delivery it to the customer. They will follow the map to reach the restaurant, pick up the food, and follow the map again to delivery to the customer. Once food is delivered, the customer will confirm reception and be allowed to review the order. The app is able to earn money by collecting a fixed margin per order. 
-
+FoodHub is a mobile app that provides food delivery services (Similar to UberEats). When an order is placed by a customer for a specific restaurant, the app will assign an delivery person to receive the food and delivery it to the customer. They will follow the map to reach the restaurant, pick up the food, and follow the map again to delivery to the customer. Once food is delivered, the customer will confirm reception and be allowed to review the order. The app is able to earn money by collecting a fixed margin per order.
 
 ## Aim
 
-My aim in analyzing this data is to understand customer order trends, and provide informed recommendations to improve business. 
+My aim in analyzing this data is to understand customer order trends, and provide informed recommendations to improve business.
 
 ## Data Cleaning
 
-To clean the data, multiple steps were taken. Firstly, I had looked at the datatypes to see if they were accurate (ie. is the cuisine_type a categorical value?). Secondly, I removed all empty entries. Finally, I also edited the rating column for orders with a "Not Given" value, this was made NaN. Final table can be see in Table 1. In total, there are 1898 entries and 8 columns of data. 
+To clean the data, multiple steps were taken. Firstly, I had looked at the datatypes to see if they were accurate (ie. is the cuisine_type a categorical value?). Secondly, I removed all empty entries. Finally, I also edited the rating column for orders with a "Not Given" value, this was made NaN. Final table can be see in Table 1. In total, there are 1898 entries and 8 columns of data.
 
 #### Table 1 - Cleaned Data Example
-| order_id | customer_id | restaurant_name | cuisine_type | cost_of_the_order | day_of_the_week | rating | food_preparation_time | delivery_time |
-| -------- | ----------- | --------------- | ------------ | ----------------- | --------------- | ------ | --------------------- | ------------- |
-| 1477147 | 337525 | Hangawi | Korean | 30.75 | Weekend | NaN | 25 | 20
-| 1477685 | 358141 | Blue Ribbon Sushi Izakaya | Japanese | 12.08 | Weekend | NaN | 25 | 23 | 
-| 1477070 | 66393 | Cafe Habana | Mexican | 12.23 | Weekday | 5 | 23 | 28 | 
-| 1477334 | 106968 | Blue Ribbon Fried Chicken | American | 29.20 | Weekend | 3 | 25 | 15 | 
-| 1478249 | 76942 | Dirty Bird to Go | American | 11.59 | Weekday | 4 | 25 | 24
+
+| order_id | customer_id | restaurant_name           | cuisine_type | cost_of_the_order | day_of_the_week | rating | food_preparation_time | delivery_time |
+| -------- | ----------- | ------------------------- | ------------ | ----------------- | --------------- | ------ | --------------------- | ------------- |
+| 1477147  | 337525      | Hangawi                   | Korean       | 30.75             | Weekend         | NaN    | 25                    | 20            |
+| 1477685  | 358141      | Blue Ribbon Sushi Izakaya | Japanese     | 12.08             | Weekend         | NaN    | 25                    | 23            |
+| 1477070  | 66393       | Cafe Habana               | Mexican      | 12.23             | Weekday         | 5      | 23                    | 28            |
+| 1477334  | 106968      | Blue Ribbon Fried Chicken | American     | 29.20             | Weekend         | 3      | 25                    | 15            |
+| 1478249  | 76942       | Dirty Bird to Go          | American     | 11.59             | Weekday         | 4      | 25                    | 24            |
 
 #### Table 2 - Summarized Data analytics
-|  | count | mean | std | min | 25% | 50% | 75% | max | 
-| - | ----- | ----- | --- | --- | --- | --- | --- | --- | 
-| cost_of_the_order | 1898.0 | 16.4 | 7.5 | 4.5 | 12.1 | 14.1 | 22.3 | 35.4 | 
-| rating | 1162.0 | 4.3 | 0.7 | 3.0 | 4.0 | 5.0 | 5.0 | 5.0 | 
-| food_preparation_time | 1898.0 | 27.3 | 4.6 | 20.0 | 23.0 | 27.0 | 31 | 35.0 | 
-| delivery_time | 1898.0 | 24.1| 5.0 | 15.0 | 20.0 | 25.0 | 2.8 | 33.0 | 
 
-
+|                       | count  | mean | std | min  | 25%  | 50%  | 75%  | max  |
+| --------------------- | ------ | ---- | --- | ---- | ---- | ---- | ---- | ---- |
+| cost_of_the_order     | 1898.0 | 16.4 | 7.5 | 4.5  | 12.1 | 14.1 | 22.3 | 35.4 |
+| rating                | 1162.0 | 4.3  | 0.7 | 3.0  | 4.0  | 5.0  | 5.0  | 5.0  |
+| food_preparation_time | 1898.0 | 27.3 | 4.6 | 20.0 | 23.0 | 27.0 | 31   | 35.0 |
+| delivery_time         | 1898.0 | 24.1 | 5.0 | 15.0 | 20.0 | 25.0 | 2.8  | 33.0 |
 
 ## Data Exploration
+
 ### Univariable Analysis
-To understand the data better, I had a look at each variable to understand customer behaviours. To do this, I made histograms and boxplots of each column using Code 1 and Code 2 as an example. 
+
+To understand the data better, I had a look at each variable to understand customer behaviours. To do this, I made histograms and boxplots of each column using Code 1 and Code 2 as an example.
 
 #### Code 1:
-<Image src={histoBoxCode} alt="Example Code for histogram and boxplots" style={{ display: 'block', margin: '0 auto' }} />
+
+<Image
+  src={histoBoxCode}
+  alt="Example Code for histogram and boxplots"
+  style={{ display: "block", margin: "0 auto" }}
+/>
 
 #### Code 2:
-<Image src={deliveryTimeCode} alt="Example Code for Delivery Time Plot" style={{ display: 'block', margin: '0 auto' }} />
 
-Using the above code, I was able to obtain a couple of important takeaways about customer behaviour. 
+<Image
+  src={deliveryTimeCode}
+  alt="Example Code for Delivery Time Plot"
+  style={{ display: "block", margin: "0 auto" }}
+/>
+
+Using the above code, I was able to obtain a couple of important takeaways about customer behaviour.
 
 For delivery time (Figure 1A), average delivery time was 24.1 minutes, where a majority of orders were under 25 minutes. In comparison, food preparation time (figure 1B) was a bit longer with an average of 27.3 minutes, where majority of orders took under 27 minutes. Finally, average price (figure 1C) was 16.4 dollars, such that majority were under 14.1. The average rating of all orders was 4.3 (Figure 1D).
 
-With this data, 
+With this data,
 
 ### Figure 1
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 2fr)', gap: '2px' }}>
-  <div style={{ textAlign: 'left' }}>
-    <p style={{marginBottom: '0px', color: '#333', fontSize: '12px', fontWeight: 'bold',}}>
+
+<div
+  style={{ display: "grid", gridTemplateColumns: "repeat(2, 2fr)", gap: "2px" }}
+>
+  <div style={{ textAlign: "left" }}>
+    <p
+      style={{
+        marginBottom: "0px",
+        color: "#333",
+        fontSize: "12px",
+        fontWeight: "bold",
+      }}
+    >
       #### A) Delivery Time
     </p>
-    <Image src={deliveryTime} alt="Delivery Time" style={{ display: 'block', width: '100%' }} />
+    <Image
+      src={deliveryTime}
+      alt="Delivery Time"
+      style={{ display: "block", width: "100%" }}
+    />
   </div>
-  <div style={{ textAlign: 'left' }}>
-    <p style={{marginBottom: '0px', color: '#333', fontSize: '16px', fontWeight: 'bold',}}>
+  <div style={{ textAlign: "left" }}>
+    <p
+      style={{
+        marginBottom: "0px",
+        color: "#333",
+        fontSize: "16px",
+        fontWeight: "bold",
+      }}
+    >
       #### B) Food Preparation Time
     </p>
-    <Image src={foodPrepTime} alt="Food Preparation Time" style={{ display: 'block', width: '100%' }} />
+    <Image
+      src={foodPrepTime}
+      alt="Food Preparation Time"
+      style={{ display: "block", width: "100%" }}
+    />
   </div>
-  <div style={{ textAlign: 'left' }}>
-    <p style={{marginBottom: '0px', color: '#333', fontSize: '16px', fontWeight: 'bold',}}>
+  <div style={{ textAlign: "left" }}>
+    <p
+      style={{
+        marginBottom: "0px",
+        color: "#333",
+        fontSize: "16px",
+        fontWeight: "bold",
+      }}
+    >
       #### C) Order Cost
     </p>
-    <Image src={ordersCost} alt="Orders Cost" style={{ display: 'block', width: '100%' }} />
+    <Image
+      src={ordersCost}
+      alt="Orders Cost"
+      style={{ display: "block", width: "100%" }}
+    />
   </div>
-  <div style={{ textAlign: 'left' }}>
-    <p style={{marginBottom: '0px', color: '#333', fontSize: '16px', fontWeight: 'bold',}}>
+  <div style={{ textAlign: "left" }}>
+    <p
+      style={{
+        marginBottom: "0px",
+        color: "#333",
+        fontSize: "16px",
+        fontWeight: "bold",
+      }}
+    >
       #### D) Customer Rating
     </p>
-    <Image src={customerRating} alt="Customer Rating" style={{ display: 'block', width: '100%' }} />
+    <Image
+      src={customerRating}
+      alt="Customer Rating"
+      style={{ display: "block", width: "100%" }}
+    />
   </div>
 </div>
 
 TEXT
 
-
 ### Figure 2
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
-  <div style={{ textAlign: 'left' }}>
-    <p style={{marginBottom: '0px', color: '#333', fontSize: '12px', fontWeight: 'bold',}}>
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(3, 1fr)",
+    gap: "10px",
+  }}
+>
+  <div style={{ textAlign: "left" }}>
+    <p
+      style={{
+        marginBottom: "0px",
+        color: "#333",
+        fontSize: "12px",
+        fontWeight: "bold",
+      }}
+    >
       #### A) Orders per Cuisine
     </p>
-    <Image src={orderPerCuisine} alt="Delivery Time" style={{ display: 'block', width: '100%' }} />
+    <Image
+      src={orderPerCuisine}
+      alt="Delivery Time"
+      style={{ display: "block", width: "100%" }}
+    />
   </div>
-  <div style={{ textAlign: 'left' }}>
-    <p style={{marginBottom: '0px', color: '#333', fontSize: '12px', fontWeight: 'bold',}}>
+  <div style={{ textAlign: "left" }}>
+    <p
+      style={{
+        marginBottom: "0px",
+        color: "#333",
+        fontSize: "12px",
+        fontWeight: "bold",
+      }}
+    >
       #### B) Orders on weekdays vs. weekends
     </p>
-    <Image src={weekOrders} alt="Delivery Time" style={{ display: 'block', width: '100%' }} />
+    <Image
+      src={weekOrders}
+      alt="Delivery Time"
+      style={{ display: "block", width: "100%" }}
+    />
   </div>
-  <div style={{ textAlign: 'left' }}>
-    <p style={{marginBottom: '0px', color: '#333', fontSize: '12px', fontWeight: 'bold',}}>
+  <div style={{ textAlign: "left" }}>
+    <p
+      style={{
+        marginBottom: "0px",
+        color: "#333",
+        fontSize: "12px",
+        fontWeight: "bold",
+      }}
+    >
       #### C) Orders per customer ID
     </p>
-    <Image src={customerOrders} alt="Delivery Time" style={{ display: 'block', width: '100%' }} />
+    <Image
+      src={customerOrders}
+      alt="Delivery Time"
+      style={{ display: "block", width: "100%" }}
+    />
   </div>
 </div>
 
 ### Multivariable Analysis
+
 Based on the multivariate analysis in figure 3A and 3B, there doesn't seem to be a significant trend between delivery time, food preparation time, price, and rating.
 
 #### Figure 3
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '10px' }}>
-  <div style={{ textAlign: 'left' }}>
-    <p style={{
-      marginBottom: '4px',
-      color: '#333',
-      fontSize: '12px',
-      fontWeight: 'bold',
-    }}>
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(2, 1fr)",
+    gap: "10px",
+  }}
+>
+  <div style={{ textAlign: "left" }}>
+    <p
+      style={{
+        marginBottom: "4px",
+        color: "#333",
+        fontSize: "12px",
+        fontWeight: "bold",
+      }}
+    >
       A) Heatmap
     </p>
-    <Image src={multivariateHeatmap} alt="Orders per Cuisine" style={{ display: 'block', width: '100%' }} />
+    <Image
+      src={multivariateHeatmap}
+      alt="Orders per Cuisine"
+      style={{ display: "block", width: "100%" }}
+    />
   </div>
-  <div style={{ textAlign: 'left' }}>
-    <p style={{
-      marginBottom: '4px',
-      color: '#333',
-      fontSize: '12px',
-      fontWeight: 'bold',
-    }}>
+  <div style={{ textAlign: "left" }}>
+    <p
+      style={{
+        marginBottom: "4px",
+        color: "#333",
+        fontSize: "12px",
+        fontWeight: "bold",
+      }}
+    >
       B) Pairplot
     </p>
-    <Image src={multivariatePairplot} alt="Orders on weekdays vs. weekends" style={{ display: 'block', width: '100%' }} />
+    <Image
+      src={multivariatePairplot}
+      alt="Orders on weekdays vs. weekends"
+      style={{ display: "block", width: "100%" }}
+    />
   </div>
 </div>
 
@@ -156,72 +274,114 @@ In my analysis of the delivery service data, I found consistent patterns across 
 
 #### Figure 4
 
-<div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 3fr)', gap: '10px' }}>
-  <div style={{ textAlign: 'left' }}>
-    <p style={{
-      marginBottom: '4px',
-      color: '#333',
-      fontSize: '12px',
-      fontWeight: 'bold',
-    }}>
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(2, 3fr)",
+    gap: "10px",
+  }}
+>
+  <div style={{ textAlign: "left" }}>
+    <p
+      style={{
+        marginBottom: "4px",
+        color: "#333",
+        fontSize: "12px",
+        fontWeight: "bold",
+      }}
+    >
       A) Delivery Time
     </p>
-    <Image src={deliveryTimeSubplot} alt="Orders per Cuisine" style={{ display: 'block', width: '100%' }} />
+    <Image
+      src={deliveryTimeSubplot}
+      alt="Orders per Cuisine"
+      style={{ display: "block", width: "100%" }}
+    />
   </div>
-  <div style={{ textAlign: 'left' }}>
-    <p style={{
-      marginBottom: '4px',
-      color: '#333',
-      fontSize: '12px',
-      fontWeight: 'bold',
-    }}>
+  <div style={{ textAlign: "left" }}>
+    <p
+      style={{
+        marginBottom: "4px",
+        color: "#333",
+        fontSize: "12px",
+        fontWeight: "bold",
+      }}
+    >
       _
     </p>
-    <Image src={deliveryTimeSubplot2} alt="Orders on weekdays vs. weekends" style={{ display: 'block', width: '100%' }} />
+    <Image
+      src={deliveryTimeSubplot2}
+      alt="Orders on weekdays vs. weekends"
+      style={{ display: "block", width: "100%" }}
+    />
   </div>
-  <div style={{ textAlign: 'left' }}>
-    <p style={{
-      marginBottom: '4px',
-      color: '#333',
-      fontSize: '12px',
-      fontWeight: 'bold',
-    }}>
+  <div style={{ textAlign: "left" }}>
+    <p
+      style={{
+        marginBottom: "4px",
+        color: "#333",
+        fontSize: "12px",
+        fontWeight: "bold",
+      }}
+    >
       B) Food Preparation Time
     </p>
-    <Image src={foodPrepTimeSubplot} alt="Orders per Cuisine" style={{ display: 'block', width: '100%' }} />
+    <Image
+      src={foodPrepTimeSubplot}
+      alt="Orders per Cuisine"
+      style={{ display: "block", width: "100%" }}
+    />
   </div>
-  <div style={{ textAlign: 'left' }}>
-    <p style={{
-      marginBottom: '4px',
-      color: '#333',
-      fontSize: '12px',
-      fontWeight: 'bold',
-    }}>
+  <div style={{ textAlign: "left" }}>
+    <p
+      style={{
+        marginBottom: "4px",
+        color: "#333",
+        fontSize: "12px",
+        fontWeight: "bold",
+      }}
+    >
       _
     </p>
-    <Image src={foodPrepTimeSubplot2} alt="Orders on weekdays vs. weekends" style={{ display: 'block', width: '100%' }} />
+    <Image
+      src={foodPrepTimeSubplot2}
+      alt="Orders on weekdays vs. weekends"
+      style={{ display: "block", width: "100%" }}
+    />
   </div>
-  <div style={{ textAlign: 'left' }}>
-    <p style={{
-      marginBottom: '4px',
-      color: '#333',
-      fontSize: '12px',
-      fontWeight: 'bold',
-    }}>
+  <div style={{ textAlign: "left" }}>
+    <p
+      style={{
+        marginBottom: "4px",
+        color: "#333",
+        fontSize: "12px",
+        fontWeight: "bold",
+      }}
+    >
       C) Order Cost
     </p>
-    <Image src={orderCostSubplot} alt="Orders per Cuisine" style={{ display: 'block', width: '100%' }} />
+    <Image
+      src={orderCostSubplot}
+      alt="Orders per Cuisine"
+      style={{ display: "block", width: "100%" }}
+    />
   </div>
-  <div style={{ textAlign: 'left' }}>
-    <p style={{
-      marginBottom: '4px',
-      color: '#333',
-      fontSize: '12px',
-      fontWeight: 'bold',
-    }}>
+  <div style={{ textAlign: "left" }}>
+    <p
+      style={{
+        marginBottom: "4px",
+        color: "#333",
+        fontSize: "12px",
+        fontWeight: "bold",
+      }}
+    >
       _
     </p>
-    <Image src={orderCostSubplot2} alt="Orders on weekdays vs. weekends" style={{ display: 'block', width: '100%' }} />
+    <Image
+      src={orderCostSubplot2}
+      alt="Orders on weekdays vs. weekends"
+      style={{ display: "block", width: "100%" }}
+    />
   </div>
 </div>
 

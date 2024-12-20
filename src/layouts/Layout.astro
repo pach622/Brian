@@ -1,6 +1,8 @@
 ---
   import ColorToggle from '@/components/ColorToggle.svelte';
   import '@/styles/base.css';
+  // import '@/styles/global.css'
+  // import '../styles/tailwind.css';
   import { classNames } from '@/utils/styling';
   export interface Props {
     title?: string;
@@ -72,6 +74,7 @@
       <div class="font-medium flex items-center gap-2">
         <a class={classNames('py-2 px-3 rounded-lg ', currentPath === ' /' ? activeStyle : hoverStyle)}
           href="/">Home</a>
+        
         <a class={classNames('py-2 px-3 rounded-lg ', currentPath.startsWith(' /caseStudies') ? activeStyle :
           hoverStyle)} href="/caseStudies">Projects</a>
         <a class={classNames('py-2 px-3 rounded-lg ', currentPath.startsWith(' /workExperience') ? activeStyle :

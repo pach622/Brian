@@ -1,51 +1,51 @@
 ---
-    import Newsletter from '@/components/Newsletter.astro';
-    import Layout from '@/layouts/Layout.astro';
+  import BlogPostPreview from '@/components/BlogPostPreview.astro';
+  import Email from '@/components/icons/Email.astro';
+  import GitHub from '@/components/icons/GitHub.astro';
+  import Linkedin from '@/components/icons/Linkedin.astro';
+  import Twitter from '@/components/icons/Twitter.astro';
+  import { EMAIL, HANDLE_GITHUB, HANDLE_TWITTER } from '@/constants';
+  import Layout from '@/layouts/Layout.astro';
 
-    const allPosts = await Astro.glob('./*/index.mdx');
-    const sortedPosts = allPosts.sort(
-        (a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf()
-    );
+  // Import all posts using import.meta.glob with eager loading
+  const allPosts = Object.values(
+    import.meta.glob('./**/*.mdx', { eager: true })
+  );
 
-    console.log(sortedPosts)
-    const postsByYear = sortedPosts.reduce((acc: any, post) => {
-        const year = new Date(post.frontmatter.pubDate).getFullYear();
-        if (!acc[year]) {
-            acc[year] = [];
-        }
+  // Ensure all posts have a frontmatter.pubDate and sort them
+  const sortedRecentPosts = allPosts
+    .filter((post) => post.frontmatter && post.frontmatter.pubDate) // Exclude invalid posts
+    .sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf())
 
+  // Group posts by year
+  const postsByYear = sortedRecentPosts.reduce((acc, post) => {
+    const year = new Date(post.frontmatter.pubDate).getFullYear();
+    if (!acc[year]) acc[year] = [];
+      acc[year].push(post);
+    return acc;
+    }, {} as Record<number, Post[]>);
 
-        acc[year].push(post);
-        return acc;
-    }, {});
-
-    const sortedYears = Object.keys(postsByYear).sort((a, b) => Number(b) - Number(a));
+      
+    const sortedYears = Object.keys(postsByYear).sort((a,b) => Number(b) - Number(a));
+    console.log('All posts:', sortedYears);
 ---
 
-<Layout title="Blog">
-    <div class="space-y-6">
-        <div class="py-6">
-            <h2 class="text-4xl font-semibold">Read more about each project</h2>
-            <!-- {sortedPosts.map((p) => <BlogPostPreview post={p} />)} -->
-            <div class="space-y-8 pt-8">
-                {
-                sortedYears.map((year) => (
-                <div>
-                    <h3 class="text-xl font-semibold">{year}</h3>
-                    <ul class="py-2 space-y-2">
-                        {postsByYear[year].map((post: any) => (
-                        <li>
-                            <a class="text-lg hover:underline hover:text-yellow-800 hover:dark:text-purple-200"
-                                href={post.url}>
-                                {post.frontmatter.title}
-                            </a>
-                        </li>
-                        ))}
-                    </ul>
-                </div>
-                ))
-                }
-            </div>
-        </div>
+<Layout>
+  <div class = "space-y-6">
+    <div class = "py-6">
+      <h2 class = "text-4xl font-semibold">Read more about each project below!</h2>
+      <div class = "space-y-8 pt-8">
+        {sortedYears.map((year)=>(
+          <div key = {year}>
+            <h3 class = "text-xl font-semibold">{year}</h3>
+            <ul class = "py-2 space-y-2">
+              {postsByYear[year].map((post) => (
+                <BlogPostPreview post = {post}/>
+              ))} 
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
+  </div>
 </Layout>
