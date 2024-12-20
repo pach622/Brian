@@ -2,13 +2,12 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
 import prefetch from '@astrojs/prefetch';
-import image from '@astrojs/image';
+// import image from '@astrojs/image';
 import mdx from '@astrojs/mdx';
 import svelte from '@astrojs/svelte';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [image()],
   vite: {
     build: {
       rollupOptions: {
@@ -25,7 +24,7 @@ export default defineConfig({
       },
     }),
     prefetch(),
-    image(),
+    // image(),
     mdx(),
     svelte(),
   ],
