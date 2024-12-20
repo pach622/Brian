@@ -7,23 +7,6 @@ slug: /caseStudies/mitFoodHub/index.mdx
 ---
 
 import { Image } from "@astrojs/image/components";
-import deliveryTimeCode from "/src/assets/FoodHub/deliveryTimePlotCode.png";
-import histoBoxCode from "/src/assets/FoodHub/histoBoxCode.png";
-import deliveryTime from "/src/assets/FoodHub/deliveryTimePlot.png";
-import foodPrepTime from "/src/assets/FoodHub/foodPrepTimePlot.png";
-import ordersCost from "/src/assets/FoodHub/orderCostPlot.png";
-import customerRating from "/src/assets/FoodHub/ratingPlot.png";
-import orderPerCuisine from "/src/assets/FoodHub/cuisineOrdersPlot.png";
-import weekOrders from "/src/assets/FoodHub/weekOrdersPlots.png";
-import customerOrders from "/src/assets/FoodHub/customerPlot.png";
-import multivariateHeatmap from "/src/assets/FoodHub/multivariateHeatmap.png";
-import multivariatePairplot from "/src/assets/FoodHub/multivariatePairplot.png";
-import deliveryTimeSubplot from "/src/assets/FoodHub/deliveryTimeSubplot.png";
-import deliveryTimeSubplot2 from "/src/assets/FoodHub/deliveryTimeSubplot2.png";
-import foodPrepTimeSubplot from "/src/assets/FoodHub/foodPrepTimeSubplot.png";
-import foodPrepTimeSubplot2 from "/src/assets/FoodHub/foodPrepTimeSubplot2.png";
-import orderCostSubplot from "/src/assets/FoodHub/orderCostSubplot.png";
-import orderCostSubplot2 from "/src/assets/FoodHub/orderCostSubplot2.png";
 
 FoodHub is a mobile app that provides food delivery services (Similar to UberEats). When an order is placed by a customer for a specific restaurant, the app will assign an delivery person to receive the food and delivery it to the customer. They will follow the map to reach the restaurant, pick up the food, and follow the map again to delivery to the customer. Once food is delivered, the customer will confirm reception and be allowed to review the order. The app is able to earn money by collecting a fixed margin per order.
 
@@ -62,19 +45,11 @@ To understand the data better, I had a look at each variable to understand custo
 
 #### Code 1:
 
-<Image
-  src={histoBoxCode}
-  alt="Example Code for histogram and boxplots"
-  style={{ display: "block", margin: "0 auto" }}
-/>
+![Example Code for histogram and boxplots](/images/Foodhub/histoBoxCode.png)
 
 #### Code 2:
 
-<Image
-  src={deliveryTimeCode}
-  alt="Example Code for Delivery Time Plot"
-  style={{ display: "block", margin: "0 auto" }}
-/>
+![Example Code for Delivery Time Plot](/images/Foodhub/deliveryTimeCode.png)
 
 Using the above code, I was able to obtain a couple of important takeaways about customer behaviour.
 
@@ -98,11 +73,7 @@ With this data,
     >
       #### A) Delivery Time
     </p>
-    <Image
-      src={deliveryTime}
-      alt="Delivery Time"
-      style={{ display: "block", width: "100%" }}
-    />
+    ![Delivery Time](/images/Foodhub/deliveryTimePlot.png)
   </div>
   <div style={{ textAlign: "left" }}>
     <p
@@ -115,11 +86,7 @@ With this data,
     >
       #### B) Food Preparation Time
     </p>
-    <Image
-      src={foodPrepTime}
-      alt="Food Preparation Time"
-      style={{ display: "block", width: "100%" }}
-    />
+    ![Food Preparation Time](/images/Foodhub/foodPrepTimePlot.png)
   </div>
   <div style={{ textAlign: "left" }}>
     <p
@@ -132,11 +99,7 @@ With this data,
     >
       #### C) Order Cost
     </p>
-    <Image
-      src={ordersCost}
-      alt="Orders Cost"
-      style={{ display: "block", width: "100%" }}
-    />
+    ![Orders Cost](/images/Foodhub/orderCostPlot.png)
   </div>
   <div style={{ textAlign: "left" }}>
     <p
@@ -149,11 +112,7 @@ With this data,
     >
       #### D) Customer Rating
     </p>
-    <Image
-      src={customerRating}
-      alt="Customer Rating"
-      style={{ display: "block", width: "100%" }}
-    />
+    ![Customer Rating](/images/Foodhub/ratingPlot.png)
   </div>
 </div>
 
@@ -179,11 +138,7 @@ TEXT
     >
       #### A) Orders per Cuisine
     </p>
-    <Image
-      src={orderPerCuisine}
-      alt="Delivery Time"
-      style={{ display: "block", width: "100%" }}
-    />
+    ![Orders Per Cuisine](/images/Foodhub/cuisineOrdersPlot.png)
   </div>
   <div style={{ textAlign: "left" }}>
     <p
@@ -196,11 +151,7 @@ TEXT
     >
       #### B) Orders on weekdays vs. weekends
     </p>
-    <Image
-      src={weekOrders}
-      alt="Delivery Time"
-      style={{ display: "block", width: "100%" }}
-    />
+    ![Orders per weekday](/images/Foodhub/weekOrdersPlots.png)
   </div>
   <div style={{ textAlign: "left" }}>
     <p
@@ -213,11 +164,7 @@ TEXT
     >
       #### C) Orders per customer ID
     </p>
-    <Image
-      src={customerOrders}
-      alt="Delivery Time"
-      style={{ display: "block", width: "100%" }}
-    />
+    ![Customer Orders](/images/Foodhub/customerPlot.png)
   </div>
 </div>
 
@@ -245,11 +192,7 @@ Based on the multivariate analysis in figure 3A and 3B, there doesn't seem to be
     >
       A) Heatmap
     </p>
-    <Image
-      src={multivariateHeatmap}
-      alt="Orders per Cuisine"
-      style={{ display: "block", width: "100%" }}
-    />
+    ![Multivariate Heatmap](/images/Foodhub/multivariateHeatmap.png)
   </div>
   <div style={{ textAlign: "left" }}>
     <p
@@ -262,11 +205,7 @@ Based on the multivariate analysis in figure 3A and 3B, there doesn't seem to be
     >
       B) Pairplot
     </p>
-    <Image
-      src={multivariatePairplot}
-      alt="Orders on weekdays vs. weekends"
-      style={{ display: "block", width: "100%" }}
-    />
+    ![Multivariate Pairplot](/images/Foodhub/multivariatePairplot.png)
   </div>
 </div>
 
@@ -292,11 +231,7 @@ In my analysis of the delivery service data, I found consistent patterns across 
     >
       A) Delivery Time
     </p>
-    <Image
-      src={deliveryTimeSubplot}
-      alt="Orders per Cuisine"
-      style={{ display: "block", width: "100%" }}
-    />
+    ![Delivery Subplots 1](/images/Foodhub/deliveryTimeSubplot.png)
   </div>
   <div style={{ textAlign: "left" }}>
     <p
@@ -309,11 +244,7 @@ In my analysis of the delivery service data, I found consistent patterns across 
     >
       _
     </p>
-    <Image
-      src={deliveryTimeSubplot2}
-      alt="Orders on weekdays vs. weekends"
-      style={{ display: "block", width: "100%" }}
-    />
+    ![Delivery Subplots 2](/images/Foodhub/deliveryTimeSubplot2.png)
   </div>
   <div style={{ textAlign: "left" }}>
     <p
@@ -326,11 +257,7 @@ In my analysis of the delivery service data, I found consistent patterns across 
     >
       B) Food Preparation Time
     </p>
-    <Image
-      src={foodPrepTimeSubplot}
-      alt="Orders per Cuisine"
-      style={{ display: "block", width: "100%" }}
-    />
+    ![Food Prep Subplots 1](/images/Foodhub/foodPrepTimeSubplot.png)
   </div>
   <div style={{ textAlign: "left" }}>
     <p
@@ -343,11 +270,7 @@ In my analysis of the delivery service data, I found consistent patterns across 
     >
       _
     </p>
-    <Image
-      src={foodPrepTimeSubplot2}
-      alt="Orders on weekdays vs. weekends"
-      style={{ display: "block", width: "100%" }}
-    />
+    ![Delivery Subplots 2](/images/Foodhub/deliveryTimeSubplot2.png)
   </div>
   <div style={{ textAlign: "left" }}>
     <p
@@ -360,11 +283,7 @@ In my analysis of the delivery service data, I found consistent patterns across 
     >
       C) Order Cost
     </p>
-    <Image
-      src={orderCostSubplot}
-      alt="Orders per Cuisine"
-      style={{ display: "block", width: "100%" }}
-    />
+    ![Order Costs Subplots 1](/images/Foodhub/orderCostSubplot.png)
   </div>
   <div style={{ textAlign: "left" }}>
     <p
@@ -377,11 +296,7 @@ In my analysis of the delivery service data, I found consistent patterns across 
     >
       _
     </p>
-    <Image
-      src={orderCostSubplot2}
-      alt="Orders on weekdays vs. weekends"
-      style={{ display: "block", width: "100%" }}
-    />
+    ![Order Costs Subplots 2](/images/Foodhub/orderCostSubplot2.png)
   </div>
 </div>
 

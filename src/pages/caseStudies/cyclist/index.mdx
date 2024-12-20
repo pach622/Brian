@@ -7,13 +7,6 @@ slug: /caseStudies/cyclist/index.mdx
 ---
 
 import { Image } from "@astrojs/image/components";
-import DistanceByUser from "/src/assets/Cyclist/DistanceByUserType.png";
-import DurationByUser from "/src/assets/Cyclist/DurationByUserType.png";
-import MonthByUser from "/src/assets/Cyclist/MonthByUserType.png";
-import RideableByUser from "/src/assets/Cyclist/RideableByUserType.png";
-import UsesByLocation from "/src/assets/Cyclist/UsesByLocation.png";
-import WeekdayByUser from "/src/assets/Cyclist/WeekdayByUserType.png";
-import CyclistLocation from "/src/assets/Cyclist/CyclistLocation.png";
 
 This is a project I completed during my Google course in data analytics. My main goal with this case-study was to familiarize myself with R-Studio syntax using a large dataset, as well as improve my ability to extract conclusions and provide recommendations from findings.
 
@@ -44,11 +37,7 @@ Overall, it can be concluded that members hire more bikes than casual users. But
 
 #### Figure 1
 
-<Image
-  src={RideableByUser}
-  alt="Graph showing number of biker hires by user type"
-  style={{ display: "block", margin: "0 auto" }}
-/>
+![Graph showing number of biker hires by user type](/images/Cyclist/RideableByUserType.png)
 
 #### Table 1
 
@@ -63,19 +52,11 @@ Looking at figure 2 and 3, we can see there isn't a significant difference in th
 
 ### Figure 2
 
-<Image
-  src={DistanceByUser}
-  alt="Graph showing distance travelled by user type"
-  style={{ display: "block", margin: "0 auto" }}
-/>
+![Graph showing distance travelled by user type](/images/Cyclist/DistanceByUserType.png)
 
 #### Figure 3
 
-<Image
-  src={DurationByUser}
-  alt="Graph showing time travelled by user type"
-  style={{ display: "block", margin: "0 auto" }}
-/>
+![Graph showing time travelled by user type](/images/Cyclist/DurationByUserType.png)
 
 ### Is there a difference in the number of rentals per month or per weekday?
 
@@ -83,21 +64,13 @@ During the winter months, there seems to be a significantly larger number of mem
 
 #### Figure 4
 
-<Image
-  src={MonthByUser}
-  alt="Barplot showing most common rental times based on month"
-  style={{ display: "block", margin: "0 auto" }}
-/>
+![Barplot showing most common rental times based on month](/images/Cyclist/MonthByUserType.png)
 
 When looking at the day-specific data during the week (figure 5), we can see that member's rent bikes much more frequently during Monday-Friday periods, whereas casual users tend to use bikes during the weekends more than members.
 
 #### Figure 5
 
-<Image
-  src={WeekdayByUser}
-  alt="Barplot showing most common rental times based on weekdays"
-  style={{ display: "block", margin: "0 auto" }}
-/>
+![Barplot showing most common rental times based on weekdays](/images/Cyclist/WeekdayByUserType.png)
 
 ### Is there a location specific use of bikes?
 
@@ -105,19 +78,11 @@ There isn't too much to take away from these plots, I just thought they looked r
 
 #### Figure 6
 
-<Image
-  src={UsesByLocation}
-  alt="Map showing most common bike rental locations"
-  style={{ display: "block", margin: "0 auto" }}
-/>
+![Map showing most common bike rental locations](/images/Cyclist/UsesByLocation.png)
 
 #### Figure 7
 
-<Image
-  src={CyclistLocation}
-  alt="Long/Lat Location In Real Life"
-  style={{ display: "block", margin: "0 auto" }}
-/>
+![Long/Lat Location In Real Life](/images/Cyclist/CyclistLocation.png)
 ** (Red arrow represents longitude -87.64 and latitude 41.9) **
 
 ## Conclusion
