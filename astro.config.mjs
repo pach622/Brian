@@ -8,6 +8,14 @@ import svelte from '@astrojs/svelte';
 
 // https://astro.build/config
 export default defineConfig({
+  integrations: [image()],
+  vite: {
+    build: {
+      rollupOptions: {
+        external: ['virtual:image-loader'],
+      },
+    },
+  },
   site: 'https://pach622.github.io',
   integrations: [
     sitemap(),
@@ -21,7 +29,7 @@ export default defineConfig({
     mdx(),
     svelte(),
   ],
-  
+
   markdown: {
     shikiConfig: {
       theme: 'poimandres',
