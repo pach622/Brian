@@ -1,0 +1,325 @@
+---
+title: "Malaria Dataset: Using AI to detect malaria-infected red blood cells"
+pubDate: "2024-05-30"
+summary: "Using machine learning, I worked to creating a malaria-detection software using a publicly available database of red blood cell images (diseased and healthy)."
+layout: ../../../layouts/BlogLayout.astro
+slug: /caseStudies/malariaDetection/index.mdx
+---
+For my MIT Data Science program, I was required to do a incubator project. For my project, I chose to make a malaria-detection tool.
+
+### Background:
+Malaria is a deadly disease affecting millions, with 229M cases and 400K deaths in 2019. It spreads through mosquitoes, with parasites attacking red blood cells and reducing oxygen transport. The disease can remain dormant for over a year, making early detection crucial.
+
+### Current Challenge:
+Detection currently requires manual laboratory work by professionals, creating a need for automation in the diagnostic process.
+
+### Need:
+An automated early diagnostic tool would make malaria prevention more accessible to at-risk communities.
+
+### Objectives:
+Create an automated diagnostic method for early malaria detection before clinical symptoms appear.
+
+### Key Questions:
+* Can the model accurately distinguish between infected and uninfected samples?
+* Is the accuracy sufficient for diagnostic use?
+* Is the recall rate adequate for medical applications?
+
+### Problem Statement:
+Develop a model to automate malaria image analysis, reducing the manual workload of healthcare professionals in diagnosis.
+
+### Data Exploration
+
+#### How do the images look like? 
+Looking at the cell images, you can easily spot a few telltale signs of infection - infected cells have a noticeable pink tinge to them and there's this characteristic pink dot that shows up, kind of like a marker. Healthy cells don't have either of these features. These clear differences make it pretty straightforward to build a computer system that can automatically sort the cells into two groups: infected or not infected.
+
+#### Figure 1
+![Example of infected vs healthy red blood cells](/images/malariaDetection/imageExamples.png)
+
+Images were then processed using Gaussian Blur. This is to remove extraneous, random artifacts from the images, thus removing noise and improving the accuracy of our model. 
+
+### Model Building
+
+For this dataset, I wanted to compare between a personally made model vs. a pre-trained model (VGG16).
+
+### Model 1
+
+For the first iteration of the model, I opted to incorporate a simple base model design. 
+
+```python
+def create_sequential_cnn_1(input_shape, ):
+    """
+    This function creatse a convolutional neural network (CNN) using the sequential API.
+
+    This requires 2 parameters:
+    1. The shape of the input (In this case it is (64, 64, 3)), input_shape.
+    """
+    model = Sequential()
+
+    # First Convolutional Layer with 32 layers, kernel size 2, 'same' padding, 'relu' activation
+    model.add(Conv2D(filters=32, kernel_size=2, padding="same", activation="relu", input_shape=input_shape))
+    # Adding a Max-pooling layer with pool size 2
+    model.add(MaxPooling2D(pool_size=2))
+    # Adding a drouput layer with rate equal to 0.2
+    model.add(Dropout(0.2))
+
+    # Second Convolutional layer with 32 filters, kernel size 2, 'same' padding, 'relu' activation
+    model.add(Conv2D(filters=32, kernel_size=2, padding="same", activation="relu"))
+    # Adding a Max-pooling layer with pool size 2
+    model.add(MaxPooling2D(pool_size=2))
+    # Adding a drouput layer with rate equal to 0.2
+    model.add(Dropout(0.2))
+
+    # Second Convolutional layer with 32 filters, kernel size 2, 'same' padding, 'relu' activation
+    model.add(Conv2D(filters=32, kernel_size=2, padding="same", activation="relu"))
+    # Adding a Max-pooling layer with pool size 2
+    model.add(MaxPooling2D(pool_size=2))
+    # Adding a drouput layer with rate equal to 0.2
+    model.add(Dropout(0.2))
+
+    # Flattening the output of the previous layer
+    model.add(Flatten())
+    # Adding a dense output layer with 'relu' activation
+    model.add(Dense(512, activation="relu"))
+    # Adding a drouput layer with rate equal to 0.2
+    model.add(Dropout(0.4))
+    # Adding a output layer with nodes equal to 2 and activation function 'softmax'
+    model.add(Dense(2, activation="softmax"))  # Output layer with softmax activation for classification
+
+    # Compile the model
+    model.compile(optimizer="adam",
+                  loss="categorical_crossentropy",
+                  metrics=["accuracy"])
+
+    return model
+```
+After training, this model achieved an accuracy of 0.59 wiht a loss of 0.67. Considering the loss is high and the accuracy is low, this suggests that the current model is making significant errors in many instances. Furthermore, the validation/training plot shows a decrease in validation with an increase in training accuracy (Figure 2A), suggesting it is not generalized to unseen data and is overfitting to the training set. When considering the confusion matrix, we can see that the current model is inaccurate at recalling uninfected and parasitized images (Figure 2B).
+
+
+#### Figure 2A
+![Train-Validation Plot for Model 1](/images/malariaDetection/model1TrainValidation.png)
+#### Figure 2B
+![Confusion Matrix for Model 1](/images/malariaDetection/model1ConfusionMatrix.png)
+
+### Model 2 - Adding more layers
+Since the previous model didn't work very well, I wanted to see how adding more layers would help. My logic is that if you have more of something, it should work better right? Quick answer is no! Below is the code for the model:
+
+```python
+def create_sequential_cnn_2(input_shape, ):
+    """
+    This function creatse a convolutional neural network (CNN) using the sequential API.
+
+    This requires 2 parameters:
+    1. The shape of the input (In this case it is (64, 64, 3)), input_shape.
+    """
+    model = Sequential()
+
+    # First Convolutional Layer
+    model.add(Conv2D(filters=32, kernel_size=2, padding="same", activation="relu", input_shape=input_shape))
+    model.add(MaxPooling2D(pool_size=2))
+    model.add(Dropout(0.2))
+
+    # Second Convolutional Layer
+    model.add(Conv2D(filters=32, kernel_size=2, padding="same", activation="relu"))
+    model.add(MaxPooling2D(pool_size=2))
+    model.add(Dropout(0.2))
+
+    # Third Convolutional Layer
+    model.add(Conv2D(filters=32, kernel_size=2, padding="same", activation="relu"))
+    model.add(MaxPooling2D(pool_size=2))
+    model.add(Dropout(0.2))
+
+    # Fourth Convolutional Layer
+    model.add(Conv2D(filters=32, kernel_size=2, padding="same", activation="relu"))
+    model.add(MaxPooling2D(pool_size=2))
+    model.add(Dropout(0.2))
+
+    model.add(Flatten())
+    model.add(Dense(512, activation="relu"))
+    model.add(Dropout(0.4))
+    model.add(Dense(2, activation="softmax"))  # Output layer with softmax activation for classification
+
+    # Compile the model
+    model.compile(optimizer="adam",
+                  loss="categorical_crossentropy",
+                  metrics=["accuracy"])
+
+    return model
+    ```
+
+The model's performance is concerning, with a high loss (0.63) and low accuracy (54%). While overfitting has improved compared to the previous model, it remains problematic – the validation accuracy plateaus higher than training accuracy (Figure 3A), indicating poor generalization to new data. Most critically, the model produces many false negatives (Figure 3B), which would be dangerous for malaria diagnosis since it means missing actual cases of the disease.
+
+#### Figure 3A
+![Train-Validation Plot for Model 2](/images/malariaDetection/model2TrainValidation.png)
+#### Figure 3B
+![Confusion Matrix for Model 2](/images/malariaDetection/model2ConfusionMatrix.png)
+
+### Model 3
+Since both of the previous models didn't result in better accuracy, I needed another method to improve recall. One of the things that I thought would be a good idea is to introduce batch normalization. Reason being that by normalizating all inputs, we can reduce variability in our input. This should be able to improve our accuracy! The code is below: 
+
+```python
+def create_sequential_cnn_3(input_shape, ):
+    """
+    This function creatse a convolutional neural network (CNN) using the sequential API.
+
+    This requires 2 parameters:
+    1. The shape of the input (In this case it is (64, 64, 3)), input_shape.
+    """
+    model = Sequential()
+
+    # First Convolutional Layer
+    model.add(Conv2D(filters=32, kernel_size=2, padding="same", activation="relu", input_shape=input_shape))
+    model.add(BatchNormalization())
+    model.add(MaxPooling2D(pool_size=2))
+    model.add(Dropout(0.2))
+
+    # Second Convolutional Layer
+    model.add(Conv2D(filters=32, kernel_size=2, padding="same", activation="relu"))
+    model.add(BatchNormalization())
+    model.add(MaxPooling2D(pool_size=2))
+    model.add(Dropout(0.2))
+
+    # Third Convolutional Layer
+    model.add(Conv2D(filters=32, kernel_size=2, padding="same", activation="relu"))
+    model.add(BatchNormalization())
+    model.add(MaxPooling2D(pool_size=2))
+    model.add(Dropout(0.2))
+
+    # # Fourth Convolutional Layer
+    model.add(Conv2D(filters=32, kernel_size=2, padding="same", activation="relu"))
+    model.add(BatchNormalization())
+    model.add(MaxPooling2D(pool_size=2))
+    model.add(Dropout(0.2))
+
+    model.add(Flatten())
+    model.add(Dense(512, activation="relu"))
+    model.add(Dropout(0.4))
+    model.add(Dense(2, activation="softmax"))  # Output layer with softmax activation for classification
+
+    # Compile the model
+    model.compile(optimizer="adam",
+                  loss="categorical_crossentropy",
+                  metrics=["accuracy"])
+
+    return model
+```
+
+The model shows modest improvement with a loss of 0.62 and accuracy of 66%, but still performs poorly overall. The training accuracy is increasing while validation accuracy decreases (Figure 4A), indicating the model is overfitting – it's becoming worse at handling new data despite performing better on training data. While overfitting has improved from the previous model, it remains problematic. The confusion matrix reveals significant false positives and negatives (Figure 4B), showing the model struggles to distinguish between infected and uninfected samples.
+
+#### Figure 4A
+![Train-Validation Plot for Model 3](/images/malariaDetection/model3TrainValidation.png)
+#### Figure 4B
+![Confusion Matrix for Model 3](/images/malariaDetection/model3ConfusionMatrix.png)
+
+
+### Model 4: Including Data Augmentation
+
+While normalizing our input did improve our accuracy, I think we can still make significant improvements. To achieve this, I decided to do some image processing. I think the issue we have right now is that the previous models have been overfitting, so to fix this I incorporated some data augmentation. The code is below, resulting in the images found on figure 5. 
+
+```python
+from sklearn.model_selection import train_test_split
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+
+# Splitting the training data into training and validation datasets
+x_train, x_val, y_train, y_val = train_test_split(gaussian_train_images, train_labels, test_size = 0.2, random_state = 42)
+
+# Create the ImageDataGenerator settings for training dataset
+train_generator_settings = ImageDataGenerator(
+    horizontal_flip = True,
+    zoom_range = 0.5,
+    rotation_range = 30,
+)
+
+# Create the ImageDataGenerator Settings for validation dataset
+validation_generator_settings = ImageDataGenerator()
+
+# Running the training images through the ImageDataGenerator
+train_generator = train_generator_settings.flow(
+    x = x_train,
+    y = y_train,
+    batch_size = 64,
+    seed = 42,
+    shuffle = True,
+)
+
+# Running the validation images through the ImageDataGenerator
+validation_generator = validation_generator_settings.flow(
+    x = x_val,
+    y = y_val,
+    batch_size = 64,
+    seed = 42,
+    shuffle = True
+)
+```
+
+#### Figure 5
+![Augmented Images](/images/malariaDetection/augmentedImages.png)
+
+The model shows some improvement with a loss of 0.62 and accuracy of 66%, though performance remains mediocre. More positively, both training and validation accuracy are increasing (Figure 6A), indicating the model is learning without overfitting and getting better at handling new data. However, there's a concerning bias toward classifying images as uninfected, leading to false negatives (Figure 6B). This is particularly problematic for malaria diagnosis, where missing infected cases could have serious health consequences. Given these issues and the critical nature of healthcare applications, this model is not suitable for clinical use.
+
+#### Figure 6A
+![Train-Validation Plot for Model 4](/images/malariaDetection/model4TrainValidation.png)
+#### Figure 6B
+![Confusion Matrix for Model 4](/images/malariaDetection/model4ConfusionMatrix.png)
+
+### Pre-Trained Model: VGG16
+After many iterations of the home-made model, I realized that it is very difficult to make a good machine learning model. Also, the whole point of this project was to compare with an existing pre-trained model. So, I decided to stop there with my home-made one, and use this VGG16 pre-trained model as a comparison. The code is below:
+
+```python
+# Defining constants
+IMG_WIDTH = 224
+IMG_HEIGHT = 224
+batch_size = 32
+
+# Data augmentation and preprocessing
+train_datagen = ImageDataGenerator(rescale=1./255,
+                                   shear_range=0.2,
+                                   zoom_range=0.2,
+                                   horizontal_flip=True)
+
+test_datagen = ImageDataGenerator(rescale=1./255)
+
+# Load and augment training data
+train_generator = train_datagen.flow_from_directory(
+        '/content/cell_images/train',
+        target_size=(IMG_WIDTH, IMG_HEIGHT),
+        batch_size=batch_size,
+        class_mode='binary')
+
+# Load and augment validation data
+validation_generator = test_datagen.flow_from_directory(
+        '/content/cell_images/test',
+        target_size=(IMG_WIDTH, IMG_HEIGHT),
+        batch_size=batch_size,
+        class_mode='binary',
+        shuffle=False)
+
+# Load pre-trained VGG16 model without top layers
+base_model = VGG16(weights='imagenet', include_top=False, input_shape=(IMG_WIDTH, IMG_HEIGHT, 3))
+
+# Freeze the base model layers
+for layer in base_model.layers:
+    layer.trainable = False
+
+# Create a new model
+model = Sequential([
+    base_model,
+    Flatten(),
+    Dense(512, activation='relu'),
+    Dropout(0.5),
+    Dense(1, activation='sigmoid')
+])
+
+model.compile(optimizer=Adam(lr=0.0001), loss='binary_crossentropy', metrics=['accuracy'])
+```
+
+The model shows excellent performance with a low loss of 0.17 and high accuracy of 93%. Both training and validation accuracy are increasing and maintaining high levels (85-94%) (Figure 7A), indicating the model effectively learns and generalizes to new data without overfitting. Crucially for malaria diagnosis, the model demonstrates strong performance in detecting both infected and uninfected cases, with particularly low false negatives (Figure 7B). Given these strong metrics and reliable performance, this model appears well-suited for clinical malaria diagnosis applications.
+
+#### Figure 7A
+![Train-Validation Plot for Pre Trained Model](/images/malariaDetection/preTrainedTrainValidation.png)
+
+#### Figure 7B
+![Confusion Matrix for Pre Trained Model](/images/malariaDetection/preTrainedConfusionMatrix.png)
+
+### Conclusion
+
+While malaria diagnosis traditionally requires skilled professionals and proved challenging to automate, this project successfully developed a highly accurate classification model using the pre-trained VGG16 architecture. The model excels at distinguishing between infected and uninfected samples, with particular emphasis on minimizing false negatives to prevent missed diagnoses that could be fatal. Though there's still room for optimization toward achieving zero false negatives, the model's strong generalization ability and high recall make it a promising tool for early malaria diagnosis.
