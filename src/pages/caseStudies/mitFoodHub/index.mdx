@@ -42,11 +42,11 @@ To clean the data, multiple steps were taken. Firstly, I had looked at the datat
 
 To understand the data better, I had a look at each variable to understand customer behaviours. To do this, I made histograms and boxplots of each column using Code 1 and Code 2 as an example.
 
-#### Code 1:
+**Code 1** - Example code for histogram and boxplots:
 
 ![Example Code for histogram and boxplots](/images/Foodhub/histoBoxCode.png)
 
-#### Code 2:
+**Code 2** - Example code for delivery time plot:
 
 ![Example Code for Delivery Time Plot](/images/Foodhub/deliveryTimePlotCode.png)
 
@@ -56,113 +56,49 @@ For delivery time (Figure 1A), average delivery time was 24.1 minutes, where a m
 
 With this data,
 
-### Figure 1
+#### Figure 1
 
-<div
-  style={{ display: "grid", gridTemplateColumns: "repeat(2, 2fr)", gap: "2px" }}
->
-  <div style={{ textAlign: "left" }}>
-    <p
-      style={{
-        marginBottom: "0px",
-        color: "#333",
-        fontSize: "12px",
-        fontWeight: "bold",
-      }}
-    >
-      #### A) Delivery Time
-    </p>
+<div class="figure-grid figure-grid-2">
+  <div>
+    <p class="figure-label">A) Delivery Time</p>
+
     ![Delivery Time](/images/Foodhub/deliveryTimePlot.png)
   </div>
-  <div style={{ textAlign: "left" }}>
-    <p
-      style={{
-        marginBottom: "0px",
-        color: "#333",
-        fontSize: "16px",
-        fontWeight: "bold",
-      }}
-    >
-      #### B) Food Preparation Time
-    </p>
+  <div>
+    <p class="figure-label">B) Food Preparation Time</p>
+
     ![Food Preparation Time](/images/Foodhub/foodPrepTimePlot.png)
   </div>
-  <div style={{ textAlign: "left" }}>
-    <p
-      style={{
-        marginBottom: "0px",
-        color: "#333",
-        fontSize: "16px",
-        fontWeight: "bold",
-      }}
-    >
-      #### C) Order Cost
-    </p>
+  <div>
+    <p class="figure-label">C) Order Cost</p>
+
     ![Orders Cost](/images/Foodhub/orderCostPlot.png)
   </div>
-  <div style={{ textAlign: "left" }}>
-    <p
-      style={{
-        marginBottom: "0px",
-        color: "#333",
-        fontSize: "16px",
-        fontWeight: "bold",
-      }}
-    >
-      #### D) Customer Rating
-    </p>
+  <div>
+    <p class="figure-label">D) Customer Rating</p>
+
     ![Customer Rating](/images/Foodhub/ratingPlot.png)
   </div>
 </div>
 
 The data reveals that American and Japanese cuisines are the most popular (Figure 2A), accounting for over half of the total orders, while Vietnamese, Southern, Spanish, and French cuisines are the least preferred. Additionally, 71.18% of orders occur on weekends (Figure 2B), indicating a strong preference for weekend dining, which businesses could leverage with targeted promotions. Lastly, most customers place only one order (Figure 2C), though a small subset of frequent customers makes multiple purchases. To maximize growth, businesses should focus on popular cuisines, weekend marketing, and implementing loyalty programs to retain and engage customers.
 
-### Figure 2
+#### Figure 2
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(3, 1fr)",
-    gap: "10px",
-  }}
->
-  <div style={{ textAlign: "left" }}>
-    <p
-      style={{
-        marginBottom: "0px",
-        color: "#333",
-        fontSize: "12px",
-        fontWeight: "bold",
-      }}
-    >
-      #### A) Orders per Cuisine
-    </p>
+<div class="figure-grid figure-grid-3">
+  <div>
+    <p class="figure-label">A) Orders per Cuisine</p>
+
     ![Orders Per Cuisine](/images/Foodhub/cuisineOrdersPlot.png)
   </div>
-  <div style={{ textAlign: "left" }}>
-    <p
-      style={{
-        marginBottom: "0px",
-        color: "#333",
-        fontSize: "12px",
-        fontWeight: "bold",
-      }}
-    >
-      #### B) Orders on weekdays vs. weekends
-    </p>
+  <div>
+    <p class="figure-label">B) Orders on weekdays vs. weekends</p>
+
     ![Orders per weekday](/images/Foodhub/weekOrdersPlots.png)
   </div>
-  <div style={{ textAlign: "left" }}>
-    <p
-      style={{
-        marginBottom: "0px",
-        color: "#333",
-        fontSize: "12px",
-        fontWeight: "bold",
-      }}
-    >
-      #### C) Orders per customer ID
-    </p>
+  <div>
+    <p class="figure-label">C) Orders per customer ID</p>
+
     ![Customer Orders](/images/Foodhub/customerPlot.png)
   </div>
 </div>
@@ -173,37 +109,15 @@ Based on the multivariate analysis in figure 3A and 3B, there doesn't seem to be
 
 #### Figure 3
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)",
-    gap: "10px",
-  }}
->
-  <div style={{ textAlign: "left" }}>
-    <p
-      style={{
-        marginBottom: "4px",
-        color: "#333",
-        fontSize: "12px",
-        fontWeight: "bold",
-      }}
-    >
-      A) Heatmap
-    </p>
+<div class="figure-grid figure-grid-2">
+  <div>
+    <p class="figure-label">A) Heatmap</p>
+
     ![Multivariate Heatmap](/images/Foodhub/multivariateHeatmap.png)
   </div>
-  <div style={{ textAlign: "left" }}>
-    <p
-      style={{
-        marginBottom: "4px",
-        color: "#333",
-        fontSize: "12px",
-        fontWeight: "bold",
-      }}
-    >
-      B) Pairplot
-    </p>
+  <div>
+    <p class="figure-label">B) Pairplot</p>
+
     ![Multivariate Pairplot](/images/Foodhub/multivariatePairplot.png)
   </div>
 </div>
@@ -212,89 +126,32 @@ In my analysis of the delivery service data, I found consistent patterns across 
 
 #### Figure 4
 
-<div
-  style={{
-    display: "grid",
-    gridTemplateColumns: "repeat(2, 3fr)",
-    gap: "10px",
-  }}
->
-  <div style={{ textAlign: "left" }}>
-    <p
-      style={{
-        marginBottom: "4px",
-        color: "#333",
-        fontSize: "12px",
-        fontWeight: "bold",
-      }}
-    >
-      A) Delivery Time
-    </p>
+<div class="figure-grid figure-grid-2">
+  <div>
+    <p class="figure-label">A) Delivery Time</p>
+
     ![Delivery Subplots 1](/images/Foodhub/deliveryTimeSubplot.png)
   </div>
-  <div style={{ textAlign: "left" }}>
-    <p
-      style={{
-        marginBottom: "4px",
-        color: "#333",
-        fontSize: "12px",
-        fontWeight: "bold",
-      }}
-    >
-      _
-    </p>
+  <div>
+
     ![Delivery Subplots 2](/images/Foodhub/deliveryTimeSubplot2.png)
   </div>
-  <div style={{ textAlign: "left" }}>
-    <p
-      style={{
-        marginBottom: "4px",
-        color: "#333",
-        fontSize: "12px",
-        fontWeight: "bold",
-      }}
-    >
-      B) Food Preparation Time
-    </p>
+  <div>
+    <p class="figure-label">B) Food Preparation Time</p>
+
     ![Food Prep Subplots 1](/images/Foodhub/foodPrepTimeSubplot.png)
   </div>
-  <div style={{ textAlign: "left" }}>
-    <p
-      style={{
-        marginBottom: "4px",
-        color: "#333",
-        fontSize: "12px",
-        fontWeight: "bold",
-      }}
-    >
-      _
-    </p>
+  <div>
+
     ![Delivery Subplots 2](/images/Foodhub/deliveryTimeSubplot2.png)
   </div>
-  <div style={{ textAlign: "left" }}>
-    <p
-      style={{
-        marginBottom: "4px",
-        color: "#333",
-        fontSize: "12px",
-        fontWeight: "bold",
-      }}
-    >
-      C) Order Cost
-    </p>
+  <div>
+    <p class="figure-label">C) Order Cost</p>
+
     ![Order Costs Subplots 1](/images/Foodhub/orderCostSubplot.png)
   </div>
-  <div style={{ textAlign: "left" }}>
-    <p
-      style={{
-        marginBottom: "4px",
-        color: "#333",
-        fontSize: "12px",
-        fontWeight: "bold",
-      }}
-    >
-      _
-    </p>
+  <div>
+
     ![Order Costs Subplots 2](/images/Foodhub/orderCostSubplot2.png)
   </div>
 </div>

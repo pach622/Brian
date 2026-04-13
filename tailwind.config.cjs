@@ -21,6 +21,23 @@ module.exports = {
       backgroundImage: {
         'gradient-accent': 'linear-gradient(135deg, #7c3aed, #6366f1, #3b82f6)',
       },
+      typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            maxWidth: 'none',
+            lineHeight: '1.8',
+            p: {
+              marginTop: '1.25em',
+              marginBottom: '1.25em',
+            },
+          },
+        },
+        lg: {
+          css: {
+            lineHeight: '1.8',
+          },
+        },
+      }),
     },
   },
   plugins: [require('@tailwindcss/typography')],
