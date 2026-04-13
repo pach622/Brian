@@ -1,8 +1,11 @@
 ---
   import ColorToggle from '@/components/ColorToggle.svelte';
+  import MobileNav from '@/components/MobileNav.svelte';
+  import Email from '@/components/icons/Email.astro';
+  import GitHub from '@/components/icons/GitHub.astro';
+  import Linkedin from '@/components/icons/Linkedin.astro';
+  import { HANDLE_GITHUB, HANDLE_LINKEDIN, EMAIL } from '@/constants';
   import '@/styles/base.css';
-  // import '@/styles/global.css'
-  // import '../styles/tailwind.css';
   import { classNames } from '@/utils/styling';
   export interface Props {
     title?: string;
@@ -13,8 +16,8 @@
 
   const currentPath = new URL(Astro.request.url).pathname;
 
-  const hoverStyle = 'hover:bg-slate-100 dark:hover:bg-neutral-800';
-  const activeStyle = 'bg-slate-100 dark:bg-neutral-800';
+  const linkStyle = 'text-gray-500 dark:text-gray-400 hover:text-primary-dark-text dark:hover:text-primary-light transition-colors duration-200';
+  const activeStyle = 'text-primary-dark-text dark:text-primary-light';
 ---
 
 <!DOCTYPE html>
@@ -25,22 +28,21 @@
   <meta name="viewport" content="width=device-width" />
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <meta name="generator" content={Astro.generator} />
-  <title>{title && title + ' - '}@brian_pk_chan</title>
+  <title>{title ? `${title} - Brian Chan` : 'Brian Chan'}</title>
 
   <!-- SEO Stuff -->
   <link rel="canonical" href={Astro.request.url} />
-  <meta name="description" content={description ?? 'Personal website and blog of @brian_pk_chan' } />
+  <meta name="description" content={description ?? 'Brian Chan - Researcher in pharmacology and data science.' } />
   <meta name="robots" content="follow, index" />
 
   <!-- OG Card -->
   <meta property="og:site_name" content="brianphchan.com" />
-  <meta property="og:title" content={`${title} - @brianphchan`} />
+  <meta property="og:title" content={title ? `${title} - Brian Chan` : 'Brian Chan'} />
   <meta property="og:description" content={description
-    ?? "I'm a maker and freelance web developer based in Switzerland." } />
-  <meta property="og:url" content="http://brianphchan.com" />
-  <meta property="og:image" content="http://brianphchan.com/images/share.png" />
+    ?? "Brian Chan - Researcher in pharmacology and data science." } />
+  <meta property="og:url" content="https://brianphchan.com" />
+  <meta property="og:image" content="https://brianphchan.com/images/share.png" />
   <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary" />
 
   <!-- Analytics -->
   <script defer data-domain="brianphchan.com" data-api="/plausible/api/event" src="/plausible/js/script.js"></script>
@@ -65,36 +67,63 @@
   </script>
 </head>
 
-<body class="bg-white dark:bg-primary-dark text-primary-dark-text dark:text-primary-light">
-  <main class="space-y-10 md:space-y-14 pt-8 pb-2">
-    <div class="max-w-4xl flex justify-between items-start mx-auto px-4 sm:px-6">
-      <a href="/">
-        <img class="w-12" src="/images/logo.svg" />
-      </a>
-      <div class="font-medium flex items-center gap-2">
-        <a class={classNames('py-2 px-3 rounded-lg ', currentPath === ' /' ? activeStyle : hoverStyle)}
+<body class="bg-white dark:bg-primary-dark text-primary-dark-text dark:text-primary-light antialiased">
+  <main class="space-y-12 md:space-y-16 pt-8 pb-2">
+    <nav class="max-w-2xl mx-auto px-4 sm:px-6 md:px-0">
+      <div class="hidden md:flex items-center justify-center gap-8 text-sm">
+        <a class={classNames(currentPath === '/' ? activeStyle : linkStyle)}
           href="/">Home</a>
-        
-        <a class={classNames('py-2 px-3 rounded-lg ', currentPath.startsWith(' /caseStudies') ? activeStyle :
-          hoverStyle)} href="/caseStudies">Projects</a>
-        <a class={classNames('py-2 px-3 rounded-lg ', currentPath.startsWith(' /workExperience') ? activeStyle :
-          hoverStyle)} href="/workExperience">Work</a>
-        <a class={classNames('py-2 px-3 rounded-lg ', currentPath.startsWith(' /aboutMe') ? activeStyle : hoverStyle)}
+        <a class={classNames(currentPath.startsWith('/caseStudies') ? activeStyle : linkStyle)}
+          href="/caseStudies">Projects</a>
+        <a class={classNames(currentPath.startsWith('/workExperience') ? activeStyle : linkStyle)}
+          href="/workExperience">Work</a>
+        <a class={classNames(currentPath.startsWith('/aboutMe') ? activeStyle : linkStyle)}
           href="/aboutMe">About</a>
         <ColorToggle client:load />
       </div>
-    </div>
+      <div class="flex items-center justify-end gap-2 md:hidden">
+        <ColorToggle client:load />
+        <MobileNav client:load />
+      </div>
+    </nav>
     <div class="max-w-2xl mx-auto px-4 sm:px-6 md:px-0">
       <slot />
     </div>
   </main>
 
-  <footer class="flex justify-center pb-8 text-gray-300">
-    <p>
-      <a class="hover:underline" href="https://twitter.com/brian_pk_chan" target="_blank">brian_pk_chan</a> - &copy;{
-      new Date().getFullYear()
-      }
-    </p>
+  <footer class="max-w-2xl mx-auto px-4 sm:px-6 md:px-0 pb-8 pt-16">
+    <div class="border-t border-gray-100 dark:border-neutral-800 pt-8">
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-5">
+          <a
+            class="text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 transition-colors duration-200"
+            href={`https://www.linkedin.com/in/${HANDLE_LINKEDIN}`}
+            target="_blank"
+            aria-label="LinkedIn"
+          >
+            <Linkedin />
+          </a>
+          <a
+            class="text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 transition-colors duration-200"
+            href={`https://github.com/${HANDLE_GITHUB}`}
+            target="_blank"
+            aria-label="GitHub"
+          >
+            <GitHub />
+          </a>
+          <a
+            class="text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 transition-colors duration-200"
+            href={`mailto:${EMAIL}`}
+            aria-label="Email"
+          >
+            <Email />
+          </a>
+        </div>
+        <p class="text-gray-300 dark:text-gray-600 text-xs">
+          &copy; {new Date().getFullYear()} Brian Chan
+        </p>
+      </div>
+    </div>
   </footer>
 </body>
 

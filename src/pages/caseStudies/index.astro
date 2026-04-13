@@ -1,51 +1,39 @@
 ---
   import BlogPostPreview from '@/components/BlogPostPreview.astro';
-  import Email from '@/components/icons/Email.astro';
-  import GitHub from '@/components/icons/GitHub.astro';
-  import Linkedin from '@/components/icons/Linkedin.astro';
-  import Twitter from '@/components/icons/Twitter.astro';
-  import { EMAIL, HANDLE_GITHUB, HANDLE_TWITTER } from '@/constants';
   import Layout from '@/layouts/Layout.astro';
 
-  // Import all posts using import.meta.glob with eager loading
   const allPosts = Object.values(
     import.meta.glob('./**/*.mdx', { eager: true })
   );
 
-  // Ensure all posts have a frontmatter.pubDate and sort them
   const sortedRecentPosts = allPosts
-    .filter((post) => post.frontmatter && post.frontmatter.pubDate) // Exclude invalid posts
+    .filter((post) => post.frontmatter && post.frontmatter.pubDate)
     .sort((a, b) => new Date(b.frontmatter.pubDate).valueOf() - new Date(a.frontmatter.pubDate).valueOf())
 
-  // Group posts by year
   const postsByYear = sortedRecentPosts.reduce((acc, post) => {
     const year = new Date(post.frontmatter.pubDate).getFullYear();
     if (!acc[year]) acc[year] = [];
       acc[year].push(post);
     return acc;
-    }, {} as Record<number, Post[]>);
+    }, {} as Record<number, any[]>);
 
-      
-    const sortedYears = Object.keys(postsByYear).sort((a,b) => Number(b) - Number(a));
-    console.log('All posts:', sortedYears);
+  const sortedYears = Object.keys(postsByYear).sort((a,b) => Number(b) - Number(a));
 ---
 
-<Layout>
-  <div class = "space-y-6">
-    <div class = "py-6">
-      <h2 class = "text-4xl font-semibold">Read more about each project below!</h2>
-      <div class = "space-y-8 pt-8">
-        {sortedYears.map((year)=>(
-          <div key = {year}>
-            <h3 class = "text-xl font-semibold">{year}</h3>
-            <ul class = "py-2 space-y-2">
-              {postsByYear[year].map((post) => (
-                <BlogPostPreview post = {post}/>
-              ))} 
-            </ul>
+<Layout title="Projects">
+  <div class="space-y-12">
+    <h1 class="text-4xl font-semibold tracking-tight">Projects</h1>
+    <div class="space-y-10">
+      {sortedYears.map((year) => (
+        <div>
+          <h3 class="text-sm font-medium uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2">{year}</h3>
+          <div class="space-y-1">
+            {postsByYear[year].map((post) => (
+              <BlogPostPreview post={post} />
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   </div>
 </Layout>

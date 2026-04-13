@@ -1,35 +1,28 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import Newsletter from '@/components/Newsletter.astro';
-import '@/styles/base.css';
-import { classNames } from '@/utils/styling';
-import { getHumanizedDate } from '@/utils/date';
 
-// Validate and provide default frontmatter to avoid errors
-const { frontmatter = { 
-  title: 'Default Title', 
-  summary: 'Default Summary', 
-  workDuration: 'N/A', 
-  companyWebsite: '#', 
-  location: 'Unknown Location' 
+const { frontmatter = {
+  title: 'Default Title',
+  summary: 'Default Summary',
+  workDuration: 'N/A',
+  companyWebsite: '#',
+  location: 'Unknown Location'
 } } = Astro.props;
 ---
 
 <Layout title={frontmatter.title} description={frontmatter.summary}>
-  <div>
-    <article class="prose lg:prose-lg dark:prose-invert">
-      <!-- Page Title -->
-      <h1>{frontmatter.title}</h1>
-      
-      <!-- Work Duration and Location -->
-      <p>
-        👨🏻‍🔧 Was here between {frontmatter.workDuration} at 
-        <a href={frontmatter.companyWebsite} target="_blank" rel="noopener noreferrer">
-          {frontmatter.location}
-        </a>
+  <div class="space-y-8">
+    <a href="/workExperience" class="text-sm text-gray-400 dark:text-gray-500 hover:text-primary-dark-text dark:hover:text-primary-light transition-colors duration-200">
+      &larr; Work Experience
+    </a>
+    <div class="space-y-2">
+      <h1 class="text-3xl md:text-4xl font-semibold tracking-tight">{frontmatter.title}</h1>
+      <p class="text-sm text-gray-400 dark:text-gray-500">
+        {frontmatter.workDuration} &middot;
+        <a href={frontmatter.companyWebsite} target="_blank" rel="noopener noreferrer" class="hover:text-primary-dark-text dark:hover:text-primary-light transition-colors duration-200">{frontmatter.location}</a>
       </p>
-      
-      <!-- Slot Content -->
+    </div>
+    <article class="prose lg:prose-lg dark:prose-invert prose-gray">
       <slot />
     </article>
   </div>

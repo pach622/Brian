@@ -11,9 +11,15 @@ module.exports = {
         'primary-dark': '#070919',
         'primary-dark-text': '#1a202c',
         'primary-light': '#edf2f7',
+        'accent-start': '#7c3aed',
+        'accent-mid': '#6366f1',
+        'accent-end': '#3b82f6',
       },
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
+      },
+      backgroundImage: {
+        'gradient-accent': 'linear-gradient(135deg, #7c3aed, #6366f1, #3b82f6)',
       },
     },
   },
