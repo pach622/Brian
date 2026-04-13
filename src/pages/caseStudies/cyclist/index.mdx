@@ -5,6 +5,8 @@ summary: "This is a case-study on a cycle hire company, where I analyze recent h
 layout: ../../../layouts/BlogLayout.astro
 slug: /caseStudies/cyclist/index.mdx
 ---
+import BarChart from '../../../components/charts/BarChart.svelte';
+
 This is a project I completed during my Google course in data analytics. My main goal with this case-study was to familiarize myself with R-Studio syntax using a large dataset, as well as improve my ability to extract conclusions and provide recommendations from findings.
 
 ## Case Scenario
@@ -34,7 +36,17 @@ Overall, it can be concluded that members hire more bikes than casual users. But
 
 #### Figure 1
 
-![Graph showing number of biker hires by user type](/images/Cyclist/RideableByUserType.png)
+<BarChart client:visible
+  labels={['Classic Bike', 'Electric Bike']}
+  datasets={[
+    { label: 'Casual', data: [294268, 187155], backgroundColor: 'rgba(252, 141, 128, 0.85)' },
+    { label: 'Member', data: [379295, 187232], backgroundColor: 'rgba(91, 200, 186, 0.85)' }
+  ]}
+  title="Rideable Types by User Type"
+  xLabel="Rideable Type"
+  yLabel="Count"
+  formatValues="compact"
+/>
 
 #### Table 1
 
@@ -61,13 +73,33 @@ During the winter months, there seems to be a significantly larger number of mem
 
 #### Figure 4
 
-![Barplot showing most common rental times based on month](/images/Cyclist/MonthByUserType.png)
+<BarChart client:visible
+  labels={['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']}
+  datasets={[
+    { label: 'Casual', data: [18000, 15000, 70000, 130000, 275000, 370000, 405000, 345000, 350000, 265000, 105000, 60000], backgroundColor: 'rgba(252, 141, 128, 0.85)' },
+    { label: 'Member', data: [85000, 80000, 195000, 250000, 355000, 400000, 415000, 430000, 360000, 395000, 250000, 195000], backgroundColor: 'rgba(91, 200, 186, 0.85)' }
+  ]}
+  title="Rides per Month by Membership Type"
+  xLabel="Month"
+  yLabel="Number of Rides"
+  formatValues="compact"
+/>
 
 When looking at the day-specific data during the week (figure 5), we can see that member's rent bikes much more frequently during Monday-Friday periods, whereas casual users tend to use bikes during the weekends more than members.
 
 #### Figure 5
 
-![Barplot showing most common rental times based on weekdays](/images/Cyclist/WeekdayByUserType.png)
+<BarChart client:visible
+  labels={['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']}
+  datasets={[
+    { label: 'Casual', data: [93000, 55000, 45000, 58000, 62000, 68000, 105000], backgroundColor: 'rgba(252, 141, 128, 0.85)' },
+    { label: 'Member', data: [70000, 70000, 80000, 98000, 95000, 82000, 78000], backgroundColor: 'rgba(91, 200, 186, 0.85)' }
+  ]}
+  title="Trips by Weekday"
+  xLabel="Weekday"
+  yLabel="Number of Trips"
+  formatValues="compact"
+/>
 
 ### Is there a location specific use of bikes?
 

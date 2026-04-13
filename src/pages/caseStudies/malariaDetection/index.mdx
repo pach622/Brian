@@ -5,6 +5,9 @@ summary: "Using machine learning, I worked to creating a malaria-detection softw
 layout: ../../../layouts/BlogLayout.astro
 slug: /caseStudies/malariaDetection/index.mdx
 ---
+import LineChart from '../../../components/charts/LineChart.svelte';
+import ConfusionMatrix from '../../../components/charts/ConfusionMatrix.svelte';
+
 For my MIT Data Science program, I was required to do a incubator project. For my project, I chose to make a malaria-detection tool.
 
 ### Background:
@@ -100,13 +103,24 @@ After training, this model achieved an accuracy of 0.59 wiht a loss of 0.67. Con
 <div class="figure-grid figure-grid-2">
   <div>
     <p class="figure-label">A) Train-Validation Plot</p>
-
-    ![Train-Validation Plot for Model 1](/images/malariaDetection/model1TrainValidation.png)
+    <LineChart client:visible
+      labels={['0', '1', '2']}
+      datasets={[
+        { label: 'Train', data: [0.585, 0.605, 0.67], borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)' },
+        { label: 'Validation', data: [0.66, 0.60, 0.45], borderColor: '#f97316', backgroundColor: 'rgba(249,115,22,0.1)', borderDash: [6, 3] }
+      ]}
+      xLabel="Epoch"
+      yLabel="Accuracy"
+      yMin={0.4}
+      yMax={0.75}
+    />
   </div>
   <div>
     <p class="figure-label">B) Confusion Matrix</p>
-
-    ![Confusion Matrix for Model 1](/images/malariaDetection/model1ConfusionMatrix.png)
+    <ConfusionMatrix client:load
+      matrix={[[4051, 8325], [1815, 10767]]}
+      labels={['Uninfected', 'Parasitized']}
+    />
   </div>
 </div>
 
@@ -163,13 +177,24 @@ The model's performance is concerning, with a high loss (0.63) and low accuracy 
 <div class="figure-grid figure-grid-2">
   <div>
     <p class="figure-label">A) Train-Validation Plot</p>
-
-    ![Train-Validation Plot for Model 2](/images/malariaDetection/model2TrainValidation.png)
+    <LineChart client:visible
+      labels={['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16']}
+      datasets={[
+        { label: 'Train', data: [0.575,0.635,0.65,0.68,0.69,0.70,0.71,0.715,0.705,0.72,0.725,0.72,0.735,0.725,0.73,0.735,0.73], borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)' },
+        { label: 'Validation', data: [0.51,0.55,0.62,0.88,0.95,0.97,0.935,0.97,0.97,0.985,0.985,0.985,0.955,0.95,0.95,0.93,0.94], borderColor: '#f97316', backgroundColor: 'rgba(249,115,22,0.1)', borderDash: [6, 3] }
+      ]}
+      xLabel="Epoch"
+      yLabel="Accuracy"
+      yMin={0.45}
+      yMax={1.0}
+    />
   </div>
   <div>
     <p class="figure-label">B) Confusion Matrix</p>
-
-    ![Confusion Matrix for Model 2](/images/malariaDetection/model2ConfusionMatrix.png)
+    <ConfusionMatrix client:load
+      matrix={[[11950, 426], [10876, 1706]]}
+      labels={['Uninfected', 'Parasitized']}
+    />
   </div>
 </div>
 
@@ -230,13 +255,24 @@ The model shows modest improvement with a loss of 0.62 and accuracy of 66%, but 
 <div class="figure-grid figure-grid-2">
   <div>
     <p class="figure-label">A) Train-Validation Plot</p>
-
-    ![Train-Validation Plot for Model 3](/images/malariaDetection/model3TrainValidation.png)
+    <LineChart client:visible
+      labels={['0', '1', '2']}
+      datasets={[
+        { label: 'Train', data: [0.635, 0.665, 0.71], borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)' },
+        { label: 'Validation', data: [0.91, 0.70, 0.585], borderColor: '#f97316', backgroundColor: 'rgba(249,115,22,0.1)', borderDash: [6, 3] }
+      ]}
+      xLabel="Epoch"
+      yLabel="Accuracy"
+      yMin={0.5}
+      yMax={0.95}
+    />
   </div>
   <div>
     <p class="figure-label">B) Confusion Matrix</p>
-
-    ![Confusion Matrix for Model 3](/images/malariaDetection/model3ConfusionMatrix.png)
+    <ConfusionMatrix client:load
+      matrix={[[7864, 4512], [3781, 8801]]}
+      labels={['Uninfected', 'Parasitized']}
+    />
   </div>
 </div>
 
@@ -291,13 +327,24 @@ The model shows some improvement with a loss of 0.62 and accuracy of 66%, though
 <div class="figure-grid figure-grid-2">
   <div>
     <p class="figure-label">A) Train-Validation Plot</p>
-
-    ![Train-Validation Plot for Model 4](/images/malariaDetection/model4TrainValidation.png)
+    <LineChart client:visible
+      labels={['0','1','2','3','4','5','6','7','8','9','10','11','12','13']}
+      datasets={[
+        { label: 'Train', data: [0.583,0.605,0.635,0.64,0.645,0.66,0.661,0.656,0.66,0.68,0.68,0.675,0.685,0.685], borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)' },
+        { label: 'Validation', data: [0.61,0.61,0.595,0.62,0.64,0.63,0.65,0.653,0.652,0.655,0.657,0.66,0.66,0.665], borderColor: '#f97316', backgroundColor: 'rgba(249,115,22,0.1)', borderDash: [6, 3] }
+      ]}
+      xLabel="Epoch"
+      yLabel="Accuracy"
+      yMin={0.55}
+      yMax={0.7}
+    />
   </div>
   <div>
     <p class="figure-label">B) Confusion Matrix</p>
-
-    ![Confusion Matrix for Model 4](/images/malariaDetection/model4ConfusionMatrix.png)
+    <ConfusionMatrix client:load
+      matrix={[[12376, 0], [12582, 0]]}
+      labels={['Uninfected', 'Parasitized']}
+    />
   </div>
 </div>
 
@@ -359,13 +406,24 @@ The model shows excellent performance with a low loss of 0.17 and high accuracy 
 <div class="figure-grid figure-grid-2">
   <div>
     <p class="figure-label">A) Train-Validation Plot</p>
-
-    ![Train-Validation Plot for Pre Trained Model](/images/malariaDetection/preTrainedTrainValidation.png)
+    <LineChart client:visible
+      labels={['0','1','2','3','4','5','6','7']}
+      datasets={[
+        { label: 'Train', data: [0.83,0.873,0.877,0.895,0.907,0.90,0.915,0.92], borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.1)' },
+        { label: 'Validation', data: [0.89,0.93,0.88,0.94,0.935,0.90,0.92,0.95], borderColor: '#f97316', backgroundColor: 'rgba(249,115,22,0.1)', borderDash: [6, 3] }
+      ]}
+      xLabel="Epoch"
+      yLabel="Accuracy"
+      yMin={0.82}
+      yMax={0.96}
+    />
   </div>
   <div>
     <p class="figure-label">B) Confusion Matrix</p>
-
-    ![Confusion Matrix for Pre Trained Model](/images/malariaDetection/preTrainedConfusionMatrix.png)
+    <ConfusionMatrix client:load
+      matrix={[[1136, 164], [15, 1285]]}
+      labels={['Uninfected', 'Parasitized']}
+    />
   </div>
 </div>
 
