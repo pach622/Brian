@@ -6,14 +6,21 @@
 ---
 
 <Layout title={frontmatter.title} description={frontmatter.summary}>
-  <div class="space-y-8">
-    <a href="/caseStudies" class="text-sm text-gray-400 dark:text-gray-500 hover:text-primary-dark-text dark:hover:text-primary-light transition-colors duration-200">
+  <div class="space-y-6">
+    <a href="/caseStudies" class="inline-flex items-center gap-1 text-sm text-gray-400 dark:text-gray-500 hover:text-primary-dark-text dark:hover:text-primary-light transition-colors duration-200">
       &larr; Projects
     </a>
-    <div class="space-y-2">
-      <h1 class="text-3xl md:text-4xl font-semibold tracking-tight">{frontmatter.title}</h1>
+
+    <header class="space-y-3">
+      <h1 class="text-3xl md:text-4xl font-semibold tracking-tight leading-tight">{frontmatter.title}</h1>
       <p class="text-sm text-gray-400 dark:text-gray-500">{getHumanizedDate(frontmatter.pubDate)}</p>
-    </div>
+      {frontmatter.summary && (
+        <p class="text-base text-gray-500 dark:text-gray-400 leading-relaxed">{frontmatter.summary}</p>
+      )}
+    </header>
+
+    <hr class="border-gray-200 dark:border-neutral-800" />
+
     <article class="prose lg:prose-lg dark:prose-invert prose-gray">
       <slot />
     </article>

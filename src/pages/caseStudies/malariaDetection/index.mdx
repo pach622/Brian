@@ -95,10 +95,20 @@ def create_sequential_cnn_1(input_shape, ):
 After training, this model achieved an accuracy of 0.59 wiht a loss of 0.67. Considering the loss is high and the accuracy is low, this suggests that the current model is making significant errors in many instances. Furthermore, the validation/training plot shows a decrease in validation with an increase in training accuracy (Figure 2A), suggesting it is not generalized to unseen data and is overfitting to the training set. When considering the confusion matrix, we can see that the current model is inaccurate at recalling uninfected and parasitized images (Figure 2B).
 
 
-#### Figure 2A
-![Train-Validation Plot for Model 1](/images/malariaDetection/model1TrainValidation.png)
-#### Figure 2B
-![Confusion Matrix for Model 1](/images/malariaDetection/model1ConfusionMatrix.png)
+#### Figure 2
+
+<div class="figure-grid figure-grid-2">
+  <div>
+    <p class="figure-label">A) Train-Validation Plot</p>
+
+    ![Train-Validation Plot for Model 1](/images/malariaDetection/model1TrainValidation.png)
+  </div>
+  <div>
+    <p class="figure-label">B) Confusion Matrix</p>
+
+    ![Confusion Matrix for Model 1](/images/malariaDetection/model1ConfusionMatrix.png)
+  </div>
+</div>
 
 ### Model 2 - Adding more layers
 Since the previous model didn't work very well, I wanted to see how adding more layers would help. My logic is that if you have more of something, it should work better right? Quick answer is no! Below is the code for the model:
@@ -144,14 +154,24 @@ def create_sequential_cnn_2(input_shape, ):
                   metrics=["accuracy"])
 
     return model
-    ```
+```
 
 The model's performance is concerning, with a high loss (0.63) and low accuracy (54%). While overfitting has improved compared to the previous model, it remains problematic – the validation accuracy plateaus higher than training accuracy (Figure 3A), indicating poor generalization to new data. Most critically, the model produces many false negatives (Figure 3B), which would be dangerous for malaria diagnosis since it means missing actual cases of the disease.
 
-#### Figure 3A
-![Train-Validation Plot for Model 2](/images/malariaDetection/model2TrainValidation.png)
-#### Figure 3B
-![Confusion Matrix for Model 2](/images/malariaDetection/model2ConfusionMatrix.png)
+#### Figure 3
+
+<div class="figure-grid figure-grid-2">
+  <div>
+    <p class="figure-label">A) Train-Validation Plot</p>
+
+    ![Train-Validation Plot for Model 2](/images/malariaDetection/model2TrainValidation.png)
+  </div>
+  <div>
+    <p class="figure-label">B) Confusion Matrix</p>
+
+    ![Confusion Matrix for Model 2](/images/malariaDetection/model2ConfusionMatrix.png)
+  </div>
+</div>
 
 ### Model 3
 Since both of the previous models didn't result in better accuracy, I needed another method to improve recall. One of the things that I thought would be a good idea is to introduce batch normalization. Reason being that by normalizating all inputs, we can reduce variability in our input. This should be able to improve our accuracy! The code is below: 
@@ -205,10 +225,20 @@ def create_sequential_cnn_3(input_shape, ):
 
 The model shows modest improvement with a loss of 0.62 and accuracy of 66%, but still performs poorly overall. The training accuracy is increasing while validation accuracy decreases (Figure 4A), indicating the model is overfitting – it's becoming worse at handling new data despite performing better on training data. While overfitting has improved from the previous model, it remains problematic. The confusion matrix reveals significant false positives and negatives (Figure 4B), showing the model struggles to distinguish between infected and uninfected samples.
 
-#### Figure 4A
-![Train-Validation Plot for Model 3](/images/malariaDetection/model3TrainValidation.png)
-#### Figure 4B
-![Confusion Matrix for Model 3](/images/malariaDetection/model3ConfusionMatrix.png)
+#### Figure 4
+
+<div class="figure-grid figure-grid-2">
+  <div>
+    <p class="figure-label">A) Train-Validation Plot</p>
+
+    ![Train-Validation Plot for Model 3](/images/malariaDetection/model3TrainValidation.png)
+  </div>
+  <div>
+    <p class="figure-label">B) Confusion Matrix</p>
+
+    ![Confusion Matrix for Model 3](/images/malariaDetection/model3ConfusionMatrix.png)
+  </div>
+</div>
 
 
 ### Model 4: Including Data Augmentation
@@ -256,10 +286,20 @@ validation_generator = validation_generator_settings.flow(
 
 The model shows some improvement with a loss of 0.62 and accuracy of 66%, though performance remains mediocre. More positively, both training and validation accuracy are increasing (Figure 6A), indicating the model is learning without overfitting and getting better at handling new data. However, there's a concerning bias toward classifying images as uninfected, leading to false negatives (Figure 6B). This is particularly problematic for malaria diagnosis, where missing infected cases could have serious health consequences. Given these issues and the critical nature of healthcare applications, this model is not suitable for clinical use.
 
-#### Figure 6A
-![Train-Validation Plot for Model 4](/images/malariaDetection/model4TrainValidation.png)
-#### Figure 6B
-![Confusion Matrix for Model 4](/images/malariaDetection/model4ConfusionMatrix.png)
+#### Figure 6
+
+<div class="figure-grid figure-grid-2">
+  <div>
+    <p class="figure-label">A) Train-Validation Plot</p>
+
+    ![Train-Validation Plot for Model 4](/images/malariaDetection/model4TrainValidation.png)
+  </div>
+  <div>
+    <p class="figure-label">B) Confusion Matrix</p>
+
+    ![Confusion Matrix for Model 4](/images/malariaDetection/model4ConfusionMatrix.png)
+  </div>
+</div>
 
 ### Pre-Trained Model: VGG16
 After many iterations of the home-made model, I realized that it is very difficult to make a good machine learning model. Also, the whole point of this project was to compare with an existing pre-trained model. So, I decided to stop there with my home-made one, and use this VGG16 pre-trained model as a comparison. The code is below:
@@ -314,11 +354,20 @@ model.compile(optimizer=Adam(lr=0.0001), loss='binary_crossentropy', metrics=['a
 
 The model shows excellent performance with a low loss of 0.17 and high accuracy of 93%. Both training and validation accuracy are increasing and maintaining high levels (85-94%) (Figure 7A), indicating the model effectively learns and generalizes to new data without overfitting. Crucially for malaria diagnosis, the model demonstrates strong performance in detecting both infected and uninfected cases, with particularly low false negatives (Figure 7B). Given these strong metrics and reliable performance, this model appears well-suited for clinical malaria diagnosis applications.
 
-#### Figure 7A
-![Train-Validation Plot for Pre Trained Model](/images/malariaDetection/preTrainedTrainValidation.png)
+#### Figure 7
 
-#### Figure 7B
-![Confusion Matrix for Pre Trained Model](/images/malariaDetection/preTrainedConfusionMatrix.png)
+<div class="figure-grid figure-grid-2">
+  <div>
+    <p class="figure-label">A) Train-Validation Plot</p>
+
+    ![Train-Validation Plot for Pre Trained Model](/images/malariaDetection/preTrainedTrainValidation.png)
+  </div>
+  <div>
+    <p class="figure-label">B) Confusion Matrix</p>
+
+    ![Confusion Matrix for Pre Trained Model](/images/malariaDetection/preTrainedConfusionMatrix.png)
+  </div>
+</div>
 
 ### Conclusion
 
