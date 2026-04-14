@@ -1,0 +1,161 @@
+---
+title: "Automating Axon Measurement: From ImageJ Click-Fest to CellProfiler + Python"
+pubDate: "2023-03-10"
+summary: "How I reduced a four-month manual-measurement task to a scripted pipeline during my Master's at the Francis Crick Institute, and what I learned about when to stop using your mouse."
+layout: ../../../layouts/BlogLayout.astro
+slug: /caseStudies/axonMeasurement/index.mdx
+---
+import BarChart from '../../../components/charts/BarChart.svelte';
+
+During my Master's project at the [Francis Crick Institute](/workExperience/francisCrick), I spent an embarrassing amount of time drawing lines on a screen. This is the story of how I stopped, and the pipeline I built to replace myself.
+
+## The setup
+
+The [Serio Lab](/workExperience/francisCrick) studies motor neuron biology, and one of their platforms uses 3D-printed PDMS (polydimethylsiloxane) microfluidic devices to grow cortical and spinal motor neurons in controlled geometries. The devices have narrow channels that force axons to grow in specific directions, which lets you measure **axonal outgrowth** (how far axons project from a cell body) in a reproducible way.
+
+My job was to optimize one of these platforms. "Optimize" meant running about a dozen experimental conditions, imaging each condition at multiple timepoints, and measuring axon lengths across hundreds or thousands of axons per condition.
+
+That last part is where things broke.
+
+## The manual pipeline: why it hurt
+
+The existing workflow in the lab looked like this:
+
+1. Image a device on a fluorescent microscope. Each image is a tile-scanned composite of a multi-mm device, showing hundreds of axons.
+2. Open it in ImageJ.
+3. Click on the **cell body**, click on the **axon tip**, let the ImageJ line tool tell you the pixel length.
+4. Record the length.
+5. Repeat. Hundreds of times. Per image. Across dozens of images. Per experimental condition.
+
+A single experimental repeat could produce thousands of lines to measure. With ten experimental repeats, that's ~20,000–50,000 measurements. This is a real number, not a rhetorical one.
+
+Even being generous — say, 5 seconds per axon — that's around 40 hours of uninterrupted clicking per repeat. Nobody clicks uninterrupted for 40 hours. The real number was closer to 2-3 weeks of mental fatigue per dataset.
+
+And the results had issues:
+
+- **Inter-rater variability**: different people drew their endpoints slightly differently.
+- **Sampling bias**: when you get tired, you select the clear axons and skip the messy ones. Your data drifts toward whichever axons are easy to measure.
+- **No reproducibility**: there was no record of which specific pixels were measured. If a reviewer asked you to redo the analysis three months later, you started from scratch.
+
+I tried to automate this early in my project and failed. My first attempt was to run ImageJ's built-in "Skeletonize" on the fluorescent images and then extract branch lengths. The problem was cellular debris.
+
+## The debris problem
+
+Motor neuron cultures have a **lot** of non-neuronal garbage. Dead cells, bits of PDMS from the device, fluorescent speckles from off-target staining. Here is what a binary threshold looks like on a representative field:
+
+- Real axons: thin, continuous, directional.
+- Debris: round blobs, short fragments, isolated dots.
+
+When you skeletonize a thresholded image that contains both, the skeleton picks up **every connected component**. A 20-pixel debris blob becomes a 20-pixel "axon." An axon that's interrupted by a debris blob becomes two shorter axons. The measured distribution gets polluted in a way that's impossible to correct downstream.
+
+I consulted three ImageJ experts in the building. Everyone said the same thing: pre-process to remove debris before you skeletonize, or you'll never get clean numbers. Nobody had a clean way to do the pre-processing.
+
+So I gave up on automation for a while and went back to clicking. Which, in hindsight, was the right call — because I didn't yet have the right tool.
+
+## Enter CellProfiler
+
+About four months into the project, my supervisor pointed me at [CellProfiler](https://cellprofiler.org/), which I hadn't used before. CellProfiler is a modular image analysis tool aimed at biologists. The key thing for my purposes was its **shape-based filtering**: once you've segmented your image into objects, you can filter out objects based on properties like area, aspect ratio, eccentricity, or solidity.
+
+This turns out to be exactly the right tool for "get rid of the round blobs and keep the long skinny ones."
+
+My CellProfiler pipeline was, in rough order:
+
+```
+1. IdentifyPrimaryObjects     - threshold the fluorescent channel
+2. MeasureObjectSizeShape     - compute area, perimeter, eccentricity, solidity
+3. FilterObjects              - keep only objects with:
+                                  eccentricity > 0.98   (very elongated)
+                                  solidity < 0.4        (not a blob)
+                                  area > 50 pixels      (not speckle)
+4. SaveImages                  - export the cleaned binary mask as PNG
+```
+
+Eccentricity close to 1 means "line-like." Solidity below 0.4 means "the shape has a much bigger bounding ellipse than itself" — a classic property of thin, curved structures like axons. The specific thresholds took a day or two of tuning on representative fields.
+
+After this step, the images went from "axons + debris" to essentially "just axons." It wasn't perfect — some debris still snuck through when it happened to be elongated, and some real axons got filtered when they happened to be very short — but the signal-to-noise improved enough that skeletonization became usable.
+
+## The Python layer
+
+CellProfiler gave me clean masks. Now I needed to measure axon lengths on them, and I needed to do it automatically across hundreds of images.
+
+I used `skimage` (scikit-image) for the image-processing primitives and wrote a small Python script that:
+
+1. Loaded each mask image from the CellProfiler output.
+2. Ran `skimage.morphology.skeletonize` to reduce each axon to a single-pixel-wide centerline.
+3. Labeled connected components (each axon becomes its own labeled region).
+4. For each labeled region, traced the skeleton and computed its **geodesic length** (actual path length, not straight-line endpoint distance).
+5. Filtered out components below a minimum length threshold.
+6. Wrote results to a CSV with columns for image ID, condition, and axon length.
+
+Here is a simplified version of the core loop:
+
+```python
+import numpy as np
+from skimage import io
+from skimage.morphology import skeletonize, label
+from skimage.measure import regionprops
+from scipy.ndimage import distance_transform_edt
+
+def measure_axons(mask_path, min_length_px=30):
+    mask = io.imread(mask_path) > 0
+    skeleton = skeletonize(mask)
+    labeled = label(skeleton, connectivity=2)
+
+    results = []
+    for region in regionprops(labeled):
+        # Approximate geodesic length as pixel count along skeleton
+        length_px = region.area
+        if length_px >= min_length_px:
+            results.append({
+                "label": region.label,
+                "length_px": length_px,
+                "centroid_y": region.centroid[0],
+                "centroid_x": region.centroid[1],
+            })
+    return results
+```
+
+The real script was longer — it handled per-device metadata, pixel-to-micron conversion, and produced per-condition summary statistics. But the core is above.
+
+## What actually changed
+
+The honest comparison between manual and automated workflows:
+
+<BarChart client:visible
+  labels={['Manual (ImageJ)', 'CellProfiler + Python']}
+  datasets={[
+    { label: 'Hours per experimental repeat', data: [40, 22], backgroundColor: ['rgba(252, 141, 128, 0.85)', 'rgba(91, 200, 186, 0.85)'] }
+  ]}
+  title="Analysis time per experimental repeat"
+  subtitle="Approximate, from project logs. Includes tuning/setup time for pipeline."
+  xLabel=""
+  yLabel="Hours"
+  showLegend={false}
+  aspectRatio={2.1}
+/>
+
+Approximately **50% reduction in analysis time per repeat**. That's the headline number I usually quote. But the non-time benefits were arguably more important:
+
+- **Reproducibility**: the exact same measurement, from the exact same pixels, every time. If I needed to rerun the analysis with a slightly different filter, I changed one number and re-ran.
+- **No sampling bias**: the pipeline measured every valid axon in every image, not just the ones that looked easy to click.
+- **Auditability**: every number in the final dataset could be traced back to an input image and a line of code. For science that's eventually going in a paper or thesis, this matters.
+- **Scalability**: when my supervisor asked "what if we added two more conditions?" the answer stopped being "two more weeks of clicking."
+
+## What I didn't do
+
+Two honest caveats:
+
+**I never validated the pipeline against ground truth.** I didn't have time. The project ended before I could run a head-to-head comparison between pipeline-derived lengths and a careful manual re-measurement of the same images. This is the thing I'd do first if I went back.
+
+**I didn't handle crossing axons well.** If two axons intersect in the skeleton, the pipeline treats the whole thing as one connected component. In dense fields, this underestimates axon count and overestimates individual lengths. The fix is branch-point detection on the skeleton, which I started but didn't finish.
+
+So: a real improvement, but not a solved problem. The pipeline was a tool for my supervisor and labmates to build on, not a final product.
+
+## Takeaways
+
+1. **The hard part is not the measurement.** The hard part is getting a clean enough input to measure. Most of the value was in the debris-removal step, not in the length calculation.
+2. **Modular tools beat monoliths for exploratory work.** CellProfiler did segmentation. Python did measurement and aggregation. Glue scripts did orchestration. If any one of those three had been a rewrite-from-scratch, the project wouldn't have happened.
+3. **Validate before scaling.** The thing I most regret skipping is the ground-truth comparison. Always validate against a manually-annotated subset, even a small one. Otherwise you've just automated the production of numbers you can't defend.
+4. **Ugly, working code wins over clean, hypothetical code.** The first version of this pipeline had hard-coded file paths and no config system. It still saved the project. I cleaned it up later when I had time.
+
+The whole experience also pushed me toward a broader realization about my career — that I liked the analysis side of biology more than the bench side. That story is told separately in [From Pharmacology to Data Science](/caseStudies/pharmaToDS). Thanks for reading! 🧬

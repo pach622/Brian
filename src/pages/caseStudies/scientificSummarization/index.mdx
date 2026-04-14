@@ -1,0 +1,213 @@
+---
+title: "Summarizing Scientific Abstracts: Do We Really Need LLMs?"
+pubDate: "2026-02-18"
+summary: "I compared four classical extractive summarization algorithms on 12 real biomedical ML abstracts. The 1958 algorithm beats the 2004 algorithms. No GPUs were harmed."
+layout: ../../../layouts/BlogLayout.astro
+slug: /caseStudies/scientificSummarization/index.mdx
+---
+import BarChart from '../../../components/charts/BarChart.svelte';
+
+Every time I open my LinkedIn, someone is launching a new LLM-powered paper-summarization tool. Which is fine, LLMs are great. But it made me curious: **how well do the classical pre-neural methods actually do on this task?** If a 1958 algorithm can hit 80% of the quality of GPT-4 while running in half a millisecond on CPU, that's a useful thing to know.
+
+So I ran the experiment. This article walks through the methods, the code (all of it written from scratch), and what surprised me.
+
+## The setup
+
+**Task:** Given a full PubMed abstract (usually 200-350 words, structured as Background / Methods / Results / Conclusion), produce a 3-sentence summary.
+
+**Data:** 12 real abstracts from publicly accessible biomedical ML papers, picked to span a range of topics: diabetic retinopathy, skin cancer classification, ECG arrhythmia detection, protein structure prediction, sepsis early warning, and more. Every abstract is at least 150 words. I used each paper's **final (conclusion) sentence** as the reference summary — this is the author's own one-sentence version of "what we found."
+
+**Methods:** Four classical extractive algorithms, all implemented from scratch in ~250 lines of numpy:
+
+- **Luhn (1958)** — pick sentences that are dense with high-frequency content words.
+- **TextRank (2004)** — run PageRank on a sentence-similarity graph.
+- **LexRank (2004)** — same idea, but with a thresholded binary graph.
+- **LSA (Latent Semantic Analysis, 2001)** — SVD of the TF-IDF matrix, pick sentences that score highly on the top singular vectors.
+
+Three of these algorithms are older than I am. Two of them are older than half of my CS undergrad textbook.
+
+**Evaluation:** ROUGE-1, ROUGE-2, ROUGE-L against the author's conclusion sentence. Plus wall-clock time per abstract and compression ratio.
+
+## The algorithms, briefly
+
+### Luhn (1958)
+
+The oldest and arguably most elegant. Hans Peter Luhn, an IBM researcher, observed that if you strip stopwords and look at the remaining "content" words, high-information sentences tend to have **clusters of frequent content words packed close together**.
+
+```python
+def summarize_luhn(text, n_sentences=3):
+    sentences = split_sentences(text)
+    all_tokens = tokenize(text)
+    freq = Counter(all_tokens)
+    cutoff = sorted(freq.values(), reverse=True)[len(freq) // 4]
+    significant = {w for w, c in freq.items() if c >= cutoff}
+
+    scores = []
+    for s in sentences:
+        tokens = tokenize(s, remove_stopwords=False)
+        sig_positions = [i for i, t in enumerate(tokens) if t in significant]
+        if len(sig_positions) < 2:
+            scores.append(0); continue
+        span = sig_positions[-1] - sig_positions[0] + 1
+        scores.append((len(sig_positions) ** 2) / span)
+
+    top_idx = sorted(sorted(range(len(scores)),
+                     key=lambda i: scores[i], reverse=True)[:n_sentences])
+    return [sentences[i] for i in top_idx]
+```
+
+That's the whole algorithm. Score = (number of significant words)² / (span containing them). Pick the top N. No ML, no training, no GPUs.
+
+### TextRank (2004)
+
+PageRank over sentences. Build a graph where each sentence is a node and edges are cosine similarities on TF-IDF vectors. Run the power iteration. Pick top N.
+
+```python
+def summarize_textrank(text, n_sentences=3, damping=0.85):
+    sentences = split_sentences(text)
+    mat = tf_idf_matrix(sentences)
+    norms = np.linalg.norm(mat, axis=1, keepdims=True); norms[norms == 0] = 1
+    sim = (mat / norms) @ (mat / norms).T
+    np.fill_diagonal(sim, 0)
+    row_sums = sim.sum(axis=1, keepdims=True); row_sums[row_sums == 0] = 1
+    M = sim / row_sums
+
+    n = len(sentences)
+    scores = np.ones(n) / n
+    for _ in range(100):
+        new_scores = (1 - damping) / n + damping * (M.T @ scores)
+        if np.linalg.norm(new_scores - scores) < 1e-4: break
+        scores = new_scores
+
+    top_idx = sorted(sorted(range(n),
+                     key=lambda i: scores[i], reverse=True)[:n_sentences])
+    return [sentences[i] for i in top_idx]
+```
+
+The intuition: if lots of other sentences are similar to sentence X, then X is probably central to what the abstract is about.
+
+### LexRank (2004) and LSA
+
+LexRank is TextRank with a twist — edges below a similarity threshold are dropped, and the rest are treated as unweighted. LSA uses the SVD of the TF-IDF matrix to find "topics" and scores sentences by their magnitude in the top-K topic space. I'll spare you the code blocks, but the full implementations are [on GitHub with this post](https://github.com/pach622/Brian).
+
+## Results
+
+Here's what 12 abstracts × 4 algorithms × ROUGE-1/2/L gave me:
+
+<BarChart client:visible
+  labels={['Luhn', 'TextRank', 'LexRank', 'LSA']}
+  datasets={[
+    { label: 'ROUGE-1', data: [0.383, 0.283, 0.244, 0.227], backgroundColor: 'rgba(99, 102, 241, 0.85)' },
+    { label: 'ROUGE-2', data: [0.344, 0.214, 0.147, 0.134], backgroundColor: 'rgba(139, 92, 246, 0.85)' },
+    { label: 'ROUGE-L', data: [0.369, 0.260, 0.199, 0.197], backgroundColor: 'rgba(59, 130, 246, 0.85)' }
+  ]}
+  title="ROUGE scores vs. author-written conclusion sentence"
+  subtitle="n = 12 biomedical ML abstracts, target = 3 sentences"
+  xLabel="Algorithm"
+  yLabel="ROUGE F1"
+  aspectRatio={1.8}
+/>
+
+<BarChart client:visible
+  labels={['Luhn', 'TextRank', 'LexRank', 'LSA']}
+  datasets={[
+    { label: 'Average time (ms)', data: [0.18, 0.35, 0.45, 0.30], backgroundColor: 'rgba(239, 68, 68, 0.75)' }
+  ]}
+  title="Average processing time per abstract"
+  subtitle="On a single CPU, no GPU. All algorithms are sub-millisecond."
+  xLabel="Algorithm"
+  yLabel="Time (ms)"
+  showLegend={false}
+  aspectRatio={1.8}
+/>
+
+A few things jumped out:
+
+1. **Luhn (1958) wins on every ROUGE metric.** By a pretty solid margin — roughly 35% higher ROUGE-1 than the next-best algorithm.
+2. **All four algorithms are extremely fast.** We're talking hundreds of microseconds per abstract. You could summarize the entire PubMed backlog on a laptop.
+3. **LSA and LexRank, the "more sophisticated" algorithms, are the worst.** This is not what I expected.
+
+## Why does Luhn win?
+
+Short answer: **because scientific abstracts hide their main result in the last sentence**, and Luhn is biased toward picking the last sentence. Let me show you what I mean.
+
+I tracked which sentence positions each algorithm prefers (opening / middle / closing third of the abstract) and how often each algorithm includes the **final sentence** of the abstract in its summary:
+
+<BarChart client:visible
+  labels={['Luhn', 'TextRank', 'LexRank', 'LSA']}
+  datasets={[
+    { label: 'Includes final sentence', data: [66.7, 41.7, 25.0, 25.0], backgroundColor: 'rgba(99, 102, 241, 0.85)' }
+  ]}
+  title="How often each algorithm picks the final (conclusion) sentence"
+  subtitle="Percentage of the 12 abstracts"
+  xLabel="Algorithm"
+  yLabel="% of abstracts"
+  showLegend={false}
+  aspectRatio={1.8}
+/>
+
+Luhn picks the final sentence 66.7% of the time. LexRank and LSA only 25%. Since our reference summary **is** the final sentence, Luhn's ROUGE scores are inflated by this structural bias. It's not that Luhn is smarter — it's that Luhn's "dense clusters of content words" heuristic happens to match how researchers write concluding sentences ("these results suggest... deep learning systems can provide... screening... specialist access..." — every word is a high-frequency content word).
+
+TextRank, in contrast, is designed to find **central** sentences — ones that are similar to many other sentences. In a well-structured abstract, central sentences are in the middle (the methods/results), not the conclusion.
+
+This is a nice lesson: **don't confuse algorithm sophistication with task-appropriateness**. The simpler algorithm won because its bias matched the structure of the data.
+
+## A real example
+
+Here's one of the 12 abstracts. The reference (author's conclusion) is:
+
+> These results suggest that deep learning systems can provide accurate, scalable retinal screening, particularly in underserved regions where specialist access is limited.
+
+And here's what each algorithm produced (3 sentences, in original order):
+
+**Luhn:**
+> Diabetic retinopathy is a leading cause of blindness in working-age adults worldwide, and its timely diagnosis is essential to prevent vision loss. In this study, we developed a deep convolutional neural network to classify the severity of diabetic retinopathy from color fundus photographs. These results suggest that deep learning systems can provide accurate, scalable retinal screening, particularly in underserved regions where specialist access is limited.
+
+**TextRank:**
+> Manual grading of retinal fundus images is labor-intensive and subject to inter-grader variability, creating a strong need for automated screening tools. In this study, we developed a deep convolutional neural network to classify the severity of diabetic retinopathy from color fundus photographs. The model was trained on 88,702 images from the EyePACS dataset and validated on two independent datasets comprising 9,963 images each.
+
+**LexRank:**
+> Diabetic retinopathy is a leading cause of blindness in working-age adults worldwide, and its timely diagnosis is essential to prevent vision loss. The model was trained on 88,702 images from the EyePACS dataset and validated on two independent datasets comprising 9,963 images each. Performance was comparable to that of board-certified ophthalmologists on the same images.
+
+**LSA:**
+> In this study, we developed a deep convolutional neural network to classify the severity of diabetic retinopathy from color fundus photographs. The model was trained on 88,702 images from the EyePACS dataset and validated on two independent datasets comprising 9,963 images each. Performance was comparable to that of board-certified ophthalmologists on the same images.
+
+If you imagine being a busy clinician trying to decide whether to read the full paper, **TextRank's and LexRank's summaries are actually more useful** than Luhn's — they tell you the dataset size and the comparison point. Luhn tells you the problem and the conclusion, which you could get from the title.
+
+In other words, **ROUGE penalizes the summaries that a human might actually prefer.** Welcome to NLP evaluation.
+
+## When should you actually use what?
+
+After running this, here's my quick rubric:
+
+| Goal | Algorithm |
+|---|---|
+| Match a "TL;DR" with the author's own bottom line | **Luhn** |
+| Explain what the paper did | **TextRank** |
+| Summarize many papers very fast on cheap hardware | **Luhn or LSA** — both &lt;1ms |
+| Pull out distinct "topics" from a long document | **LSA** |
+| Handle documents without a clear structural bias | **TextRank** |
+| You need a genuine abstractive paraphrase | **Reach for a real LLM** |
+
+The last row is important. None of these algorithms will ever **paraphrase**. They only extract sentences verbatim. If your downstream consumer needs a rewritten summary — in a different voice, with synthesized key points across sections — you need neural abstractive methods (BART, PEGASUS, or just GPT-4).
+
+## So, do we need LLMs?
+
+**For high-volume first-pass filtering**, these classical methods are extraordinary value. 0.2 milliseconds per abstract means you could summarize all of PubMed (30 million+ abstracts) in under two hours on a laptop. Good luck doing that with GPT-4 on an API budget.
+
+**For high-quality individual summaries**, yeah, call the LLM. The gap between "Luhn picks the conclusion sentence" and "GPT-4 writes a 3-sentence paraphrase that actually synthesizes methods and results" is real and probably widens as the document gets longer.
+
+**For teaching yourself NLP**, I cannot recommend this kind of exercise enough. Reading the Luhn paper and writing the algorithm yourself teaches you more about what summarization actually *is* than reading the documentation for any pretrained model ever will.
+
+## Caveats
+
+A few honest limitations:
+
+- **n = 12 is small.** A bigger, more diverse corpus would give more stable ROUGE estimates. My standard deviations are large (Luhn's ROUGE-1 was 0.383 ± 0.212).
+- **One reference summary per abstract.** ROUGE is sensitive to reference choice. If I used the abstract's first sentence instead, TextRank probably wins.
+- **Biomedical ML abstracts are a specific genre.** These results might not transfer to, say, humanities papers, patents, or news articles — all of which have different structural conventions.
+- **No neural baseline.** I wasn't able to run BART/PEGASUS in the environment I had available, so I can't quantify exactly how much better neural methods would do. My guess, based on the literature, is ROUGE-1 in the 0.40-0.45 range on a similar task. Not dramatically better than Luhn.
+
+## Thanks for reading
+
+The full code is in [the repo](https://github.com/pach622/Brian) under `tools/nlp-experiment/`. If you want to run this yourself on your own abstracts, you only need numpy. 🧠

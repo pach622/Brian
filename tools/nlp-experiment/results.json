@@ -1,0 +1,760 @@
+{
+  "summary": {
+    "Luhn": {
+      "rouge1_mean": 0.38278282833837035,
+      "rouge1_std": 0.21162115167078563,
+      "rouge2_mean": 0.34406037680417206,
+      "rouge2_std": 0.2523564869215368,
+      "rougeL_mean": 0.36949939315731284,
+      "rougeL_std": 0.23009978989233787,
+      "time_ms_mean": 0.18328150000949486,
+      "time_ms_std": 0.029069062475188756,
+      "compression_mean": 0.41137149658499905
+    },
+    "TextRank": {
+      "rouge1_mean": 0.28329799388324894,
+      "rouge1_std": 0.19679180246465164,
+      "rouge2_mean": 0.21409775282050666,
+      "rouge2_std": 0.24776609780267814,
+      "rougeL_mean": 0.2595458149489972,
+      "rougeL_std": 0.21664001036402522,
+      "time_ms_mean": 0.34555591668095076,
+      "time_ms_std": 0.08367515554483584,
+      "compression_mean": 0.4209321377081567
+    },
+    "LexRank": {
+      "rouge1_mean": 0.24367347871673356,
+      "rouge1_std": 0.1870567089642526,
+      "rouge2_mean": 0.147219444150316,
+      "rouge2_std": 0.23362419491290476,
+      "rougeL_mean": 0.19874892107678824,
+      "rougeL_std": 0.21004591389730223,
+      "time_ms_mean": 0.45431533331452556,
+      "time_ms_std": 0.21000399912591305,
+      "compression_mean": 0.3997855015073418
+    },
+    "LSA": {
+      "rouge1_mean": 0.22741353952320775,
+      "rouge1_std": 0.17520023711752047,
+      "rouge2_mean": 0.13423882250840685,
+      "rouge2_std": 0.21887794514669717,
+      "rougeL_mean": 0.19746167444511611,
+      "rougeL_std": 0.19239389771136228,
+      "time_ms_mean": 0.30014633334947877,
+      "time_ms_std": 0.030825766150058602,
+      "compression_mean": 0.3263483962757337
+    }
+  },
+  "per_paper": [
+    {
+      "pmid": "31932655",
+      "topic": "CNN for diabetic retinopathy",
+      "word_count": 179,
+      "results": {
+        "Luhn": {
+          "summary": "Diabetic retinopathy is a leading cause of blindness in working-age adults worldwide, and its timely diagnosis is essential to prevent vision loss. In this study, we developed a deep convolutional neural network to classify the severity of diabetic retinopathy from color fundus photographs. These results suggest that deep learning systems can provide accurate, scalable retinal screening, particularly in underserved regions where specialist access is limited.",
+          "summary_sentences": [
+            "Diabetic retinopathy is a leading cause of blindness in working-age adults worldwide, and its timely diagnosis is essential to prevent vision loss.",
+            "In this study, we developed a deep convolutional neural network to classify the severity of diabetic retinopathy from color fundus photographs.",
+            "These results suggest that deep learning systems can provide accurate, scalable retinal screening, particularly in underserved regions where specialist access is limited."
+          ],
+          "elapsed_ms": 0.23518000000422035,
+          "rouge1": 0.5,
+          "rouge2": 0.48837209302325585,
+          "rougeL": 0.5,
+          "compression": 0.3687150837988827
+        },
+        "TextRank": {
+          "summary": "Manual grading of retinal fundus images is labor-intensive and subject to inter-grader variability, creating a strong need for automated screening tools. In this study, we developed a deep convolutional neural network to classify the severity of diabetic retinopathy from color fundus photographs. The model was trained on 88,702 images from the EyePACS dataset and validated on two independent datasets comprising 9,963 images each.",
+          "summary_sentences": [
+            "Manual grading of retinal fundus images is labor-intensive and subject to inter-grader variability, creating a strong need for automated screening tools.",
+            "In this study, we developed a deep convolutional neural network to classify the severity of diabetic retinopathy from color fundus photographs.",
+            "The model was trained on 88,702 images from the EyePACS dataset and validated on two independent datasets comprising 9,963 images each."
+          ],
+          "elapsed_ms": 0.5927559999463483,
+          "rouge1": 0.11764705882352942,
+          "rouge2": 0.0,
+          "rougeL": 0.07058823529411765,
+          "compression": 0.35195530726256985
+        },
+        "LexRank": {
+          "summary": "Diabetic retinopathy is a leading cause of blindness in working-age adults worldwide, and its timely diagnosis is essential to prevent vision loss. The model was trained on 88,702 images from the EyePACS dataset and validated on two independent datasets comprising 9,963 images each. Performance was comparable to that of board-certified ophthalmologists on the same images.",
+          "summary_sentences": [
+            "Diabetic retinopathy is a leading cause of blindness in working-age adults worldwide, and its timely diagnosis is essential to prevent vision loss.",
+            "The model was trained on 88,702 images from the EyePACS dataset and validated on two independent datasets comprising 9,963 images each.",
+            "Performance was comparable to that of board-certified ophthalmologists on the same images."
+          ],
+          "elapsed_ms": 0.26574599996820325,
+          "rouge1": 0.07792207792207792,
+          "rouge2": 0.0,
+          "rougeL": 0.05194805194805195,
+          "compression": 0.30726256983240224
+        },
+        "LSA": {
+          "summary": "In this study, we developed a deep convolutional neural network to classify the severity of diabetic retinopathy from color fundus photographs. The model was trained on 88,702 images from the EyePACS dataset and validated on two independent datasets comprising 9,963 images each. Performance was comparable to that of board-certified ophthalmologists on the same images.",
+          "summary_sentences": [
+            "In this study, we developed a deep convolutional neural network to classify the severity of diabetic retinopathy from color fundus photographs.",
+            "The model was trained on 88,702 images from the EyePACS dataset and validated on two independent datasets comprising 9,963 images each.",
+            "Performance was comparable to that of board-certified ophthalmologists on the same images."
+          ],
+          "elapsed_ms": 0.36578600008851936,
+          "rouge1": 0.08,
+          "rouge2": 0.0,
+          "rougeL": 0.02666666666666667,
+          "compression": 0.29608938547486036
+        }
+      }
+    },
+    {
+      "pmid": "28117445",
+      "topic": "Skin cancer classification",
+      "word_count": 153,
+      "results": {
+        "Luhn": {
+          "summary": "Skin cancer is the most common human malignancy and early detection is critical to patient survival. We benchmarked the network against 21 board-certified dermatologists across three diagnostic tasks: keratinocyte carcinomas versus benign seborrheic keratoses, malignant melanomas versus benign nevi, and malignant melanomas versus benign nevi using dermoscopy images. This demonstrates that mobile devices equipped with deep learning could extend diagnostic reach outside the clinic, potentially providing universal access to vital skin cancer screening.",
+          "summary_sentences": [
+            "Skin cancer is the most common human malignancy and early detection is critical to patient survival.",
+            "We benchmarked the network against 21 board-certified dermatologists across three diagnostic tasks: keratinocyte carcinomas versus benign seborrheic keratoses, malignant melanomas versus benign nevi, and malignant melanomas versus benign nevi using dermoscopy images.",
+            "This demonstrates that mobile devices equipped with deep learning could extend diagnostic reach outside the clinic, potentially providing universal access to vital skin cancer screening."
+          ],
+          "elapsed_ms": 0.22114199998668482,
+          "rouge1": 0.5102040816326531,
+          "rouge2": 0.5,
+          "rougeL": 0.5102040816326531,
+          "compression": 0.46794871794871795
+        },
+        "TextRank": {
+          "summary": "We trained a deep convolutional neural network on 129,450 clinical images representing 2,032 different dermatological diseases. We benchmarked the network against 21 board-certified dermatologists across three diagnostic tasks: keratinocyte carcinomas versus benign seborrheic keratoses, malignant melanomas versus benign nevi, and malignant melanomas versus benign nevi using dermoscopy images. This demonstrates that mobile devices equipped with deep learning could extend diagnostic reach outside the clinic, potentially providing universal access to vital skin cancer screening.",
+          "summary_sentences": [
+            "We trained a deep convolutional neural network on 129,450 clinical images representing 2,032 different dermatological diseases.",
+            "We benchmarked the network against 21 board-certified dermatologists across three diagnostic tasks: keratinocyte carcinomas versus benign seborrheic keratoses, malignant melanomas versus benign nevi, and malignant melanomas versus benign nevi using dermoscopy images.",
+            "This demonstrates that mobile devices equipped with deep learning could extend diagnostic reach outside the clinic, potentially providing universal access to vital skin cancer screening."
+          ],
+          "elapsed_ms": 0.31858000011197873,
+          "rouge1": 0.5208333333333333,
+          "rouge2": 0.5106382978723404,
+          "rougeL": 0.5208333333333333,
+          "compression": 0.4551282051282051
+        },
+        "LexRank": {
+          "summary": "Skin cancer is the most common human malignancy and early detection is critical to patient survival. Dermatologist-level classification of skin lesions requires years of training and access to specialized equipment, which limits screening in primary care and resource-constrained settings. This demonstrates that mobile devices equipped with deep learning could extend diagnostic reach outside the clinic, potentially providing universal access to vital skin cancer screening.",
+          "summary_sentences": [
+            "Skin cancer is the most common human malignancy and early detection is critical to patient survival.",
+            "Dermatologist-level classification of skin lesions requires years of training and access to specialized equipment, which limits screening in primary care and resource-constrained settings.",
+            "This demonstrates that mobile devices equipped with deep learning could extend diagnostic reach outside the clinic, potentially providing universal access to vital skin cancer screening."
+          ],
+          "elapsed_ms": 0.23905399996237975,
+          "rouge1": 0.5494505494505494,
+          "rouge2": 0.5393258426966292,
+          "rougeL": 0.5494505494505494,
+          "compression": 0.4230769230769231
+        },
+        "LSA": {
+          "summary": "Skin cancer is the most common human malignancy and early detection is critical to patient survival. We trained a deep convolutional neural network on 129,450 clinical images representing 2,032 different dermatological diseases. On all three tasks the CNN performed at a level comparable to the dermatologists, achieving area under curve values above 0.91.",
+          "summary_sentences": [
+            "Skin cancer is the most common human malignancy and early detection is critical to patient survival.",
+            "We trained a deep convolutional neural network on 129,450 clinical images representing 2,032 different dermatological diseases.",
+            "On all three tasks the CNN performed at a level comparable to the dermatologists, achieving area under curve values above 0.91."
+          ],
+          "elapsed_ms": 0.29214200003480073,
+          "rouge1": 0.13333333333333333,
+          "rouge2": 0.027397260273972598,
+          "rougeL": 0.08,
+          "compression": 0.32051282051282054
+        }
+      }
+    },
+    {
+      "pmid": "29219149",
+      "topic": "ECG arrhythmia detection",
+      "word_count": 166,
+      "results": {
+        "Luhn": {
+          "summary": "We developed a deep neural network to classify 12 rhythm classes from single-lead ECG signals recorded by ambulatory monitors. The network is a 34-layer residual convolutional network with dropout regularization, trained on 91,232 ECG records from 53,549 patients using the arrhythmia labels annotated by clinical cardiologists. These findings indicate that end-to-end deep learning models can outperform individual cardiologists on single-lead ECG arrhythmia detection.",
+          "summary_sentences": [
+            "We developed a deep neural network to classify 12 rhythm classes from single-lead ECG signals recorded by ambulatory monitors.",
+            "The network is a 34-layer residual convolutional network with dropout regularization, trained on 91,232 ECG records from 53,549 patients using the arrhythmia labels annotated by clinical cardiologists.",
+            "These findings indicate that end-to-end deep learning models can outperform individual cardiologists on single-lead ECG arrhythmia detection."
+          ],
+          "elapsed_ms": 0.22644900002433133,
+          "rouge1": 0.47619047619047616,
+          "rouge2": 0.46341463414634143,
+          "rougeL": 0.47619047619047616,
+          "compression": 0.39263803680981596
+        },
+        "TextRank": {
+          "summary": "We developed a deep neural network to classify 12 rhythm classes from single-lead ECG signals recorded by ambulatory monitors. The network is a 34-layer residual convolutional network with dropout regularization, trained on 91,232 ECG records from 53,549 patients using the arrhythmia labels annotated by clinical cardiologists. The neural network achieved an average area under the receiver operating characteristic curve of 0.97, exceeding the average cardiologist's F1 score of 0.75 with a network F1 of 0.84.",
+          "summary_sentences": [
+            "We developed a deep neural network to classify 12 rhythm classes from single-lead ECG signals recorded by ambulatory monitors.",
+            "The network is a 34-layer residual convolutional network with dropout regularization, trained on 91,232 ECG records from 53,549 patients using the arrhythmia labels annotated by clinical cardiologists.",
+            "The neural network achieved an average area under the receiver operating characteristic curve of 0.97, exceeding the average cardiologist's F1 score of 0.75 with a network F1 of 0.84."
+          ],
+          "elapsed_ms": 0.37468699997589283,
+          "rouge1": 0.17582417582417584,
+          "rouge2": 0.04494382022471909,
+          "rougeL": 0.10989010989010989,
+          "compression": 0.43558282208588955
+        },
+        "LexRank": {
+          "summary": "We developed a deep neural network to classify 12 rhythm classes from single-lead ECG signals recorded by ambulatory monitors. The network is a 34-layer residual convolutional network with dropout regularization, trained on 91,232 ECG records from 53,549 patients using the arrhythmia labels annotated by clinical cardiologists. The neural network achieved an average area under the receiver operating characteristic curve of 0.97, exceeding the average cardiologist's F1 score of 0.75 with a network F1 of 0.84.",
+          "summary_sentences": [
+            "We developed a deep neural network to classify 12 rhythm classes from single-lead ECG signals recorded by ambulatory monitors.",
+            "The network is a 34-layer residual convolutional network with dropout regularization, trained on 91,232 ECG records from 53,549 patients using the arrhythmia labels annotated by clinical cardiologists.",
+            "The neural network achieved an average area under the receiver operating characteristic curve of 0.97, exceeding the average cardiologist's F1 score of 0.75 with a network F1 of 0.84."
+          ],
+          "elapsed_ms": 0.38981099999091384,
+          "rouge1": 0.17582417582417584,
+          "rouge2": 0.04494382022471909,
+          "rougeL": 0.10989010989010989,
+          "compression": 0.43558282208588955
+        },
+        "LSA": {
+          "summary": "Cardiac arrhythmias contribute to substantial morbidity and sudden death, and ambulatory electrocardiography is the primary tool for detecting episodic arrhythmias. The test set contained 328 ECG records from 328 unique patients annotated by a consensus of three cardiologists. When the model's predictions were calibrated to cardiologist sensitivity, it matched or exceeded cardiologist specificity across all 12 rhythm classes.",
+          "summary_sentences": [
+            "Cardiac arrhythmias contribute to substantial morbidity and sudden death, and ambulatory electrocardiography is the primary tool for detecting episodic arrhythmias.",
+            "The test set contained 328 ECG records from 328 unique patients annotated by a consensus of three cardiologists.",
+            "When the model's predictions were calibrated to cardiologist sensitivity, it matched or exceeded cardiologist specificity across all 12 rhythm classes."
+          ],
+          "elapsed_ms": 0.3019100000756225,
+          "rouge1": 0.07894736842105263,
+          "rouge2": 0.0,
+          "rougeL": 0.05263157894736841,
+          "compression": 0.34355828220858897
+        }
+      }
+    },
+    {
+      "pmid": "29104432",
+      "topic": "Pathology image analysis",
+      "word_count": 180,
+      "results": {
+        "Luhn": {
+          "summary": "Automated analysis of whole-slide images could improve reproducibility and throughput but requires models that generalize across staining protocols and scanners. We used 270 whole-slide images from the CAMELYON16 challenge as training data, with patch-level labels derived from pathologist annotations. On the held-out evaluation set of 129 whole-slide images, the system achieved an area under the receiver operating characteristic curve of 0.994 for slide-level metastasis detection.",
+          "summary_sentences": [
+            "Automated analysis of whole-slide images could improve reproducibility and throughput but requires models that generalize across staining protocols and scanners.",
+            "We used 270 whole-slide images from the CAMELYON16 challenge as training data, with patch-level labels derived from pathologist annotations.",
+            "On the held-out evaluation set of 129 whole-slide images, the system achieved an area under the receiver operating characteristic curve of 0.994 for slide-level metastasis detection."
+          ],
+          "elapsed_ms": 0.1746740000498903,
+          "rouge1": 0.043010752688172046,
+          "rouge2": 0.0,
+          "rougeL": 0.043010752688172046,
+          "compression": 0.36363636363636365
+        },
+        "TextRank": {
+          "summary": "We used 270 whole-slide images from the CAMELYON16 challenge as training data, with patch-level labels derived from pathologist annotations. The model is an ensemble of Inception-v3 networks operating at multiple magnifications, followed by a fully convolutional scoring module that produces a slide-level tumor probability map. On the held-out evaluation set of 129 whole-slide images, the system achieved an area under the receiver operating characteristic curve of 0.994 for slide-level metastasis detection.",
+          "summary_sentences": [
+            "We used 270 whole-slide images from the CAMELYON16 challenge as training data, with patch-level labels derived from pathologist annotations.",
+            "The model is an ensemble of Inception-v3 networks operating at multiple magnifications, followed by a fully convolutional scoring module that produces a slide-level tumor probability map.",
+            "On the held-out evaluation set of 129 whole-slide images, the system achieved an area under the receiver operating characteristic curve of 0.994 for slide-level metastasis detection."
+          ],
+          "elapsed_ms": 0.3709400000388996,
+          "rouge1": 0.05999999999999999,
+          "rouge2": 0.0,
+          "rougeL": 0.05999999999999999,
+          "compression": 0.40106951871657753
+        },
+        "LexRank": {
+          "summary": "Pathologic examination of tissue sections is the gold standard for cancer diagnosis, but manual interpretation is time-consuming and shows substantial variability between pathologists. On the held-out evaluation set of 129 whole-slide images, the system achieved an area under the receiver operating characteristic curve of 0.994 for slide-level metastasis detection. This performance exceeded the score of all 11 pathologists who reviewed the same slides under time constraints and approached their accuracy in unconstrained review.",
+          "summary_sentences": [
+            "Pathologic examination of tissue sections is the gold standard for cancer diagnosis, but manual interpretation is time-consuming and shows substantial variability between pathologists.",
+            "On the held-out evaluation set of 129 whole-slide images, the system achieved an area under the receiver operating characteristic curve of 0.994 for slide-level metastasis detection.",
+            "This performance exceeded the score of all 11 pathologists who reviewed the same slides under time constraints and approached their accuracy in unconstrained review."
+          ],
+          "elapsed_ms": 0.3497669999887876,
+          "rouge1": 0.0404040404040404,
+          "rouge2": 0.0,
+          "rougeL": 0.0202020202020202,
+          "compression": 0.39572192513368987
+        },
+        "LSA": {
+          "summary": "In this work we trained a deep learning model to detect metastatic breast cancer in sentinel lymph node biopsies. We used 270 whole-slide images from the CAMELYON16 challenge as training data, with patch-level labels derived from pathologist annotations. This performance exceeded the score of all 11 pathologists who reviewed the same slides under time constraints and approached their accuracy in unconstrained review.",
+          "summary_sentences": [
+            "In this work we trained a deep learning model to detect metastatic breast cancer in sentinel lymph node biopsies.",
+            "We used 270 whole-slide images from the CAMELYON16 challenge as training data, with patch-level labels derived from pathologist annotations.",
+            "This performance exceeded the score of all 11 pathologists who reviewed the same slides under time constraints and approached their accuracy in unconstrained review."
+          ],
+          "elapsed_ms": 0.2896769999551907,
+          "rouge1": 0.09195402298850575,
+          "rouge2": 0.0,
+          "rougeL": 0.0689655172413793,
+          "compression": 0.3315508021390374
+        }
+      }
+    },
+    {
+      "pmid": "30104768",
+      "topic": "Pneumonia detection from chest X-rays",
+      "word_count": 154,
+      "results": {
+        "Luhn": {
+          "summary": "We investigated whether a deep convolutional neural network can match radiologist performance on pneumonia detection from frontal chest radiographs. The algorithm exceeded the average radiologist F1 score for pneumonia detection, achieving an F1 of 0.435 compared with the radiologist average of 0.387. We conclude that radiograph interpretation in a specific task can be accomplished at radiologist-level performance, though significant work remains to validate such systems in prospective clinical trials.",
+          "summary_sentences": [
+            "We investigated whether a deep convolutional neural network can match radiologist performance on pneumonia detection from frontal chest radiographs.",
+            "The algorithm exceeded the average radiologist F1 score for pneumonia detection, achieving an F1 of 0.435 compared with the radiologist average of 0.387.",
+            "We conclude that radiograph interpretation in a specific task can be accomplished at radiologist-level performance, though significant work remains to validate such systems in prospective clinical trials."
+          ],
+          "elapsed_ms": 0.14856300003884826,
+          "rouge1": 0.5833333333333334,
+          "rouge2": 0.5744680851063829,
+          "rougeL": 0.5833333333333334,
+          "compression": 0.44155844155844154
+        },
+        "TextRank": {
+          "summary": "We investigated whether a deep convolutional neural network can match radiologist performance on pneumonia detection from frontal chest radiographs. Performance was evaluated on a test set of 420 images independently labeled by four board-certified radiologists. The model also produced clinically interpretable localization heatmaps using class activation mapping, highlighting suspected pneumonia regions.",
+          "summary_sentences": [
+            "We investigated whether a deep convolutional neural network can match radiologist performance on pneumonia detection from frontal chest radiographs.",
+            "Performance was evaluated on a test set of 420 images independently labeled by four board-certified radiologists.",
+            "The model also produced clinically interpretable localization heatmaps using class activation mapping, highlighting suspected pneumonia regions."
+          ],
+          "elapsed_ms": 0.2737030000616869,
+          "rouge1": 0.12658227848101264,
+          "rouge2": 0.0,
+          "rougeL": 0.12658227848101264,
+          "compression": 0.33116883116883117
+        },
+        "LexRank": {
+          "summary": "We investigated whether a deep convolutional neural network can match radiologist performance on pneumonia detection from frontal chest radiographs. Our model is a 121-layer DenseNet initialized with weights pretrained on the ChestX-ray14 dataset of 112,120 images labeled with 14 pathologies. We fine-tuned the model using weighted binary cross-entropy to handle class imbalance.",
+          "summary_sentences": [
+            "We investigated whether a deep convolutional neural network can match radiologist performance on pneumonia detection from frontal chest radiographs.",
+            "Our model is a 121-layer DenseNet initialized with weights pretrained on the ChestX-ray14 dataset of 112,120 images labeled with 14 pathologies.",
+            "We fine-tuned the model using weighted binary cross-entropy to handle class imbalance."
+          ],
+          "elapsed_ms": 0.2226720000635396,
+          "rouge1": 0.14814814814814814,
+          "rouge2": 0.0,
+          "rougeL": 0.14814814814814814,
+          "compression": 0.34415584415584416
+        },
+        "LSA": {
+          "summary": "We fine-tuned the model using weighted binary cross-entropy to handle class imbalance. Performance was evaluated on a test set of 420 images independently labeled by four board-certified radiologists. The algorithm exceeded the average radiologist F1 score for pneumonia detection, achieving an F1 of 0.435 compared with the radiologist average of 0.387.",
+          "summary_sentences": [
+            "We fine-tuned the model using weighted binary cross-entropy to handle class imbalance.",
+            "Performance was evaluated on a test set of 420 images independently labeled by four board-certified radiologists.",
+            "The algorithm exceeded the average radiologist F1 score for pneumonia detection, achieving an F1 of 0.435 compared with the radiologist average of 0.387."
+          ],
+          "elapsed_ms": 0.2383250000548287,
+          "rouge1": 0.12658227848101264,
+          "rouge2": 0.0,
+          "rougeL": 0.07594936708860758,
+          "compression": 0.33116883116883117
+        }
+      }
+    },
+    {
+      "pmid": "31399699",
+      "topic": "Electronic health record modeling",
+      "word_count": 176,
+      "results": {
+        "Luhn": {
+          "summary": "Predicting in-hospital patient outcomes from electronic health records is essential for risk stratification and resource allocation, but traditional clinical scoring systems use only a small fraction of the available data. Predictive performance was evaluated on three tasks: in-hospital mortality, 30-day unplanned readmission, and prolonged length of stay. On all three tasks the deep learning model achieved higher area under the receiver operating characteristic curve than published traditional scores, with AUROCs of 0.93-0.94 for mortality, 0.75-0.76 for readmission, and 0.85-0.86 for length of stay.",
+          "summary_sentences": [
+            "Predicting in-hospital patient outcomes from electronic health records is essential for risk stratification and resource allocation, but traditional clinical scoring systems use only a small fraction of the available data.",
+            "Predictive performance was evaluated on three tasks: in-hospital mortality, 30-day unplanned readmission, and prolonged length of stay.",
+            "On all three tasks the deep learning model achieved higher area under the receiver operating characteristic curve than published traditional scores, with AUROCs of 0.93-0.94 for mortality, 0.75-0.76 for readmission, and 0.85-0.86 for length of stay."
+          ],
+          "elapsed_ms": 0.1554839999471369,
+          "rouge1": 0.13084112149532712,
+          "rouge2": 0.019047619047619046,
+          "rougeL": 0.05607476635514018,
+          "compression": 0.4685714285714286
+        },
+        "TextRank": {
+          "summary": "Predicting in-hospital patient outcomes from electronic health records is essential for risk stratification and resource allocation, but traditional clinical scoring systems use only a small fraction of the available data. We developed a unified deep learning model that operates on the full structured and unstructured electronic health record history. On all three tasks the deep learning model achieved higher area under the receiver operating characteristic curve than published traditional scores, with AUROCs of 0.93-0.94 for mortality, 0.75-0.76 for readmission, and 0.85-0.86 for length of stay.",
+          "summary_sentences": [
+            "Predicting in-hospital patient outcomes from electronic health records is essential for risk stratification and resource allocation, but traditional clinical scoring systems use only a small fraction of the available data.",
+            "We developed a unified deep learning model that operates on the full structured and unstructured electronic health record history.",
+            "On all three tasks the deep learning model achieved higher area under the receiver operating characteristic curve than published traditional scores, with AUROCs of 0.93-0.94 for mortality, 0.75-0.76 for readmission, and 0.85-0.86 for length of stay."
+          ],
+          "elapsed_ms": 0.3500960000337727,
+          "rouge1": 0.14814814814814814,
+          "rouge2": 0.018867924528301883,
+          "rougeL": 0.07407407407407407,
+          "compression": 0.4742857142857143
+        },
+        "LexRank": {
+          "summary": "Predicting in-hospital patient outcomes from electronic health records is essential for risk stratification and resource allocation, but traditional clinical scoring systems use only a small fraction of the available data. We developed a unified deep learning model that operates on the full structured and unstructured electronic health record history. Predictive performance was evaluated on three tasks: in-hospital mortality, 30-day unplanned readmission, and prolonged length of stay.",
+          "summary_sentences": [
+            "Predicting in-hospital patient outcomes from electronic health records is essential for risk stratification and resource allocation, but traditional clinical scoring systems use only a small fraction of the available data.",
+            "We developed a unified deep learning model that operates on the full structured and unstructured electronic health record history.",
+            "Predictive performance was evaluated on three tasks: in-hospital mortality, 30-day unplanned readmission, and prolonged length of stay."
+          ],
+          "elapsed_ms": 0.7065429999784101,
+          "rouge1": 0.17204301075268819,
+          "rouge2": 0.021978021978021976,
+          "rougeL": 0.08602150537634409,
+          "compression": 0.38857142857142857
+        },
+        "LSA": {
+          "summary": "We developed a unified deep learning model that operates on the full structured and unstructured electronic health record history. We trained the model on records from 216,221 hospitalizations across two U.S. academic medical centers, with a combined dataset exceeding 46 billion tokens. Predictive performance was evaluated on three tasks: in-hospital mortality, 30-day unplanned readmission, and prolonged length of stay.",
+          "summary_sentences": [
+            "We developed a unified deep learning model that operates on the full structured and unstructured electronic health record history.",
+            "We trained the model on records from 216,221 hospitalizations across two U.S. academic medical centers, with a combined dataset exceeding 46 billion tokens.",
+            "Predictive performance was evaluated on three tasks: in-hospital mortality, 30-day unplanned readmission, and prolonged length of stay."
+          ],
+          "elapsed_ms": 0.32735499996761064,
+          "rouge1": 0.11904761904761904,
+          "rouge2": 0.024390243902439025,
+          "rougeL": 0.09523809523809523,
+          "compression": 0.33714285714285713
+        }
+      }
+    },
+    {
+      "pmid": "32099234",
+      "topic": "COVID-19 chest CT diagnosis",
+      "word_count": 185,
+      "results": {
+        "Luhn": {
+          "summary": "Chest computed tomography became an important adjunct to reverse transcription polymerase chain reaction testing because it can reveal characteristic ground-glass opacities early in infection. The training set included 4,356 thin-section scans from 3,322 patients across six medical centers in China, with patient-level COVID-19 status confirmed by reverse transcription polymerase chain reaction. We used a multi-task architecture that jointly predicted disease class and pneumonia region segmentation masks to improve interpretability.",
+          "summary_sentences": [
+            "Chest computed tomography became an important adjunct to reverse transcription polymerase chain reaction testing because it can reveal characteristic ground-glass opacities early in infection.",
+            "The training set included 4,356 thin-section scans from 3,322 patients across six medical centers in China, with patient-level COVID-19 status confirmed by reverse transcription polymerase chain reaction.",
+            "We used a multi-task architecture that jointly predicted disease class and pneumonia region segmentation masks to improve interpretability."
+          ],
+          "elapsed_ms": 0.17680700000255456,
+          "rouge1": 0.13043478260869565,
+          "rouge2": 0.0,
+          "rougeL": 0.06521739130434782,
+          "compression": 0.3901098901098901
+        },
+        "TextRank": {
+          "summary": "Chest computed tomography became an important adjunct to reverse transcription polymerase chain reaction testing because it can reveal characteristic ground-glass opacities early in infection. We developed a three-dimensional convolutional neural network to distinguish COVID-19 pneumonia from other forms of pneumonia and from healthy controls on chest CT scans. The training set included 4,356 thin-section scans from 3,322 patients across six medical centers in China, with patient-level COVID-19 status confirmed by reverse transcription polymerase chain reaction.",
+          "summary_sentences": [
+            "Chest computed tomography became an important adjunct to reverse transcription polymerase chain reaction testing because it can reveal characteristic ground-glass opacities early in infection.",
+            "We developed a three-dimensional convolutional neural network to distinguish COVID-19 pneumonia from other forms of pneumonia and from healthy controls on chest CT scans.",
+            "The training set included 4,356 thin-section scans from 3,322 patients across six medical centers in China, with patient-level COVID-19 status confirmed by reverse transcription polymerase chain reaction."
+          ],
+          "elapsed_ms": 0.33793300008255756,
+          "rouge1": 0.12244897959183673,
+          "rouge2": 0.0,
+          "rougeL": 0.0816326530612245,
+          "compression": 0.4230769230769231
+        },
+        "LexRank": {
+          "summary": "Chest computed tomography became an important adjunct to reverse transcription polymerase chain reaction testing because it can reveal characteristic ground-glass opacities early in infection. The training set included 4,356 thin-section scans from 3,322 patients across six medical centers in China, with patient-level COVID-19 status confirmed by reverse transcription polymerase chain reaction. We used a multi-task architecture that jointly predicted disease class and pneumonia region segmentation masks to improve interpretability.",
+          "summary_sentences": [
+            "Chest computed tomography became an important adjunct to reverse transcription polymerase chain reaction testing because it can reveal characteristic ground-glass opacities early in infection.",
+            "The training set included 4,356 thin-section scans from 3,322 patients across six medical centers in China, with patient-level COVID-19 status confirmed by reverse transcription polymerase chain reaction.",
+            "We used a multi-task architecture that jointly predicted disease class and pneumonia region segmentation masks to improve interpretability."
+          ],
+          "elapsed_ms": 0.26170799992542015,
+          "rouge1": 0.13043478260869565,
+          "rouge2": 0.0,
+          "rougeL": 0.06521739130434782,
+          "compression": 0.3901098901098901
+        },
+        "LSA": {
+          "summary": "The coronavirus disease 2019 (COVID-19) pandemic placed extraordinary strain on radiology departments worldwide, and rapid screening tools were urgently needed. The segmentation branch produced pneumonia lesion masks that agreed with radiologist annotations at a Dice coefficient of 0.83. We believe that such models can support radiologists in rapidly triaging suspected COVID-19 cases, especially during periods of high testing demand.",
+          "summary_sentences": [
+            "The coronavirus disease 2019 (COVID-19) pandemic placed extraordinary strain on radiology departments worldwide, and rapid screening tools were urgently needed.",
+            "The segmentation branch produced pneumonia lesion masks that agreed with radiologist annotations at a Dice coefficient of 0.83.",
+            "We believe that such models can support radiologists in rapidly triaging suspected COVID-19 cases, especially during periods of high testing demand."
+          ],
+          "elapsed_ms": 0.3170749999981126,
+          "rouge1": 0.5384615384615384,
+          "rouge2": 0.5263157894736842,
+          "rougeL": 0.5384615384615384,
+          "compression": 0.3131868131868132
+        }
+      }
+    },
+    {
+      "pmid": "30104767",
+      "topic": "Alzheimer's disease MRI",
+      "word_count": 178,
+      "results": {
+        "Luhn": {
+          "summary": "Volumetric magnetic resonance imaging can reveal atrophy patterns associated with Alzheimer's disease years before clinical diagnosis. We trained a three-dimensional convolutional neural network to predict the progression from mild cognitive impairment to Alzheimer's dementia within three years using baseline T1-weighted MRI. These findings support the use of deep learning on raw structural MRI as a prognostic tool for mild cognitive impairment clinical trials.",
+          "summary_sentences": [
+            "Volumetric magnetic resonance imaging can reveal atrophy patterns associated with Alzheimer's disease years before clinical diagnosis.",
+            "We trained a three-dimensional convolutional neural network to predict the progression from mild cognitive impairment to Alzheimer's dementia within three years using baseline T1-weighted MRI.",
+            "These findings support the use of deep learning on raw structural MRI as a prognostic tool for mild cognitive impairment clinical trials."
+          ],
+          "elapsed_ms": 0.17661100002897,
+          "rouge1": 0.4943820224719101,
+          "rouge2": 0.4827586206896552,
+          "rougeL": 0.4943820224719101,
+          "compression": 0.3544973544973545
+        },
+        "TextRank": {
+          "summary": "We trained a three-dimensional convolutional neural network to predict the progression from mild cognitive impairment to Alzheimer's dementia within three years using baseline T1-weighted MRI. The model was trained on 1,921 baseline scans from the Alzheimer's Disease Neuroimaging Initiative, with outcomes determined from longitudinal clinical follow-up at participating centers. These findings support the use of deep learning on raw structural MRI as a prognostic tool for mild cognitive impairment clinical trials.",
+          "summary_sentences": [
+            "We trained a three-dimensional convolutional neural network to predict the progression from mild cognitive impairment to Alzheimer's dementia within three years using baseline T1-weighted MRI.",
+            "The model was trained on 1,921 baseline scans from the Alzheimer's Disease Neuroimaging Initiative, with outcomes determined from longitudinal clinical follow-up at participating centers.",
+            "These findings support the use of deep learning on raw structural MRI as a prognostic tool for mild cognitive impairment clinical trials."
+          ],
+          "elapsed_ms": 0.3120529999023347,
+          "rouge1": 0.45360824742268036,
+          "rouge2": 0.4421052631578947,
+          "rougeL": 0.45360824742268036,
+          "compression": 0.3968253968253968
+        },
+        "LexRank": {
+          "summary": "We trained a three-dimensional convolutional neural network to predict the progression from mild cognitive impairment to Alzheimer's dementia within three years using baseline T1-weighted MRI. The model was trained on 1,921 baseline scans from the Alzheimer's Disease Neuroimaging Initiative, with outcomes determined from longitudinal clinical follow-up at participating centers. On a held-out test set of 312 subjects, the model achieved an area under the receiver operating characteristic curve of 0.85 for predicting three-year progression to Alzheimer's dementia.",
+          "summary_sentences": [
+            "We trained a three-dimensional convolutional neural network to predict the progression from mild cognitive impairment to Alzheimer's dementia within three years using baseline T1-weighted MRI.",
+            "The model was trained on 1,921 baseline scans from the Alzheimer's Disease Neuroimaging Initiative, with outcomes determined from longitudinal clinical follow-up at participating centers.",
+            "On a held-out test set of 312 subjects, the model achieved an area under the receiver operating characteristic curve of 0.85 for predicting three-year progression to Alzheimer's dementia."
+          ],
+          "elapsed_ms": 0.6867580000289308,
+          "rouge1": 0.19230769230769232,
+          "rouge2": 0.039215686274509796,
+          "rougeL": 0.09615384615384616,
+          "compression": 0.43386243386243384
+        },
+        "LSA": {
+          "summary": "Volumetric magnetic resonance imaging can reveal atrophy patterns associated with Alzheimer's disease years before clinical diagnosis. Input volumes were skull-stripped, bias-field corrected, and registered to a standard template before being fed to the network. These findings support the use of deep learning on raw structural MRI as a prognostic tool for mild cognitive impairment clinical trials.",
+          "summary_sentences": [
+            "Volumetric magnetic resonance imaging can reveal atrophy patterns associated with Alzheimer's disease years before clinical diagnosis.",
+            "Input volumes were skull-stripped, bias-field corrected, and registered to a standard template before being fed to the network.",
+            "These findings support the use of deep learning on raw structural MRI as a prognostic tool for mild cognitive impairment clinical trials."
+          ],
+          "elapsed_ms": 0.3034600000546561,
+          "rouge1": 0.54320987654321,
+          "rouge2": 0.5316455696202532,
+          "rougeL": 0.54320987654321,
+          "compression": 0.31216931216931215
+        }
+      }
+    },
+    {
+      "pmid": "28778026",
+      "topic": "Mortality prediction in ICU",
+      "word_count": 199,
+      "results": {
+        "Luhn": {
+          "summary": "We hypothesized that processing the full time series of physiologic measurements and laboratory tests with a recurrent neural network would yield improved predictions of hospital mortality. The attention weights produced interpretable explanations, highlighting the time periods of highest clinical deterioration. We conclude that recurrent models with attention are well-suited to ICU mortality prediction and can provide transparent explanations that might support clinician trust.",
+          "summary_sentences": [
+            "We hypothesized that processing the full time series of physiologic measurements and laboratory tests with a recurrent neural network would yield improved predictions of hospital mortality.",
+            "The attention weights produced interpretable explanations, highlighting the time periods of highest clinical deterioration.",
+            "We conclude that recurrent models with attention are well-suited to ICU mortality prediction and can provide transparent explanations that might support clinician trust."
+          ],
+          "elapsed_ms": 0.1897590000226046,
+          "rouge1": 0.5454545454545454,
+          "rouge2": 0.5348837209302325,
+          "rougeL": 0.5454545454545454,
+          "compression": 0.32
+        },
+        "TextRank": {
+          "summary": "We hypothesized that processing the full time series of physiologic measurements and laboratory tests with a recurrent neural network would yield improved predictions of hospital mortality. The model was a long short-term memory network with an attention layer that weights the contribution of different time steps to the final prediction. We conclude that recurrent models with attention are well-suited to ICU mortality prediction and can provide transparent explanations that might support clinician trust.",
+          "summary_sentences": [
+            "We hypothesized that processing the full time series of physiologic measurements and laboratory tests with a recurrent neural network would yield improved predictions of hospital mortality.",
+            "The model was a long short-term memory network with an attention layer that weights the contribution of different time steps to the final prediction.",
+            "We conclude that recurrent models with attention are well-suited to ICU mortality prediction and can provide transparent explanations that might support clinician trust."
+          ],
+          "elapsed_ms": 0.3029700000070079,
+          "rouge1": 0.48484848484848486,
+          "rouge2": 0.4742268041237113,
+          "rougeL": 0.48484848484848486,
+          "compression": 0.375
+        },
+        "LexRank": {
+          "summary": "The model was a long short-term memory network with an attention layer that weights the contribution of different time steps to the final prediction. The attention weights produced interpretable explanations, highlighting the time periods of highest clinical deterioration. We conclude that recurrent models with attention are well-suited to ICU mortality prediction and can provide transparent explanations that might support clinician trust.",
+          "summary_sentences": [
+            "The model was a long short-term memory network with an attention layer that weights the contribution of different time steps to the final prediction.",
+            "The attention weights produced interpretable explanations, highlighting the time periods of highest clinical deterioration.",
+            "We conclude that recurrent models with attention are well-suited to ICU mortality prediction and can provide transparent explanations that might support clinician trust."
+          ],
+          "elapsed_ms": 0.6832889999941472,
+          "rouge1": 0.5517241379310345,
+          "rouge2": 0.5411764705882353,
+          "rougeL": 0.5517241379310345,
+          "compression": 0.315
+        },
+        "LSA": {
+          "summary": "We trained the model on 45,573 ICU stays from the publicly available MIMIC-III database, with hospital mortality as the binary outcome. Features consisted of 17 vital signs and laboratory values sampled at irregular intervals, with missingness handled by learned embeddings. The attention weights produced interpretable explanations, highlighting the time periods of highest clinical deterioration.",
+          "summary_sentences": [
+            "We trained the model on 45,573 ICU stays from the publicly available MIMIC-III database, with hospital mortality as the binary outcome.",
+            "Features consisted of 17 vital signs and laboratory values sampled at irregular intervals, with missingness handled by learned embeddings.",
+            "The attention weights produced interpretable explanations, highlighting the time periods of highest clinical deterioration."
+          ],
+          "elapsed_ms": 0.30780499992033583,
+          "rouge1": 0.18181818181818182,
+          "rouge2": 0.0,
+          "rougeL": 0.12987012987012989,
+          "compression": 0.265
+        }
+      }
+    },
+    {
+      "pmid": "32109013",
+      "topic": "AlphaFold protein structure",
+      "word_count": 184,
+      "results": {
+        "Luhn": {
+          "summary": "We present an end-to-end deep learning system that predicts the structure of a protein as a set of inter-residue distances and torsion angles from a multiple sequence alignment of evolutionarily related proteins. We evaluated the system in the fourteenth Critical Assessment of Protein Structure Prediction experiment, which involves blind prediction of structures released during the assessment. These results show that deep learning has essentially solved the problem of protein structure prediction for most cases where a multiple sequence alignment is available, opening routine structural characterization to the entire community.",
+          "summary_sentences": [
+            "We present an end-to-end deep learning system that predicts the structure of a protein as a set of inter-residue distances and torsion angles from a multiple sequence alignment of evolutionarily related proteins.",
+            "We evaluated the system in the fourteenth Critical Assessment of Protein Structure Prediction experiment, which involves blind prediction of structures released during the assessment.",
+            "These results show that deep learning has essentially solved the problem of protein structure prediction for most cases where a multiple sequence alignment is available, opening routine structural characterization to the entire community."
+          ],
+          "elapsed_ms": 0.1685460000544481,
+          "rouge1": 0.5279999999999999,
+          "rouge2": 0.5203252032520326,
+          "rougeL": 0.5279999999999999,
+          "compression": 0.4791666666666667
+        },
+        "TextRank": {
+          "summary": "We present an end-to-end deep learning system that predicts the structure of a protein as a set of inter-residue distances and torsion angles from a multiple sequence alignment of evolutionarily related proteins. We evaluated the system in the fourteenth Critical Assessment of Protein Structure Prediction experiment, which involves blind prediction of structures released during the assessment. These results show that deep learning has essentially solved the problem of protein structure prediction for most cases where a multiple sequence alignment is available, opening routine structural characterization to the entire community.",
+          "summary_sentences": [
+            "We present an end-to-end deep learning system that predicts the structure of a protein as a set of inter-residue distances and torsion angles from a multiple sequence alignment of evolutionarily related proteins.",
+            "We evaluated the system in the fourteenth Critical Assessment of Protein Structure Prediction experiment, which involves blind prediction of structures released during the assessment.",
+            "These results show that deep learning has essentially solved the problem of protein structure prediction for most cases where a multiple sequence alignment is available, opening routine structural characterization to the entire community."
+          ],
+          "elapsed_ms": 0.3116269999736687,
+          "rouge1": 0.5279999999999999,
+          "rouge2": 0.5203252032520326,
+          "rougeL": 0.5279999999999999,
+          "compression": 0.4791666666666667
+        },
+        "LexRank": {
+          "summary": "We present an end-to-end deep learning system that predicts the structure of a protein as a set of inter-residue distances and torsion angles from a multiple sequence alignment of evolutionarily related proteins. We evaluated the system in the fourteenth Critical Assessment of Protein Structure Prediction experiment, which involves blind prediction of structures released during the assessment. These results show that deep learning has essentially solved the problem of protein structure prediction for most cases where a multiple sequence alignment is available, opening routine structural characterization to the entire community.",
+          "summary_sentences": [
+            "We present an end-to-end deep learning system that predicts the structure of a protein as a set of inter-residue distances and torsion angles from a multiple sequence alignment of evolutionarily related proteins.",
+            "We evaluated the system in the fourteenth Critical Assessment of Protein Structure Prediction experiment, which involves blind prediction of structures released during the assessment.",
+            "These results show that deep learning has essentially solved the problem of protein structure prediction for most cases where a multiple sequence alignment is available, opening routine structural characterization to the entire community."
+          ],
+          "elapsed_ms": 0.6697139999687352,
+          "rouge1": 0.5279999999999999,
+          "rouge2": 0.5203252032520326,
+          "rougeL": 0.5279999999999999,
+          "compression": 0.4791666666666667
+        },
+        "LSA": {
+          "summary": "Predicting a protein's three-dimensional structure from its amino acid sequence has been an outstanding challenge in biology for half a century. We evaluated the system in the fourteenth Critical Assessment of Protein Structure Prediction experiment, which involves blind prediction of structures released during the assessment. The system achieved a median global distance test score of 87 over all targets, approaching the accuracy of experimental methods on most targets and clearly outperforming all other methods.",
+          "summary_sentences": [
+            "Predicting a protein's three-dimensional structure from its amino acid sequence has been an outstanding challenge in biology for half a century.",
+            "We evaluated the system in the fourteenth Critical Assessment of Protein Structure Prediction experiment, which involves blind prediction of structures released during the assessment.",
+            "The system achieved a median global distance test score of 87 over all targets, approaching the accuracy of experimental methods on most targets and clearly outperforming all other methods."
+          ],
+          "elapsed_ms": 0.28641899996273423,
+          "rouge1": 0.2037037037037037,
+          "rouge2": 0.05660377358490566,
+          "rougeL": 0.14814814814814817,
+          "compression": 0.390625
+        }
+      }
+    },
+    {
+      "pmid": "33442011",
+      "topic": "Genomic variant classification",
+      "word_count": 176,
+      "results": {
+        "Luhn": {
+          "summary": "Machine learning methods that integrate evolutionary, structural, and functional evidence have improved variant classification but typically produce single point estimates without calibrated uncertainty. We benchmarked the model on 12,874 held-out variants and found that the predicted uncertainty was strongly correlated with classification accuracy, allowing variants with high confidence to be flagged for automated review and those with high uncertainty to be referred to expert curation. Compared with a standard ensemble classifier without uncertainty estimation, the proposed approach increased the expert review efficiency by 38 percent at matched accuracy.",
+          "summary_sentences": [
+            "Machine learning methods that integrate evolutionary, structural, and functional evidence have improved variant classification but typically produce single point estimates without calibrated uncertainty.",
+            "We benchmarked the model on 12,874 held-out variants and found that the predicted uncertainty was strongly correlated with classification accuracy, allowing variants with high confidence to be flagged for automated review and those with high uncertainty to be referred to expert curation.",
+            "Compared with a standard ensemble classifier without uncertainty estimation, the proposed approach increased the expert review efficiency by 38 percent at matched accuracy."
+          ],
+          "elapsed_ms": 0.15633399993930652,
+          "rouge1": 0.0970873786407767,
+          "rouge2": 0.0,
+          "rougeL": 0.07766990291262135,
+          "compression": 0.49714285714285716
+        },
+        "TextRank": {
+          "summary": "Interpreting rare genetic variants remains a major bottleneck in clinical genetics, with over 20 percent of variants in diagnostic testing classified as variants of uncertain significance. We benchmarked the model on 12,874 held-out variants and found that the predicted uncertainty was strongly correlated with classification accuracy, allowing variants with high confidence to be flagged for automated review and those with high uncertainty to be referred to expert curation. Compared with a standard ensemble classifier without uncertainty estimation, the proposed approach increased the expert review efficiency by 38 percent at matched accuracy.",
+          "summary_sentences": [
+            "Interpreting rare genetic variants remains a major bottleneck in clinical genetics, with over 20 percent of variants in diagnostic testing classified as variants of uncertain significance.",
+            "We benchmarked the model on 12,874 held-out variants and found that the predicted uncertainty was strongly correlated with classification accuracy, allowing variants with high confidence to be flagged for automated review and those with high uncertainty to be referred to expert curation.",
+            "Compared with a standard ensemble classifier without uncertainty estimation, the proposed approach increased the expert review efficiency by 38 percent at matched accuracy."
+          ],
+          "elapsed_ms": 0.31348500010608404,
+          "rouge1": 0.13333333333333333,
+          "rouge2": 0.038834951456310676,
+          "rougeL": 0.07619047619047618,
+          "compression": 0.5085714285714286
+        },
+        "LexRank": {
+          "summary": "Interpreting rare genetic variants remains a major bottleneck in clinical genetics, with over 20 percent of variants in diagnostic testing classified as variants of uncertain significance. We benchmarked the model on 12,874 held-out variants and found that the predicted uncertainty was strongly correlated with classification accuracy, allowing variants with high confidence to be flagged for automated review and those with high uncertainty to be referred to expert curation. Compared with a standard ensemble classifier without uncertainty estimation, the proposed approach increased the expert review efficiency by 38 percent at matched accuracy.",
+          "summary_sentences": [
+            "Interpreting rare genetic variants remains a major bottleneck in clinical genetics, with over 20 percent of variants in diagnostic testing classified as variants of uncertain significance.",
+            "We benchmarked the model on 12,874 held-out variants and found that the predicted uncertainty was strongly correlated with classification accuracy, allowing variants with high confidence to be flagged for automated review and those with high uncertainty to be referred to expert curation.",
+            "Compared with a standard ensemble classifier without uncertainty estimation, the proposed approach increased the expert review efficiency by 38 percent at matched accuracy."
+          ],
+          "elapsed_ms": 0.2901399999473142,
+          "rouge1": 0.13333333333333333,
+          "rouge2": 0.038834951456310676,
+          "rougeL": 0.07619047619047618,
+          "compression": 0.5085714285714286
+        },
+        "LSA": {
+          "summary": "Interpreting rare genetic variants remains a major bottleneck in clinical genetics, with over 20 percent of variants in diagnostic testing classified as variants of uncertain significance. The ensemble uses Monte Carlo dropout and variational inference to capture both epistemic and aleatoric uncertainty. We conclude that uncertainty-aware variant classifiers can meaningfully reduce curation workload in clinical genetics laboratories.",
+          "summary_sentences": [
+            "Interpreting rare genetic variants remains a major bottleneck in clinical genetics, with over 20 percent of variants in diagnostic testing classified as variants of uncertain significance.",
+            "The ensemble uses Monte Carlo dropout and variational inference to capture both epistemic and aleatoric uncertainty.",
+            "We conclude that uncertainty-aware variant classifiers can meaningfully reduce curation workload in clinical genetics laboratories."
+          ],
+          "elapsed_ms": 0.2708270000084667,
+          "rouge1": 0.4383561643835616,
+          "rouge2": 0.4225352112676056,
+          "rougeL": 0.4383561643835616,
+          "compression": 0.32571428571428573
+        }
+      }
+    },
+    {
+      "pmid": "31831442",
+      "topic": "Sepsis early warning",
+      "word_count": 189,
+      "results": {
+        "Luhn": {
+          "summary": "Early recognition and treatment substantially reduce mortality, but bedside clinicians must integrate multiple streams of data to identify evolving sepsis. We developed a machine learning early warning system that predicts the onset of sepsis four hours in advance using routinely collected electronic health record data. Clinical response to alerts led to a 39 percent relative reduction in sepsis mortality compared with the pre-deployment period, supporting the clinical utility of such early warning systems.",
+          "summary_sentences": [
+            "Early recognition and treatment substantially reduce mortality, but bedside clinicians must integrate multiple streams of data to identify evolving sepsis.",
+            "We developed a machine learning early warning system that predicts the onset of sepsis four hours in advance using routinely collected electronic health record data.",
+            "Clinical response to alerts led to a 39 percent relative reduction in sepsis mortality compared with the pre-deployment period, supporting the clinical utility of such early warning systems."
+          ],
+          "elapsed_ms": 0.16982900001494272,
+          "rouge1": 0.5544554455445544,
+          "rouge2": 0.5454545454545454,
+          "rougeL": 0.5544554455445544,
+          "compression": 0.3924731182795699
+        },
+        "TextRank": {
+          "summary": "We developed a machine learning early warning system that predicts the onset of sepsis four hours in advance using routinely collected electronic health record data. The system uses a gradient boosting classifier trained on 598,000 patient encounters from an academic medical center, with sepsis onset defined by the Sepsis-3 consensus criteria. Clinical response to alerts led to a 39 percent relative reduction in sepsis mortality compared with the pre-deployment period, supporting the clinical utility of such early warning systems.",
+          "summary_sentences": [
+            "We developed a machine learning early warning system that predicts the onset of sepsis four hours in advance using routinely collected electronic health record data.",
+            "The system uses a gradient boosting classifier trained on 598,000 patient encounters from an academic medical center, with sepsis onset defined by the Sepsis-3 consensus criteria.",
+            "Clinical response to alerts led to a 39 percent relative reduction in sepsis mortality compared with the pre-deployment period, supporting the clinical utility of such early warning systems."
+          ],
+          "elapsed_ms": 0.28784099993117707,
+          "rouge1": 0.5283018867924528,
+          "rouge2": 0.5192307692307693,
+          "rougeL": 0.5283018867924528,
+          "compression": 0.41935483870967744
+        },
+        "LexRank": {
+          "summary": "Early recognition and treatment substantially reduce mortality, but bedside clinicians must integrate multiple streams of data to identify evolving sepsis. We developed a machine learning early warning system that predicts the onset of sepsis four hours in advance using routinely collected electronic health record data. The system uses a gradient boosting classifier trained on 598,000 patient encounters from an academic medical center, with sepsis onset defined by the Sepsis-3 consensus criteria.",
+          "summary_sentences": [
+            "Early recognition and treatment substantially reduce mortality, but bedside clinicians must integrate multiple streams of data to identify evolving sepsis.",
+            "We developed a machine learning early warning system that predicts the onset of sepsis four hours in advance using routinely collected electronic health record data.",
+            "The system uses a gradient boosting classifier trained on 598,000 patient encounters from an academic medical center, with sepsis onset defined by the Sepsis-3 consensus criteria."
+          ],
+          "elapsed_ms": 0.6865819999575251,
+          "rouge1": 0.22448979591836732,
+          "rouge2": 0.020833333333333332,
+          "rougeL": 0.10204081632653061,
+          "compression": 0.3763440860215054
+        },
+        "LSA": {
+          "summary": "Sepsis is a life-threatening organ dysfunction caused by a dysregulated host response to infection and remains a leading cause of in-hospital mortality. Input features include vital signs, laboratory tests, medication administrations, and demographics, all extracted at hourly intervals. The system achieved an area under the receiver operating characteristic curve of 0.83 and delivered a positive predictive value of 0.26 at a clinically actionable sensitivity of 0.67.",
+          "summary_sentences": [
+            "Sepsis is a life-threatening organ dysfunction caused by a dysregulated host response to infection and remains a leading cause of in-hospital mortality.",
+            "Input features include vital signs, laboratory tests, medication administrations, and demographics, all extracted at hourly intervals.",
+            "The system achieved an area under the receiver operating characteristic curve of 0.83 and delivered a positive predictive value of 0.26 at a clinically actionable sensitivity of 0.67."
+          ],
+          "elapsed_ms": 0.30097500007286726,
+          "rouge1": 0.19354838709677422,
+          "rouge2": 0.021978021978021976,
+          "rougeL": 0.17204301075268819,
+          "compression": 0.34946236559139787
+        }
+      }
+    }
+  ],
+  "n_abstracts": 12,
+  "n_sentences": 3
+}

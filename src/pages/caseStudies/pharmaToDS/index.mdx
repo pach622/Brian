@@ -1,0 +1,101 @@
+---
+title: "From Pharmacology to Data Science: A Winding Road"
+pubDate: "2025-08-12"
+summary: "How I got from pipetting in a Hong Kong pharmacology lab to building ML models in a drug discovery team. Not a straight line."
+layout: ../../../layouts/BlogLayout.astro
+slug: /caseStudies/pharmaToDS/index.mdx
+---
+import BarChart from '../../../components/charts/BarChart.svelte';
+
+If you told me in 2019, while I was running qPCRs in a basement lab in Hong Kong, that five years later I'd be comparing CNN architectures on blood cell images and writing Python for a living, I would have laughed. I didn't know what a CNN was. I barely remembered the Python I'd learned in first year. I assumed "data scientist" was something finance people did.
+
+This is the story of how I got from there to here. I'm writing it partly because I've been asked about it a few times, and partly because if I'd read something like this back in 2019, I might have wasted less time being anxious about the "wrong" path.
+
+## Undergrad: the setup I didn't know I was building
+
+I did my undergrad in pharmacology. That's drug development, drug metabolism, receptor biology — very wet-lab, very biology-heavy. My degree had one required Python course in first year. I did okay, forgot most of it within a week, and didn't touch code for about three years.
+
+What I did learn, and what turned out to matter most later, was **how to think about experiments**. Controls. Blinding. Variability between biological replicates versus technical replicates. When a difference is "real" versus noise. I didn't know it at the time, but this is most of applied statistics. Every wet-lab scientist is secretly running A/B tests on cells.
+
+## Hong Kong University, summer 2019: my first lab
+
+I spent a summer at [Dr. Cheung's lab at HKU](/workExperience/HKU) working on osteoporosis biomarkers. I isolated RNA, ran qPCR, analyzed gene expression data. It was the first time I realized that **collecting data and analyzing data are completely different jobs**, and that the analysis part was more interesting to me than the pipetting.
+
+We had this moment where, after three weeks of careful experimentation, the entire analysis came down to a few calculations in Excel. I remember thinking: "there has to be a better way to do this." I didn't know what that better way looked like. But that sentence would keep coming back to me.
+
+## UofT, 2020-2021: the pandemic pushed me dry-lab
+
+My undergraduate research project was supposed to be a wet-lab project. Then COVID happened, labs shut down, and my supervisor [Dr. Swardfager](/workExperience/UofT) offered me a spot on a meta-analysis — a completely dry-lab project analyzing thousands of published papers on cognitive impairment in type-2 diabetes.
+
+This was where I met R for the first time. Also IBM SPSS. Also forest plots, funnel plots, heterogeneity statistics, and the existential horror that is data extraction from PDFs. I hated the data extraction. I loved the analysis.
+
+The paper ended up published, which was nice. But the bigger outcome was a realization: I liked sitting in front of a screen and finding patterns more than I liked the wet lab. I just didn't have the vocabulary to act on that yet.
+
+## The incubator project: biology is still the home base
+
+My [final-year undergrad project](/caseStudies/incubator) was a bioengineering design for a butanol-producing bacterium. This was almost pure biology — genetic constructs, metabolic pathways, solvent tolerance. No Python, no R, just biology and literature review.
+
+I mention it because it matters to the narrative: **I wasn't trying to leave biology.** I was following the parts of biology I liked. It just happened that the parts I liked were increasingly the parts with spreadsheets.
+
+## Francis Crick, 2022: the accidental programming bootcamp
+
+Then I started my Master's and ended up at the [Serio Lab at the Francis Crick Institute](/workExperience/francisCrick). The project was optimizing a platform for axonal outgrowth in motor neurons. Very wet-lab, very microscopy-heavy.
+
+But the analysis piece broke. We had ten experimental conditions, each with dozens of images, each with hundreds of axons to measure. GraphPad Prism couldn't handle it. Excel couldn't handle it. I had roughly two options: spend the next four months drawing lines in ImageJ by hand, or figure out how to automate it.
+
+I picked Python because it was the name I vaguely remembered from first year. I spent about a week rebuilding my understanding of what a list comprehension was. Then I built a pipeline that combined [CellProfiler + Python for axon measurement](/caseStudies/axonMeasurement) and cut the analysis time roughly in half.
+
+That pipeline was ugly. Genuinely ugly. But it worked, and it worked on real data that my PhD student colleagues were using, and that was the first time I really understood why people write code: **because your problem is too big for a spreadsheet and you cannot afford to do it by hand**.
+
+I left the Crick with the realization that I needed to do more of this. Deliberately, not accidentally.
+
+## Formalizing it: the Google course and MIT program
+
+Once I decided I wanted to actually learn data science, I did it the way a pharmacology student would: with a curriculum.
+
+- First, the Google Data Analytics course — SQL, R-Studio, Tableau basics, a capstone project. My [Cyclist case study](/caseStudies/cyclist) came out of that.
+- Then the MIT Applied Data Science Program, which was more serious — statistics, supervised and unsupervised ML, deep learning. My [FoodHub analysis](/caseStudies/mitFoodHub) and [malaria detection project](/caseStudies/malariaDetection) came out of that.
+
+These courses didn't teach me the most important things. The most important things I learned at the Crick, trying to debug why my CellProfiler segmentation kept over-counting debris. The courses gave me vocabulary and structure for things I already half-understood.
+
+If you're considering a similar move, here is what I'd tell you: **the coursework matters less than the first time you have a real problem and have to solve it with code.** The coursework is there to give you the tools and to teach you the industry's common language. The transformation happens on an actual project.
+
+## Merck, 2023-present: biology and data, stapled together
+
+Now I work at Merck in the [Chemical Biology team](/workExperience/Merck). I build high-throughput assays for drug discovery and support technology platforms. The job uses my biology background constantly (I need to know what a target is, what an assay is, what a hit looks like) and uses my data skills constantly (I need to process transcriptomics data, write pipelines, debug analyses, and talk to statisticians).
+
+Almost every thing I do draws from both sides. Not an either/or.
+
+## My timeline, roughly
+
+<BarChart client:visible
+  labels={['2019\nHKU', '2020\nUofT', '2021\nIncubator', '2022\nFrancis Crick', '2023\nGoogle + Merck', '2024\nMIT + Merck', '2025\nMerck']}
+  datasets={[
+    { label: 'Wet-lab work', data: [95, 20, 60, 70, 10, 5, 10], backgroundColor: 'rgba(168, 85, 247, 0.75)' },
+    { label: 'Data / coding', data: [5, 80, 40, 30, 90, 95, 90], backgroundColor: 'rgba(59, 130, 246, 0.85)' }
+  ]}
+  title="Approximate share of my time, by year"
+  subtitle="Rough estimates - not measured, just how it felt"
+  xLabel=""
+  yLabel="% of time (self-reported)"
+  stacked={true}
+  aspectRatio={1.7}
+/>
+
+The rough pattern: started almost entirely wet-lab, inched toward data, had the Francis Crick pivot where I was doing both, then bent sharply toward data after. It was not a plan. It was a bunch of small decisions that added up.
+
+## Things I wish I'd known
+
+A few things I'd tell my 2019 self:
+
+1. **You don't need to pick.** Biology + data is an incredibly valuable combination. Don't burn one to get the other.
+2. **Your "detour" is your differentiation.** When I apply for data roles in pharma, the biology background is the thing that makes me useful. Pure CS people can out-code me. They can't out-biology me.
+3. **The first real project is where the learning happens.** Courses give you vocabulary. Problems give you skills. Prioritize getting your hands on a real problem as soon as possible, even if it's messy.
+4. **Ugly code that works is better than clean code that doesn't exist.** My first CellProfiler pipeline was a disaster. It still saved the project.
+5. **You're not behind.** I'm writing this at age 27-ish, and I'm fine. Career timelines are invented by universities to sell degrees.
+
+## What's next
+
+I don't have a clean narrative arc for "what's next." I like where I am. I want to get better at the things I'm already doing, and I want to stay at the biology-data intersection because it's where my weird set of skills is actually useful.
+
+If you're reading this because you're in a similar spot — biology-to-data, or any field to data — feel free to [reach out](mailto:brianchan622@gmail.com). I'm happy to talk about it. 🫰
